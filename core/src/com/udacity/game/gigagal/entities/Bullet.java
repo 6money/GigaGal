@@ -1,0 +1,58 @@
+package com.udacity.game.gigagal.entities;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.udacity.game.gigagal.Level;
+import com.udacity.game.gigagal.utils.Assets;
+import com.udacity.game.gigagal.utils.Constants;
+import com.udacity.game.gigagal.utils.Enums.Direction;
+
+public class Bullet {
+    private Direction direction;
+    private Vector2 position;
+    private Level level;
+
+    public boolean active;
+
+    public Bullet(Level level, Vector2 position, Direction direction) {
+        this.level = level;
+        this.position = position;
+        this.direction = direction;
+        active = true;
+    }
+
+    public void update(float delta) {
+        float movement_amount = delta * Constants.BULLET_SPEED;
+
+        if (direction == Direction.LEFT) {
+            position.x -= movement_amount;
+        } else {
+            position.x += movement_amount;
+        }
+
+        for (Enemy enemy: level.getEnemies()) {
+            Vector2 bullet_center = new Vector2(position.x + Constants.BULLET_CENTER.x, position.y + Constants.BULLET_CENTER.y);
+            if (bullet_center.dst(enemy.position) < Constants.ENEMY_HIT_COLLISION_RADIUS) {
+                level.getExplosions().add(new Explosion(bullet_center));
+                active = false;
+                enemy.setHealth(enemy.getHealth() - 1);
+                level.score += Constants.ENEMY_HIT_SCORE;
+            }
+        }
+
+        float viewport_width = level.getViewport().getWorldWidth();
+        Vector3 viewport_position = level.getViewport().getCamera().position;
+
+        if (position.x < viewport_position.x - viewport_width / 2 || position.x > viewport_position.x + viewport_width / 2) {
+            active = false;
+        }
+    }
+
+    public void render(SpriteBatch spriteBatch) {
+        spriteBatch.draw(Assets.instance.bulletAssets.bullet, position.x, position.y - Constants.BULLET_CENTER.y);
+    }
+
+
+}
