@@ -3,6 +3,7 @@ package com.udacity.game.gigagal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -143,7 +144,7 @@ public class Level {
         }
     }
 
-    public void render(SpriteBatch spriteBatch) {
+    public void render(SpriteBatch spriteBatch, ShapeRenderer shapeRenderer) {
         for (Platform platform: platforms) {
             platform.render(spriteBatch);
         }
@@ -169,6 +170,14 @@ public class Level {
         }
     }
 
+    public void debugRender(ShapeRenderer shapeRenderer) {
+        for (Enemy enemy: enemies) {
+            enemy.debugRender(shapeRenderer);
+        }
+
+        gigaGal.debugRender(shapeRenderer);
+    }
+
     private void addDebugPlatforms() {
         platforms.add(new Platform(-20, 100, 80, 10));
         platforms.add(new Platform(80, 60, 60, 40));
@@ -184,7 +193,7 @@ public class Level {
         platforms.add(new Platform(-70, 280, 280, 10));
         platforms.add(new Platform(210, 210, 10, 10));
 
-        enemies.add(new Enemy(platforms.get(1), Constants.ENEMY_HEALTH));
+        enemies.add(new Enemy(platforms.get(1)));
 
         powerups.add(new Powerup(new Vector2(25, 180)));
 

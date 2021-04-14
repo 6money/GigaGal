@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.udacity.game.gigagal.GigaGalGame;
@@ -37,6 +38,7 @@ public class GameplayScreen extends ScreenAdapter {
     private int level_num;
     private String level_name;
     private boolean old_paused;
+    private ShapeRenderer shapeRenderer;
 
     public Level level;
 
@@ -53,6 +55,7 @@ public class GameplayScreen extends ScreenAdapter {
     public void show() {
         setLevel_name();
         spriteBatch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
         extendViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
         level = LevelLoader.load(level_name, extendViewport);
         chaseCam = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
@@ -89,6 +92,7 @@ public class GameplayScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         spriteBatch.dispose();
+        shapeRenderer.dispose();
     }
 
     @Override
@@ -116,21 +120,26 @@ public class GameplayScreen extends ScreenAdapter {
         );
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         spriteBatch.setProjectionMatrix(extendViewport.getCamera().combined);
+        shapeRenderer.setProjectionMatrix(extendViewport.getCamera().combined);
 
         spriteBatch.begin();
-        level.render(spriteBatch);
+        level.render(spriteBatch, shapeRenderer);
         spriteBatch.end();
 
         if (onMobile()) {
             onScreeenControls.render(spriteBatch);
         }
 
-        hud.render(spriteBatch, level.gigaGal.lives, level.gigaGal.ammmo_count, level.score);
+        hud.render(spriteBatch, level.gigaGal.lives, level.gigaGal.ammmo_basic, level.gigaGal.ammmo_big, level.score);
         renderLevelEndOverlays(spriteBatch);
 
         if (level.paused) {
             pauseOverlay.render(spriteBatch);
         }
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        level.debugRender(shapeRenderer);
+        shapeRenderer.end();
     }
 
     private void renderLevelEndOverlays(SpriteBatch spriteBatch) {

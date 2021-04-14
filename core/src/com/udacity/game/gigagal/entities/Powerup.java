@@ -6,10 +6,13 @@ import com.udacity.game.gigagal.utils.Assets;
 import com.udacity.game.gigagal.utils.Constants;
 
 public class Powerup {
-    public Vector2 position;
+    protected Vector2 position;
+
+    public String ammo_type;
 
     public Powerup(Vector2 position) {
         this.position = position;
+        ammo_type = "basic";
     }
 
     public void render(SpriteBatch spriteBatch) {

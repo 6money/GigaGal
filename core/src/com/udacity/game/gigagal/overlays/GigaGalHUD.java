@@ -1,6 +1,5 @@
 package com.udacity.game.gigagal.overlays;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -18,13 +17,14 @@ public class GigaGalHUD {
         font = new BitmapFont();
     }
 
-    public void render(SpriteBatch spriteBatch, int lives, int ammo, int score) {
+    public void render(SpriteBatch spriteBatch, int lives, int ammo_basic, int ammo_big, int score) {
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
 
         spriteBatch.begin();
         font.draw(spriteBatch, Constants.HUD_SCORE_LABEL + score, Constants.HUD_MARGIN, viewport.getCamera().viewportHeight - Constants.HUD_MARGIN);
-        font.draw(spriteBatch, Constants.HUD_AMMO_LABEL + ammo, Constants.HUD_MARGIN, viewport.getCamera().viewportHeight - (Constants.HUD_MARGIN * 2));
+        font.draw(spriteBatch, Constants.HUD_AMMO_LABEL + ammo_basic, Constants.HUD_MARGIN, viewport.getCamera().viewportHeight - (Constants.HUD_MARGIN * 2));
+        font.draw(spriteBatch, Constants.HUD_AMMO_SPECIAL_LABEL + ammo_big, Constants.HUD_MARGIN, viewport.getCamera().viewportHeight - (Constants.HUD_MARGIN * 3));
 
         float offset = Constants.HUD_MARGIN * 2;
         for (int i = 1; i <= lives; i++) {

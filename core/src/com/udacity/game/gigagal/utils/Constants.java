@@ -25,11 +25,14 @@ public class Constants {
     public static final String WALK_3_LEFT = "walk-3-left";
     public static final String PLATFORM = "platform";
     public static final String ENEMY = "enemy";
+    public static final String ENEMY2 = "enemy2";
     public static final String BULLET = "bullet";
+    public static final String BULLET2 = "bullet2";
     public static final String EXPLOSION_LARGE = "explosion-large";
     public static final String EXPLOSION_MEDIUM = "explosion-medium";
     public static final String EXPLOSION_SMALL = "explosion-small";
     public static final String POWERUP = "powerup";
+    public static final String POWERUP2 = "powerup2";
     public static final String EXIT_PORTAL_SPRITE_1 = "exit-portal-1";
     public static final String EXIT_PORTAL_SPRITE_2 = "exit-portal-2";
     public static final String EXIT_PORTAL_SPRITE_3 = "exit-portal-3";
@@ -101,12 +104,14 @@ public class Constants {
     public static final String LEVEL_KILLPLANE_TAG = "Killplane";
     public static final int LEVEL_1 = 1;
     public static final int LEVEL_2 = 2;
-    public static final int MAX_LEVEL = 2;
+    public static final int LEVEL_3 = 3;
+    public static final int MAX_LEVEL = 3;
 
     //HUD
     public static final float HUD_VIEWPORT_SIZE = 480;
     public static final float HUD_MARGIN = 20;
     public static final String HUD_AMMO_LABEL = "Ammo: ";
+    public static final String HUD_AMMO_SPECIAL_LABEL = "Special: ";
     public static final String HUD_SCORE_LABEL = "Score: ";
 
     // Scoring

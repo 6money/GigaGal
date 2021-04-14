@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -30,7 +31,8 @@ public class GigaGal {
     private Level level;
 
     public Vector2 position;
-    public int ammmo_count;
+    public int ammmo_basic;
+    public int ammmo_big;
     public int lives;
     public boolean jumpButtonPressed;
     public boolean leftButtonPressed;
@@ -44,7 +46,8 @@ public class GigaGal {
 
     public void init(){
         respawn();
-        ammmo_count = Constants.GIGAGAL_INIT_AMMO;
+        ammmo_basic = Constants.GIGAGAL_INIT_AMMO;
+        ammmo_big = 0;
         lives = Constants.GIGAGAL_INIT_LIVES;
     }
 
@@ -146,22 +149,41 @@ public class GigaGal {
 
             boolean hit_powerup = gigagal_bounding_box.overlaps(power_bounding_box);
             if (hit_powerup) {
-                ammmo_count += Constants.POWERUP_AMOUNT;
+                if (powerup.ammo_type.equals("basic")) {
+                    ammmo_basic += Constants.POWERUP_AMOUNT;
+                } else if (powerup.ammo_type.equals("big")) {
+                    ammmo_big += Constants.POWERUP_AMOUNT;
+                }
                 level.getPowerups().removeValue(powerup, true);
                 level.score += Constants.POWERUP_SCORE;
             }
         }
         level.getPowerups().end();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X) && ammmo_count > 0) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.X) && (ammmo_basic > 0 || ammmo_big > 0)) {
             shoot();
         }
     }
 
     public void shoot() {
-        if (ammmo_count > 0) {
+        if (ammmo_big > 0) {
+            ammmo_big--;
+            Vector2 bullet_position;
 
-            ammmo_count--;
+            if (facing == Direction.RIGHT) {
+                bullet_position = new Vector2(
+                        position.x + Constants.GIGAGAL_BARREL_POS.x,
+                        position.y + Constants.GIGAGAL_BARREL_POS.y
+                );
+            } else {
+                bullet_position = new Vector2(
+                        position.x - Constants.GIGAGAL_BARREL_POS.x,
+                        position.y + Constants.GIGAGAL_BARREL_POS.y
+                );
+            }
+            level.getBullets().add(new BigBullet(level, bullet_position, facing));
+        } else if (ammmo_basic > 0) {
+            ammmo_basic--;
             Vector2 bullet_position;
 
             if (facing == Direction.RIGHT) {
@@ -285,5 +307,14 @@ public class GigaGal {
                 textureRegion,
                 position.x - Constants.GIGAGAL_EYE_POS.x,
                 position.y - Constants.GIGAGAL_EYE_POS.y);
+    }
+
+    public void debugRender(ShapeRenderer shapeRenderer) {
+        shapeRenderer.rect(
+                position.x - Constants.GIGAGAL_STANCE_WIDTH,
+                position.y - Constants.GIGAGAL_EYE_HEIGHT,
+                Constants.GIGAGAL_STANCE_WIDTH * 2,
+                Constants.GIGAGAL_HEIGHT
+        );
     }
 }

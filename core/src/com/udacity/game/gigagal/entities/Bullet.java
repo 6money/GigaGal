@@ -10,9 +10,10 @@ import com.udacity.game.gigagal.utils.Constants;
 import com.udacity.game.gigagal.utils.Enums.Direction;
 
 public class Bullet {
-    private Direction direction;
-    private Vector2 position;
-    private Level level;
+    protected Direction direction;
+    protected Vector2 position;
+    protected Level level;
+    protected int damage;
 
     public boolean active;
 
@@ -21,6 +22,7 @@ public class Bullet {
         this.position = position;
         this.direction = direction;
         active = true;
+        damage = 1;
     }
 
     public void update(float delta) {
@@ -37,7 +39,7 @@ public class Bullet {
             if (bullet_center.dst(enemy.position) < Constants.ENEMY_HIT_COLLISION_RADIUS) {
                 level.getExplosions().add(new Explosion(bullet_center));
                 active = false;
-                enemy.setHealth(enemy.getHealth() - 1);
+                enemy.setHealth(enemy.getHealth() - damage);
                 level.score += Constants.ENEMY_HIT_SCORE;
             }
         }

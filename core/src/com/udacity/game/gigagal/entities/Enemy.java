@@ -1,6 +1,7 @@
 package com.udacity.game.gigagal.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -14,19 +15,19 @@ import static com.badlogic.gdx.math.MathUtils.sin;
 public class Enemy {
     private final float random_phase;
 
-    private Platform platform;
-    private Direction direction;
-    private int health;
-    private long start_time;
+    protected Platform platform;
+    protected Direction direction;
+    protected int health;
+    protected long start_time;
 
     public Vector2 position;
 
-    public Enemy(Platform platform, int health) {
+    public Enemy(Platform platform) {
         this.platform = platform;
         position = new Vector2(platform.left, platform.top + Constants.ENEMY_CENTER_POS.y);
         direction = Direction.RIGHT;
         start_time = TimeUtils.nanoTime();
-        this.health = health;
+        this.health = Constants.ENEMY_HEALTH;
         random_phase = MathUtils.random();
     }
 
@@ -61,6 +62,15 @@ public class Enemy {
 
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.draw(Assets.instance.enemyAssets.enemy, position.x  - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y);
+    }
+
+    public void debugRender(ShapeRenderer shapeRenderer) {
+        shapeRenderer.rect(
+                position.x - Constants.ENEMY_COLLISION_RADIUS,
+                position.y - Constants.ENEMY_COLLISION_RADIUS,
+                Constants.ENEMY_COLLISION_RADIUS * 2,
+                Constants.ENEMY_COLLISION_RADIUS * 2
+        );
     }
 
     private enum Direction{LEFT, RIGHT}
