@@ -23,6 +23,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
     private Rectangle level1_button;
     private Rectangle level2_button;
     private Rectangle level3_button;
+    private Rectangle back_button;
     private GigaGalGame gigaGalGame;
 
     public LevelSelectScreen(GigaGalGame game) {
@@ -35,10 +36,10 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
         spriteBatch = new SpriteBatch();
         extendViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
         bitmapFont = new BitmapFont(Gdx.files.internal(Constants.FONT_FILE));
-        bitmapFont.getData().setScale(0.8f);
         level1_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() * 4 / 8, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 6);
         level2_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() / 8, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 6);
         level3_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() / 12, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 6);
+        back_button = new Rectangle(0, extendViewport.getWorldHeight() / 12 * 10, extendViewport.getWorldWidth() / 10, extendViewport.getWorldHeight() / 12);
     }
 
 
@@ -59,6 +60,10 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
         level3_button.y = extendViewport.getWorldHeight() / 6;
         level3_button.width = extendViewport.getWorldWidth() * 6 / 8;
         level3_button.height = extendViewport.getWorldHeight() / 6;
+
+        back_button.y = extendViewport.getWorldHeight() / 10 * 9;
+        back_button.width = extendViewport.getWorldWidth() / 4;
+        back_button.height = extendViewport.getWorldHeight() / 10;
     }
 
 
@@ -76,14 +81,17 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
 
         spriteBatch.setProjectionMatrix(extendViewport.getCamera().combined);
         spriteBatch.begin();
+        bitmapFont.getData().setScale(0.8f);
         bitmapFont.draw(spriteBatch, "SELECT A LEVEL", extendViewport.getWorldWidth() / 2, extendViewport.getWorldHeight() / 1.2f, 0, Align.center, false);
         Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, level1_button.x, level1_button.y, level1_button.width, level1_button.height);
         Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, level2_button.x, level2_button.y, level2_button.width, level2_button.height);
         Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, level3_button.x, level3_button.y, level3_button.width, level3_button.height);
+        Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, back_button.x, back_button.y, back_button.width, back_button.height);
         bitmapFont.draw(spriteBatch, "LEVEL 1", extendViewport.getWorldWidth() / 2, level1_button.y + level1_button.height / 1.3f, 0, Align.center, false);
         bitmapFont.draw(spriteBatch, "LEVEL 2", extendViewport.getWorldWidth() / 2, level2_button.y + level2_button.height / 1.3f, 0, Align.center, false);
         bitmapFont.draw(spriteBatch, "LEVEL 3", extendViewport.getWorldWidth() / 2, level3_button.y + level3_button.height / 1.3f, 0, Align.center, false);
-
+        bitmapFont.getData().setScale(0.4f);
+        bitmapFont.draw(spriteBatch, "BACK", back_button.width / 2, back_button.y + back_button.height / 1.5f, 0, Align.center, false);
         spriteBatch.end();
 
 
@@ -117,6 +125,8 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
             gigaGalGame.switchScreen("gameplay", Constants.LEVEL_2);
         } else if (level3_button.contains(viewportPosition)) {
             gigaGalGame.switchScreen("gameplay", Constants.LEVEL_3);
+        } else if(back_button.contains(viewportPosition)) {
+            gigaGalGame.switchScreen("menu");
         }
         return super.touchDown(screenX, screenY, pointer, button);
     }
