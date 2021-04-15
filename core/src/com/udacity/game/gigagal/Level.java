@@ -175,6 +175,10 @@ public class Level {
             enemy.debugRender(shapeRenderer);
         }
 
+        for (Powerup powerup: powerups) {
+            powerup.debugRender(shapeRenderer);
+        }
+
         gigaGal.debugRender(shapeRenderer);
     }
 
