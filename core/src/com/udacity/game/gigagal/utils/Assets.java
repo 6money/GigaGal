@@ -103,13 +103,23 @@ public class Assets implements Disposable, AssetErrorListener {
     public class PlatformAssets {
 
         public TextureAtlas.AtlasRegion platform;
+        public TextureAtlas.AtlasRegion platform_hard;
         public NinePatch ninePatch_platform;
+        public NinePatch ninePatch_platform_hard;
 
 
         public PlatformAssets(TextureAtlas atlas) {
             platform = atlas.findRegion(Constants.PLATFORM);
+            platform_hard = atlas.findRegion(Constants.PLATFORM_HARD);
             ninePatch_platform = new NinePatch(
                     platform,
+                    Constants.PLATFORM_EDGE_LENGTH,
+                    Constants.PLATFORM_EDGE_LENGTH,
+                    Constants.PLATFORM_EDGE_LENGTH,
+                    Constants.PLATFORM_EDGE_LENGTH
+            );
+            ninePatch_platform_hard = new NinePatch(
+                    platform_hard,
                     Constants.PLATFORM_EDGE_LENGTH,
                     Constants.PLATFORM_EDGE_LENGTH,
                     Constants.PLATFORM_EDGE_LENGTH,

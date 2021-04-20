@@ -1,8 +1,6 @@
 package com.udacity.game.gigagal.entities;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.udacity.game.gigagal.utils.Assets;
 
 public class Platform implements Comparable<Platform> {
@@ -12,6 +10,7 @@ public class Platform implements Comparable<Platform> {
     public float right;
     public float width;
     public float height;
+    public boolean solid;
 
     public Platform(float left, float top, float width, float height) {
         this.top = top;
@@ -20,10 +19,11 @@ public class Platform implements Comparable<Platform> {
         this.right = left + width;
         this.width = width;
         this.height = height;
+        solid = false;
     }
 
     public void render(SpriteBatch spriteBatch) {
-        Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, left -1, bottom -1, width + 2, height + 2);
+        Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, left, bottom, width, height);
     }
 
     @Override

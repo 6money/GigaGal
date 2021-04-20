@@ -29,6 +29,7 @@ public class GigaGal {
     private long jumpStartTime;
     private long walkStartTime;
     private Level level;
+    private boolean hit_solid;
 
     public Vector2 position;
     public int ammmo_basic;
@@ -60,12 +61,21 @@ public class GigaGal {
         facing = Direction.RIGHT;
         jumpState = JumpState.FALLING;
         walkState = WalkState.STANDING;
+        hit_solid = false;
     }
 
     public void update(float delta, Array<Platform> platforms) {
         position_last_frame.set(position);
         velocity.y -= delta * Constants.GRAVITY;
         position.mulAdd(velocity, delta);
+        hit_solid = false;
+
+        Rectangle gigagal_bounding_box = new Rectangle(
+                position.x - Constants.GIGAGAL_STANCE_WIDTH,
+                position.y - Constants.GIGAGAL_EYE_HEIGHT,
+                Constants.GIGAGAL_STANCE_WIDTH * 2,
+                Constants.GIGAGAL_HEIGHT
+        );
 
         if (position.y < level.getKillplane_height()) {
             lives -= 1;
@@ -73,6 +83,18 @@ public class GigaGal {
                 return;
             }
             respawn();
+        }
+
+        for (Platform platform: platforms) {
+            if (platform.solid && gigagal_bounding_box.overlaps(new Rectangle(platform.left, platform.bottom, platform.width, platform.height - 1))) {
+                if (velocity.y > 0) {
+                    velocity.y = 0;
+                }
+                hit_solid = true;
+                velocity.x = 0;
+                position.set(position_last_frame);
+                position.mulAdd(velocity, delta);
+            }
         }
 
         if (jumpState != JumpState.JUMPING) {
@@ -90,13 +112,6 @@ public class GigaGal {
                 }
             }
         }
-
-        Rectangle gigagal_bounding_box = new Rectangle(
-                position.x - Constants.GIGAGAL_STANCE_WIDTH,
-                position.y - Constants.GIGAGAL_EYE_HEIGHT,
-                Constants.GIGAGAL_STANCE_WIDTH * 2,
-                Constants.GIGAGAL_HEIGHT
-        );
 
         for (Enemy enemy : level.getEnemies()) {
             Rectangle enemy_bounding_box = new Rectangle(
@@ -118,9 +133,9 @@ public class GigaGal {
         if (Gdx.input.isKeyPressed(Input.Keys.Z ) || jumpButtonPressed) {
             switch (jumpState) {
                 case GROUNDED:
-                    startJump();
+                    startJump(gigagal_bounding_box,  platforms);
                 case JUMPING:
-                    continueJump();
+                    continueJump(gigagal_bounding_box,  platforms);
                 case FALLING:
                     break;
             }
@@ -128,7 +143,7 @@ public class GigaGal {
             endJump();
         }
 
-        if (jumpState != JumpState.RECOILING) {
+        if (jumpState != JumpState.RECOILING && !hit_solid) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || leftButtonPressed) {
                 moveLeft(delta);
             } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed) {
@@ -241,20 +256,31 @@ public class GigaGal {
         position.x += delta * Constants.GIGAGAL_MOVEMENT_SPEED;
     }
 
-    private void startJump() {
+    private void startJump(Rectangle gigagal_bounding_box, Array<Platform> platforms) {
         jumpState = JumpState.JUMPING;
         jumpStartTime = TimeUtils.nanoTime();
-        continueJump();
+        continueJump(gigagal_bounding_box,  platforms);
     }
 
-    private void continueJump() {
+    private void continueJump(Rectangle gigagal_bounding_box, Array<Platform> platforms) {
+        boolean hit_solid = false;
+
         if (jumpState != JumpState.JUMPING) {
             return;
         }
 
         float jumpDuration = Utils.secondsSince(jumpStartTime);
 
-        if (jumpDuration < Constants.GIGAGAL_JUMP_DURATION) {
+        for (Platform platform: platforms) {
+            if (platform.solid && gigagal_bounding_box.overlaps(new Rectangle(platform.left, platform.bottom, platform.width, platform.height - 1))) {
+                velocity.y = 0;
+                velocity.x = 0;
+                hit_solid = true;
+                break;
+            }
+        }
+
+        if (jumpDuration < Constants.GIGAGAL_JUMP_DURATION && !hit_solid) {
             velocity.y = Constants.GIGAGAL_JUMP_SPEED;
         } else {
             endJump();

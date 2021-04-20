@@ -12,6 +12,7 @@ import com.udacity.game.gigagal.entities.Enemy;
 import com.udacity.game.gigagal.entities.ExitPortal;
 import com.udacity.game.gigagal.entities.GigaGal;
 import com.udacity.game.gigagal.entities.Platform;
+import com.udacity.game.gigagal.entities.PlatformHard;
 import com.udacity.game.gigagal.entities.Powerup;
 
 import org.json.simple.JSONArray;
@@ -37,7 +38,6 @@ public class LevelLoader {
             JSONObject compositeObj = (JSONObject) levelObj.get(Constants.LEVEL_COMPOSITE);
 
             JSONArray platformsArray = (JSONArray) compositeObj.get(Constants.LEVEL_9PATCHES);
-            JSONObject platform = (JSONObject) platformsArray.get(0);
             loadPlatforms(platformsArray, level);
 
             JSONArray nonPlatformObjects = (JSONArray) compositeObj.get(Constants.LEVEL_IMAGES);
@@ -72,7 +72,13 @@ public class LevelLoader {
 
             Gdx.app.log(TAG, "Location: x:" + x + " y: " + y + " width: " + width + " height: " + height);
 
-            Platform platform = new Platform(x, y + height, width, height);
+            Platform platform;
+
+            if (platformObject.get(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.PLATFORM_HARD)) {
+                platform = new PlatformHard(x, y + height, width, height);
+            } else {
+                platform = new Platform(x, y + height, width, height);
+            }
 
             platformArray.add(platform);
 
