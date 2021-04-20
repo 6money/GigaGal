@@ -94,6 +94,12 @@ public class GigaGal {
                 velocity.x = 0;
                 position.set(position_last_frame);
                 position.mulAdd(velocity, delta);
+
+                if (position.x < platform.left) {
+                    position.x -= 0.25f;
+                } else if (position.x > platform.left + platform.width) {
+                    position.x += 0.25f;
+                }
             }
         }
 

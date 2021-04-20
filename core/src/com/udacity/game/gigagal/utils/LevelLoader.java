@@ -93,7 +93,6 @@ public class LevelLoader {
 
         platformArray.sort();
         platformArray.reverse();
-        Gdx.app.log(TAG, platformArray.toString());
 
         level.setPlatforms(platformArray);
 
