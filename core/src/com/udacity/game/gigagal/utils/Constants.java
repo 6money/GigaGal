@@ -30,6 +30,8 @@ public class Constants {
     public static final String BULLET = "bullet";
     public static final String BULLET2 = "bullet2";
     public static final String EXPLOSION_LARGE = "explosion-large";
+    public static final String EXPLOSION_LARGER = "explosion-larger";
+    public static final String EXPLOSION_LARGEST = "explosion-largest";
     public static final String EXPLOSION_MEDIUM = "explosion-medium";
     public static final String EXPLOSION_SMALL = "explosion-small";
     public static final String POWERUP = "powerup";
@@ -75,8 +77,9 @@ public class Constants {
     public static final float BULLET_SPEED = 150f;
 
     // explosions
-    public static final Vector2 EXPLOSION_CENTER = new Vector2(8, 8);
+    public static final Vector2 EXPLOSION_CENTER = new Vector2(14, 14);
     public static final float EXPLOSION_DURATION = 0.25f;
+    public static final float EXPLOSION_BIG_DURATION = 0.40f;
 
     // powerup
     public static final Vector2 POWERUP_CENTER = new Vector2(7, 5);

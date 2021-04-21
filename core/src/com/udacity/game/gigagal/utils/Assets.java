@@ -150,13 +150,18 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public class ExplosionAssets {
         private TextureAtlas.AtlasRegion explosion_large;
+        private TextureAtlas.AtlasRegion explosion_larger;
+        private TextureAtlas.AtlasRegion explosion_largest;
         private TextureAtlas.AtlasRegion explosion_medium;
         private TextureAtlas.AtlasRegion explosion_small;
 
         public final Animation explosion_animation;
+        public final Animation explosion_big_animation;
 
         public ExplosionAssets(TextureAtlas atlas) {
             explosion_large = atlas.findRegion(Constants.EXPLOSION_LARGE);
+            explosion_larger = atlas.findRegion(Constants.EXPLOSION_LARGER);
+            explosion_largest = atlas.findRegion(Constants.EXPLOSION_LARGEST);
             explosion_medium = atlas.findRegion(Constants.EXPLOSION_MEDIUM);
             explosion_small = atlas.findRegion(Constants.EXPLOSION_SMALL);
 
@@ -165,7 +170,15 @@ public class Assets implements Disposable, AssetErrorListener {
             explosionTextures.add(explosion_medium);
             explosionTextures.add(explosion_small);
 
+            Array<TextureAtlas.AtlasRegion> explosionBigTextures = new Array<>();
+            explosionBigTextures.add(explosion_largest);
+            explosionBigTextures.add(explosion_larger);
+            explosionBigTextures.add(explosion_large);
+            explosionBigTextures.add(explosion_medium);
+            explosionBigTextures.add(explosion_small);
+
             explosion_animation = new Animation(Constants.EXPLOSION_DURATION, explosionTextures, Animation.PlayMode.NORMAL);
+            explosion_big_animation = new Animation(Constants.EXPLOSION_BIG_DURATION, explosionBigTextures, Animation.PlayMode.NORMAL);
         }
     }
 

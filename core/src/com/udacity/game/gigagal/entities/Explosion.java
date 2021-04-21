@@ -10,8 +10,8 @@ import com.udacity.game.gigagal.utils.Constants;
 import com.udacity.game.gigagal.utils.Utils;
 
 public class Explosion {
-    private Vector2 position;
-    private long start_time;
+    protected Vector2 position;
+    protected long start_time;
 
     public float offset;
 
