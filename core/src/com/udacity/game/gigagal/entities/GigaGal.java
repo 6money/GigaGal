@@ -128,9 +128,9 @@ public class GigaGal {
             );
 
             boolean hit_enemy = gigagal_bounding_box.overlaps(enemy_bounding_box);
-            if (hit_enemy && position.x < enemy.position.x + Constants.ENEMY_CENTER_POS.x) {
+            if (hit_enemy && position.x + Constants.GIGAGAL_STANCE_WIDTH < enemy.position.x + Constants.ENEMY_COLLISION_RADIUS / 2) {
                 recoilFromEnemy(Direction.LEFT);
-            } else if (hit_enemy && position.x > enemy.position.x + Constants.ENEMY_CENTER_POS.x) {
+            } else if (hit_enemy && position.x + Constants.GIGAGAL_STANCE_WIDTH > enemy.position.x + Constants.ENEMY_COLLISION_RADIUS / 2) {
                 recoilFromEnemy(Direction.RIGHT);
             }
 
