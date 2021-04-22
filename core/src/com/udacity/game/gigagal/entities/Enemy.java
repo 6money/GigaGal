@@ -24,8 +24,12 @@ public class Enemy {
 
     public Enemy(Platform platform) {
         this.platform = platform;
-        position = new Vector2(platform.left, platform.top + Constants.ENEMY_CENTER_POS.y);
-        direction = Direction.RIGHT;
+        position = new Vector2(MathUtils.random(platform.left, platform.left + platform.width), platform.top + Constants.ENEMY_CENTER_POS.y);
+        if (MathUtils.randomBoolean()) {
+            direction = Direction.LEFT;
+        } else {
+            direction = Direction.RIGHT;
+        }
         start_time = TimeUtils.nanoTime();
         this.health = Constants.ENEMY_HEALTH;
         random_phase = MathUtils.random();
