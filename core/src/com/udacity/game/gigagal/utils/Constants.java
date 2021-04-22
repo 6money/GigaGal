@@ -78,8 +78,8 @@ public class Constants {
 
     // explosions
     public static final Vector2 EXPLOSION_CENTER = new Vector2(14, 14);
-    public static final float EXPLOSION_DURATION = 0.25f;
-    public static final float EXPLOSION_BIG_DURATION = 0.30f;
+    public static final float EXPLOSION_DURATION = 0.15f;
+    public static final float EXPLOSION_BIG_DURATION = 0.15f;
 
     // powerup
     public static final Vector2 POWERUP_CENTER = new Vector2(7, 5);
