@@ -13,6 +13,7 @@ import com.udacity.game.gigagal.entities.Bullet;
 import com.udacity.game.gigagal.entities.Enemy;
 import com.udacity.game.gigagal.entities.ExitPortal;
 import com.udacity.game.gigagal.entities.Explosion;
+import com.udacity.game.gigagal.entities.ExplosionBig;
 import com.udacity.game.gigagal.entities.GigaGal;
 import com.udacity.game.gigagal.entities.Platform;
 import com.udacity.game.gigagal.entities.Powerup;
@@ -117,7 +118,7 @@ public class Level {
             for (Enemy enemy : enemies) {
                 enemy.update(delta);
                 if (enemy.getHealth() <= 0) {
-                    explosions.add(new Explosion(enemy.position));
+                    explosions.add(new ExplosionBig(enemy.position));
                     enemies.removeValue(enemy, true);
                     score += Constants.ENEMY_KILL_SCORE;
                 }

@@ -14,6 +14,11 @@ public class BigBullet extends Bullet {
     }
 
     @Override
+    public void add_explosion(Vector2 bullet_center) {
+        level.getExplosions().add(new ExplosionBig(bullet_center));
+    }
+
+    @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.draw(Assets.instance.bulletAssets.bullet2, position.x, position.y - Constants.BULLET_CENTER.y);
     }

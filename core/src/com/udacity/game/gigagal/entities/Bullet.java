@@ -37,7 +37,7 @@ public class Bullet {
         for (Enemy enemy: level.getEnemies()) {
             Vector2 bullet_center = new Vector2(position.x + Constants.BULLET_CENTER.x, position.y + Constants.BULLET_CENTER.y);
             if (bullet_center.dst(enemy.position) < Constants.ENEMY_HIT_COLLISION_RADIUS) {
-                level.getExplosions().add(new Explosion(bullet_center));
+                add_explosion(bullet_center);
                 active = false;
                 enemy.setHealth(enemy.getHealth() - damage);
                 level.score += Constants.ENEMY_HIT_SCORE;
@@ -50,6 +50,10 @@ public class Bullet {
         if (position.x < viewport_position.x - viewport_width / 2 || position.x > viewport_position.x + viewport_width / 2) {
             active = false;
         }
+    }
+
+    public void add_explosion(Vector2 bullet_center) {
+        level.getExplosions().add(new Explosion(bullet_center));
     }
 
     public void render(SpriteBatch spriteBatch) {
