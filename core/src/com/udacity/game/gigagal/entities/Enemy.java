@@ -19,6 +19,7 @@ public class Enemy {
     protected Direction direction;
     protected int health;
     protected long start_time;
+    protected float speed;
 
     public Vector2 position;
 
@@ -33,6 +34,7 @@ public class Enemy {
         start_time = TimeUtils.nanoTime();
         this.health = Constants.ENEMY_HEALTH;
         random_phase = MathUtils.random();
+        speed = MathUtils.random(Constants.ENEMY_SPEED, Constants.ENEMY_SPEED * 1.5f);
     }
 
     public int getHealth() {
@@ -44,7 +46,7 @@ public class Enemy {
     }
 
     public void update(float delta) {
-        float move_distance = delta * Constants.ENEMY_SPEED;
+        float move_distance = delta * speed;
         if (direction == Direction.LEFT) {
             position.x -= move_distance;
         } else {
