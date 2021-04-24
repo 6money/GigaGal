@@ -22,6 +22,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     private BitmapFont bitmapFont;
     private Rectangle play_button;
     private Rectangle level_select_button;
+    private Rectangle highScoreButton;
     private GigaGalGame gigaGalGame;
 
     public MenuScreen(GigaGalGame game) {
@@ -37,6 +38,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         bitmapFont.getData().setScale(0.8f);
         play_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() * 3 / 8, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 4);
         level_select_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() / 8, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 4);
+        highScoreButton = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() / 12, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 4);
     }
 
 
@@ -44,14 +46,19 @@ public class MenuScreen extends InputAdapter implements Screen {
     public void resize(int width, int height) {
         extendViewport.update(width, height, true);
         play_button.x = extendViewport.getWorldWidth() / 8;
-        play_button.y = extendViewport.getWorldHeight() * 3 / 8;
+        play_button.y = extendViewport.getWorldHeight() * 3.6f / 8;
         play_button.width = extendViewport.getWorldWidth() * 6 / 8;
-        play_button.height = extendViewport.getWorldHeight() / 4;
+        play_button.height = extendViewport.getWorldHeight() / 6;
 
         level_select_button.x = extendViewport.getWorldWidth() / 8;
-        level_select_button.y = extendViewport.getWorldHeight() / 8;
+        level_select_button.y = extendViewport.getWorldHeight() * 2.3f / 8;
         level_select_button.width = extendViewport.getWorldWidth() * 6 / 8;
-        level_select_button.height = extendViewport.getWorldHeight() / 4;
+        level_select_button.height = extendViewport.getWorldHeight() / 6;
+
+        highScoreButton.x = extendViewport.getWorldWidth() / 8;
+        highScoreButton.y = extendViewport.getWorldHeight() / 8;
+        highScoreButton.width = extendViewport.getWorldWidth() * 6 / 8;
+        highScoreButton.height = extendViewport.getWorldHeight() / 6;
     }
 
 
@@ -72,8 +79,10 @@ public class MenuScreen extends InputAdapter implements Screen {
         bitmapFont.draw(spriteBatch, "WELCOME TO GIGAGAL", extendViewport.getWorldWidth() / 2, extendViewport.getWorldHeight() / 1.2f, 0, Align.center, false);
         Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, play_button.x, play_button.y, play_button.width, play_button.height);
         Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, level_select_button.x, level_select_button.y, level_select_button.width, level_select_button.height);
-        bitmapFont.draw(spriteBatch, "PLAY", extendViewport.getWorldWidth() / 2, extendViewport.getWorldHeight() / 1.85f, 0, Align.center, false);
-        bitmapFont.draw(spriteBatch, "LEVEL SELECT", extendViewport.getWorldWidth() / 2, extendViewport.getWorldHeight() / 3.5f, 0, Align.center, false);
+        Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, highScoreButton.x, highScoreButton.y, highScoreButton.width, highScoreButton.height);
+        bitmapFont.draw(spriteBatch, "PLAY", extendViewport.getWorldWidth() / 2, play_button.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
+        bitmapFont.draw(spriteBatch, "LEVEL SELECT", extendViewport.getWorldWidth() / 2, level_select_button.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
+        bitmapFont.draw(spriteBatch, "HIGH SCORES", extendViewport.getWorldWidth() / 2, highScoreButton.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
 
         spriteBatch.end();
 
@@ -107,6 +116,8 @@ public class MenuScreen extends InputAdapter implements Screen {
             gigaGalGame.switchScreen("gameplay", Constants.LEVEL_1);
         } else if (level_select_button.contains(viewportPosition)) {
             gigaGalGame.switchScreen("level select");
+        } else if (highScoreButton.contains(viewportPosition)) {
+            gigaGalGame.switchScreen("high_score");
         }
         return super.touchDown(screenX, screenY, pointer, button);
     }

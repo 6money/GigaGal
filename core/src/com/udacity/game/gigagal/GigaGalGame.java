@@ -3,6 +3,7 @@ package com.udacity.game.gigagal;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.udacity.game.gigagal.screens.GameplayScreen;
+import com.udacity.game.gigagal.screens.HighScoresScreen;
 import com.udacity.game.gigagal.screens.LevelSelectScreen;
 import com.udacity.game.gigagal.screens.MenuScreen;
 import com.udacity.game.gigagal.utils.Assets;
@@ -34,6 +35,8 @@ public class GigaGalGame extends Game {
 			setScreen(new GameplayScreen(this, level));
 		}	else if (screen_name.equals("level select")) {
 			setScreen(new LevelSelectScreen(this));
+		} else if (screen_name.equals("high_score")) {
+			setScreen(new HighScoresScreen(this));
 		} else {
 			setScreen(new MenuScreen(this));
 		}
