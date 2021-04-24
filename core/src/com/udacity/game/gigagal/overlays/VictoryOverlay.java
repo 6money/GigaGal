@@ -17,6 +17,7 @@ public class VictoryOverlay {
 
     private final BitmapFont font;
     private Array<Explosion> explosions;
+    private boolean highScore;
 
     public final Viewport viewport;
 
@@ -27,7 +28,8 @@ public class VictoryOverlay {
         font.getData().setScale(1);
     }
 
-    public void init() {
+    public void init(boolean highScore) {
+        this.highScore = highScore;
         explosions = new Array<>(Constants.EXPLOSION_COUNT);
 
         for (int i = 0; i < Constants.EXPLOSION_COUNT; i++) {
@@ -48,6 +50,9 @@ public class VictoryOverlay {
 
         font.draw(spriteBatch, Constants.VICTORY_MESSAGE, viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2f, 0, Align.center, false);
         font.draw(spriteBatch, Constants.VICTORY_SCORE + score, viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 3f, 0, Align.center, false);
+        if (highScore) {
+            font.draw(spriteBatch, "HIGH SCORE!!", viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 6f, 0, Align.center, false);
+        }
 
         spriteBatch.end();
 

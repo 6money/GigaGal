@@ -3,6 +3,7 @@ package com.udacity.game.gigagal.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Sort;
 
 public class PreferenceManager {
     private final static String TAG = PreferenceManager.class.getName();
@@ -22,10 +23,11 @@ public class PreferenceManager {
         return preferenceManager;
     }
 
-    public void addScore(String level_name, int score) {
-        String scoresList = preferences.getString(level_name, "");
-        Array<Integer> scores = new Array<>();
+    public Array<Integer> getScores(String levelName) {
+        String scoresList = preferences.getString(levelName, "");
+        Array<Integer> scores = new Array<>(true, 6);
         String[] scoresJavaArray = scoresList.split(",");
+        Gdx.app.log(TAG, scoresList);
 
         if (!scoresJavaArray[0].equals("")) {
             for (String textscore : scoresJavaArray) {
@@ -33,9 +35,20 @@ public class PreferenceManager {
             }
         }
 
+        Sort.instance().sort(scores);
+        scores.reverse();
+
+        return scores;
+    }
+
+    public void addScore(String levelName, int score) {
+        Array<Integer> scores = getScores(levelName);
         scores.add(score);
+        Gdx.app.log(TAG, scores.toString());
 
         if (scores.size > 5) {
+            Sort.instance().sort(scores);
+            scores.reverse();
             scores.pop();
         }
 
@@ -48,10 +61,9 @@ public class PreferenceManager {
             stringBuilder.append(savedScore);
         }
 
-        Gdx.app.log(TAG, scoresList);
         Gdx.app.log(TAG, stringBuilder.toString());
 
-        preferences.putString(level_name, stringBuilder.toString());
+        preferences.putString(levelName, stringBuilder.toString());
         preferences.flush();
     }
 }

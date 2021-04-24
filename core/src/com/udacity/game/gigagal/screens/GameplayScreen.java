@@ -8,6 +8,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.udacity.game.gigagal.GigaGalGame;
@@ -153,7 +154,17 @@ public class GameplayScreen extends ScreenAdapter {
         if (level.victory) {
             if (levelEndOverlayStartTime == 0) {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
-                victoryOverlay.init();
+
+                PreferenceManager preferenceManager = PreferenceManager.get_instance();
+                Array<Integer> levelScores = preferenceManager.getScores(level_name);
+                boolean highScore = false;
+
+                if (level.score > levelScores.get(0)) {
+                    highScore = true;
+                }
+
+                preferenceManager.addScore(level_name, level.score);
+                victoryOverlay.init(highScore);
             }
 
             victoryOverlay.render(spriteBatch, level.score);
@@ -200,11 +211,6 @@ public class GameplayScreen extends ScreenAdapter {
     }
 
     public void levelComplete(boolean quit) {
-        if (!quit) {
-            PreferenceManager preferenceManager = PreferenceManager.get_instance();
-            preferenceManager.addScore(level_name, level.score);
-        }
-
         levelEndOverlayStartTime = 0;
         level_num++;
 
