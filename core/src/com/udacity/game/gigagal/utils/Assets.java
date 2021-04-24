@@ -26,6 +26,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public PowerupAssets powerupAssets;
     public ExitPortalAssets exitPortalAssets;
     public OnscreenControlsAssets onscreenControlsAssets;
+    public DiamondAssets diamondAssets;
 
     private Assets() {
     }
@@ -45,6 +46,7 @@ public class Assets implements Disposable, AssetErrorListener {
         powerupAssets = new PowerupAssets(atlas);
         exitPortalAssets = new ExitPortalAssets(atlas);
         onscreenControlsAssets = new OnscreenControlsAssets(atlas);
+        diamondAssets = new DiamondAssets(atlas);
     }
 
     @Override
@@ -229,6 +231,14 @@ public class Assets implements Disposable, AssetErrorListener {
             move_right = atlas.findRegion(Constants.MOVE_RIGHT_BUTTON);
             jump = atlas.findRegion(Constants.JUMP_BUTTON);
             shoot = atlas.findRegion(Constants.SHOOT_BUTTON);
+        }
+    }
+
+    public class DiamondAssets {
+        public TextureAtlas.AtlasRegion diamond;
+
+        public DiamondAssets(TextureAtlas atlas) {
+            diamond = atlas.findRegion(Constants.DIAMOND);
         }
     }
 }

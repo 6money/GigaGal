@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.udacity.game.gigagal.entities.Bullet;
+import com.udacity.game.gigagal.entities.Diamond;
 import com.udacity.game.gigagal.entities.Enemy;
 import com.udacity.game.gigagal.entities.ExitPortal;
 import com.udacity.game.gigagal.entities.Explosion;
@@ -28,6 +29,7 @@ public class Level {
     private DelayedRemovalArray<Bullet> bullets;
     private DelayedRemovalArray<Explosion> explosions;
     private DelayedRemovalArray<Powerup> powerups;
+    private DelayedRemovalArray<Diamond> diamonds;
     private float killplane_height;
 
     public boolean gameOver;
@@ -44,6 +46,7 @@ public class Level {
         bullets = new DelayedRemovalArray<>();
         explosions = new DelayedRemovalArray<>();
         powerups = new DelayedRemovalArray<>();
+        diamonds = new DelayedRemovalArray<>();
         exitPortal = new ExitPortal(Constants.EXIT_PORTAL_POSITION);
 //        addDebugPlatforms();
 
@@ -71,6 +74,10 @@ public class Level {
 
     public DelayedRemovalArray<Powerup> getPowerups() {
         return powerups;
+    }
+
+    public DelayedRemovalArray<Diamond> getDiamonds() {
+        return diamonds;
     }
 
     public void setPlatforms(Array<Platform> platforms) {
@@ -171,6 +178,10 @@ public class Level {
         for (Explosion explosion: explosions) {
             explosion.render(spriteBatch);
         }
+
+        for (Diamond diamond: diamonds) {
+            diamond.render(spriteBatch);
+        }
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {
@@ -180,6 +191,10 @@ public class Level {
 
         for (Powerup powerup: powerups) {
             powerup.debugRender(shapeRenderer);
+        }
+
+        for (Diamond diamond: diamonds) {
+            diamond.debugRender(shapeRenderer);
         }
 
         gigaGal.debugRender(shapeRenderer);

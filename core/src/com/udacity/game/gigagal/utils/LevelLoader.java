@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.udacity.game.gigagal.Level;
 import com.udacity.game.gigagal.entities.BigEnemy;
 import com.udacity.game.gigagal.entities.BigPowerup;
+import com.udacity.game.gigagal.entities.Diamond;
 import com.udacity.game.gigagal.entities.Enemy;
 import com.udacity.game.gigagal.entities.ExitPortal;
 import com.udacity.game.gigagal.entities.GigaGal;
@@ -144,6 +145,13 @@ public class LevelLoader {
                 Vector2 powerup_position = new Vector2(safeGetFloat(item, Constants.LEVEL_X_KEY), safeGetFloat(item, Constants.LEVEL_Y_KEY));
                 Gdx.app.log(TAG, "Loaded powerup at " + powerup_position);
                 level.getPowerups().add(new Powerup(powerup_position));
+                continue;
+            }
+
+            if (item.get(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.DIAMOND)) {
+                Vector2 diamond_position = new Vector2(safeGetFloat(item, Constants.LEVEL_X_KEY), safeGetFloat(item, Constants.LEVEL_Y_KEY));
+                Gdx.app.log(TAG, "Loaded diamond at " + diamond_position);
+                level.getDiamonds().add(new Diamond(diamond_position));
                 continue;
             }
         }

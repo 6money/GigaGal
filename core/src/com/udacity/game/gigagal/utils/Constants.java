@@ -42,6 +42,7 @@ public class Constants {
     public static final String EXIT_PORTAL_SPRITE_4 = "exit-portal-4";
     public static final String EXIT_PORTAL_SPRITE_5 = "exit-portal-5";
     public static final String EXIT_PORTAL_SPRITE_6 = "exit-portal-6";
+    public static final String DIAMOND = "diamond";
 
 
     // gigagal
@@ -85,6 +86,9 @@ public class Constants {
     public static final Vector2 POWERUP_CENTER = new Vector2(7, 5);
     public static final int POWERUP_AMOUNT = 10;
 
+    // diamond
+    public static final Vector2 DIAMOND_SIZE = new Vector2(20, 15);
+
     //portal
     public static final Vector2 EXIT_PORTAL_CENTER = new Vector2(31, 31);
     public static float EXIT_PORTAL_DURATION = 0.1f;
@@ -120,10 +124,11 @@ public class Constants {
 
     // Scoring
     public static final int ENEMY_KILL_SCORE = 100;
-    public static final int ENEMY_HIT_SCORE = 25;
+    public static final int ENEMY_HIT_SCORE = 10;
     public static final int POWERUP_SCORE = 50;
-    public static final int AMMO_SCORE = 5;
-    public static final int AMMO_SPECIAL_SCORE = 10;
+    public static final int AMMO_SCORE = 20;
+    public static final int AMMO_SPECIAL_SCORE = 50;
+    public static final int DIAMOND_SCORE = 1000;
 
     // Victory/Game Over/Pause screens
     public static final float LEVEL_END_DURATION = 2;

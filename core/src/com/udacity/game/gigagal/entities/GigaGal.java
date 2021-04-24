@@ -181,6 +181,23 @@ public class GigaGal {
         }
         level.getPowerups().end();
 
+        level.getDiamonds().begin();
+        for (Diamond diamond : level.getDiamonds()) {
+            Rectangle diamond_bounding_box = new Rectangle(
+                    diamond.position.x,
+                    diamond.position.y,
+                    Constants.DIAMOND_SIZE.x,
+                    Constants.DIAMOND_SIZE.y
+            );
+
+            boolean hit_diamond = gigagal_bounding_box.overlaps(diamond_bounding_box);
+            if (hit_diamond) {
+                level.getDiamonds().removeValue(diamond, true);
+                level.score += Constants.DIAMOND_SCORE;
+            }
+        }
+        level.getDiamonds().end();
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.X) && (ammmo_basic > 0 || ammmo_big > 0)) {
             shoot();
         }

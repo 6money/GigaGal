@@ -53,6 +53,13 @@ button-shoot
   orig: 32, 32
   offset: 0, 0
   index: -1
+diamond
+  rotate: false
+  xy: 861, 110
+  size: 20, 15
+  orig: 20, 15
+  offset: 0, 0
+  index: -1
 enemy
   rotate: false
   xy: 61, 15
@@ -181,14 +188,14 @@ platform-hard
   index: -1
 powerup
   rotate: false
-  xy: 861, 108
+  xy: 486, 42
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup2
   rotate: false
-  xy: 486, 42
+  xy: 503, 42
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
