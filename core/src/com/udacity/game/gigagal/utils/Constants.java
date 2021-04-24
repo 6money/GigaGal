@@ -122,6 +122,8 @@ public class Constants {
     public static final int ENEMY_KILL_SCORE = 100;
     public static final int ENEMY_HIT_SCORE = 25;
     public static final int POWERUP_SCORE = 50;
+    public static final int AMMO_SCORE = 5;
+    public static final int AMMO_SPECIAL_SCORE = 10;
 
     // Victory/Game Over/Pause screens
     public static final float LEVEL_END_DURATION = 2;

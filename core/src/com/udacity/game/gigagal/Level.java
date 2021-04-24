@@ -106,6 +106,8 @@ public class Level {
                     Constants.GIGAGAL_HEIGHT
             );
             if (gigagal_bounding_box.contains(exitPortal.position)) {
+                score += gigaGal.ammmo_basic * Constants.AMMO_SCORE;
+                score += gigaGal.ammmo_big * Constants.AMMO_SPECIAL_SCORE;
                 victory = true;
             }
             if (gigaGal.lives <= 0) {
