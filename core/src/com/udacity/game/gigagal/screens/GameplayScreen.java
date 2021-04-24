@@ -3,6 +3,7 @@ package com.udacity.game.gigagal.screens;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,6 +21,7 @@ import com.udacity.game.gigagal.utils.Assets;
 import com.udacity.game.gigagal.utils.ChaseCam;
 import com.udacity.game.gigagal.utils.Constants;
 import com.udacity.game.gigagal.utils.LevelLoader;
+import com.udacity.game.gigagal.utils.PreferenceManager;
 import com.udacity.game.gigagal.utils.Utils;
 
 public class GameplayScreen extends ScreenAdapter {
@@ -127,7 +129,7 @@ public class GameplayScreen extends ScreenAdapter {
         shapeRenderer.setProjectionMatrix(extendViewport.getCamera().combined);
 
         spriteBatch.begin();
-        level.render(spriteBatch, shapeRenderer);
+        level.render(spriteBatch);
         spriteBatch.end();
 
         if (onMobile()) {
@@ -198,6 +200,11 @@ public class GameplayScreen extends ScreenAdapter {
     }
 
     public void levelComplete(boolean quit) {
+        if (!quit) {
+            PreferenceManager preferenceManager = PreferenceManager.get_instance();
+            preferenceManager.addScore(level_name, level.score);
+        }
+
         levelEndOverlayStartTime = 0;
         level_num++;
 

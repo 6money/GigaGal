@@ -11,6 +11,7 @@ public class Constants {
     public static final String TEXTURE_ATLAS = "images/gigagal.pack.atlas";
     public static final float GRAVITY = 1000f;
     public static final int CHASE_CAM_SPEED = 200;
+    public static final String PREFERENCES_NAME = "gigagal";
 
     // sprites
     public static final String STANDING_RIGHT = "standing-right";

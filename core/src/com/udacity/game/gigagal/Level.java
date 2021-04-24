@@ -154,7 +154,7 @@ public class Level {
         }
     }
 
-    public void render(SpriteBatch spriteBatch, ShapeRenderer shapeRenderer) {
+    public void render(SpriteBatch spriteBatch) {
         for (Platform platform: platforms) {
             platform.render(spriteBatch);
         }
