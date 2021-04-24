@@ -2,6 +2,7 @@ package com.udacity.game.gigagal.screens;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -110,8 +111,11 @@ public class GameplayScreen extends ScreenAdapter {
             Gdx.input.setInputProcessor(pauseOverlay);
         }
 
-        chaseCam.update(delta);
-        extendViewport.apply();
+        if (!level.victory && !level.gameOver) {
+            chaseCam.update(delta);
+            extendViewport.apply();
+        }
+
         Gdx.gl.glClearColor(
                 Constants.BG_COLOR.r,
                 Constants.BG_COLOR.g,
@@ -150,12 +154,16 @@ public class GameplayScreen extends ScreenAdapter {
                 victoryOverlay.init();
             }
 
-            victoryOverlay.render(spriteBatch);
+            victoryOverlay.render(spriteBatch, level.score);
 
             if (Utils.secondsSince(levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION) {
-                levelEndOverlayStartTime = 0;
-                levelComplete();
+                if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+                    levelComplete();
+                }
 
+                if (Gdx.input.isTouched()) {
+                    levelComplete();
+                }
             }
         } else if (level.gameOver) {
             if (levelEndOverlayStartTime == 0) {
@@ -165,9 +173,13 @@ public class GameplayScreen extends ScreenAdapter {
             gameOverOverlay.render(spriteBatch);
 
             if (Utils.secondsSince(levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION) {
-                levelEndOverlayStartTime = 0;
-                levelComplete();
+                if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+                    levelComplete(true);
+                }
 
+                if (Gdx.input.isTouched()) {
+                    levelComplete(true);
+                }
             }
         }
     }
@@ -186,6 +198,7 @@ public class GameplayScreen extends ScreenAdapter {
     }
 
     public void levelComplete(boolean quit) {
+        levelEndOverlayStartTime = 0;
         level_num++;
 
         if (level_num <= Constants.MAX_LEVEL && !level.gameOver && !quit) {

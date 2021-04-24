@@ -132,7 +132,8 @@ public class Constants {
 
     // Victory/Game Over/Pause screens
     public static final float LEVEL_END_DURATION = 2;
-    public static final String VICTORY_MESSAGE = "You are the Winrar!";
+    public static final String VICTORY_MESSAGE = "You are the Winner!";
+    public static final String VICTORY_SCORE = "Score: ";
     public static final String GAME_OVER_MESSAGE = "Game Over, Gal";
     public static final int EXPLOSION_COUNT = 200;
     public static final String FONT_FILE = "font/header.fnt";
