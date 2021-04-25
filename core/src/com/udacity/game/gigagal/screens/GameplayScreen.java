@@ -146,6 +146,7 @@ public class GameplayScreen extends ScreenAdapter {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         level.debugRender(shapeRenderer);
+        onScreeenControls.debugRender(shapeRenderer);
         shapeRenderer.end();
     }
 

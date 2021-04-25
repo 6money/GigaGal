@@ -149,5 +149,5 @@ public class Constants {
     public static final String SHOOT_BUTTON = "button-shoot";
     public static final String JUMP_BUTTON = "button-jump";
     public static final Vector2 BUTTON_CENTER = new Vector2(15, 15);
-    public static final float BUTTON_RADIUS = 32;
+    public static final float BUTTON_RADIUS = 24;
 }

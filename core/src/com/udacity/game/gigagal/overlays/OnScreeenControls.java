@@ -3,6 +3,7 @@ package com.udacity.game.gigagal.overlays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -137,12 +138,22 @@ public class OnScreeenControls extends InputAdapter {
         batch.end();
     }
 
+    public void debugRender(ShapeRenderer shapeRenderer) {
+        viewport.apply();
+        shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
+        shapeRenderer.circle(moveLeftCenter.x, moveLeftCenter.y, Constants.BUTTON_RADIUS);
+        shapeRenderer.circle(moveRightCenter.x, moveRightCenter.y, Constants.BUTTON_RADIUS);
+        shapeRenderer.circle(jumpCenter.x, jumpCenter.y, Constants.BUTTON_RADIUS);
+        shapeRenderer.circle(shootCenter.x, shootCenter.y, Constants.BUTTON_RADIUS);
+        shapeRenderer.circle(pauseCenter.x, pauseCenter.y, Constants.BUTTON_RADIUS);
+    }
+
     public void recalculateButtonPositions() {
-        moveLeftCenter.set(Constants.BUTTON_RADIUS * 3 / 4, Constants.BUTTON_RADIUS);
-        moveRightCenter.set(Constants.BUTTON_RADIUS * 2, Constants.BUTTON_RADIUS * 3 / 4);
-        jumpCenter.set(viewport.getWorldWidth() - Constants.BUTTON_RADIUS * 2, Constants.BUTTON_RADIUS * 3 / 4);
-        shootCenter.set(viewport.getWorldWidth() - Constants.BUTTON_RADIUS * 3 / 4, Constants.BUTTON_RADIUS);
-        pauseCenter.set(Constants.BUTTON_RADIUS * 2 / 4, viewport.getWorldHeight() - Constants.BUTTON_RADIUS);
+        moveLeftCenter.set(Constants.BUTTON_RADIUS, Constants.BUTTON_RADIUS * 1.5f);
+        moveRightCenter.set(Constants.BUTTON_RADIUS * 3, Constants.BUTTON_RADIUS * 3 / 4);
+        jumpCenter.set(viewport.getWorldWidth() - Constants.BUTTON_RADIUS * 3, Constants.BUTTON_RADIUS * 3 / 4);
+        shootCenter.set(viewport.getWorldWidth() - Constants.BUTTON_RADIUS, Constants.BUTTON_RADIUS * 1.5f);
+        pauseCenter.set(Constants.BUTTON_RADIUS, viewport.getWorldHeight() - Constants.BUTTON_RADIUS);
 
     }
 }
