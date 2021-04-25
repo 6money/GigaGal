@@ -7,6 +7,9 @@ import com.udacity.game.gigagal.GigaGalGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.title = "GigaGal";
+		config.height = 480;
+		config.width = 900;
 		new LwjglApplication(new GigaGalGame(arg), config);
 	}
 }
