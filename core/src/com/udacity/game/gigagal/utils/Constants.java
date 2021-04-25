@@ -124,10 +124,10 @@ public class Constants {
     public static final String HUD_SCORE_LABEL = "Score: ";
 
     // Scoring
-    public static final int ENEMY_KILL_SCORE = 100;
+    public static final int ENEMY_KILL_SCORE = 50;
     public static final int ENEMY_HIT_SCORE = 10;
-    public static final int POWERUP_SCORE = 50;
-    public static final int AMMO_SCORE = 20;
+    public static final int POWERUP_SCORE = 100;
+    public static final int AMMO_SCORE = 25;
     public static final int AMMO_SPECIAL_SCORE = 50;
     public static final int DIAMOND_SCORE = 1000;
 
