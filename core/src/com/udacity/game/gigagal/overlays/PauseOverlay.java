@@ -69,7 +69,7 @@ public class PauseOverlay extends InputAdapter {
 
         if (resume_rect.contains(viewportPosition)) {
             gameplayScreen.level.paused = false;
-            if (gameplayScreen.onMobile()) {
+            if (gameplayScreen.onMobile() || gameplayScreen.debugMobile) {
                 Gdx.input.setInputProcessor(gameplayScreen.onScreeenControls);
             } else {
                 Gdx.input.setInputProcessor(null);

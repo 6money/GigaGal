@@ -30,6 +30,8 @@ public class GameplayScreen extends ScreenAdapter {
 
     public OnScreeenControls onScreeenControls;
     public PauseOverlay pauseOverlay;
+    public boolean debug;
+    public boolean debugMobile;
 
     private SpriteBatch spriteBatch;
     private ExtendViewport extendViewport;
@@ -49,6 +51,8 @@ public class GameplayScreen extends ScreenAdapter {
     public GameplayScreen(GigaGalGame game, int level_num) {
         gigaGalGame = game;
         this.level_num = level_num;
+        debug = game.debug;
+        debugMobile = game.debugMobile;
     }
 
     public void setLevel_name() {
@@ -71,7 +75,7 @@ public class GameplayScreen extends ScreenAdapter {
         onScreeenControls.gigaGal = level.gigaGal;
         levelEndOverlayStartTime = 0;
 
-        if (onMobile()) {
+        if (onMobile() || debugMobile) {
             Gdx.input.setInputProcessor(onScreeenControls);
         }
 
@@ -105,7 +109,7 @@ public class GameplayScreen extends ScreenAdapter {
         level.update(delta);
 
         if (old_paused != level.paused && !level.paused) {
-            if (onMobile()) {
+            if (onMobile() || debugMobile) {
                 Gdx.input.setInputProcessor(onScreeenControls);
             } else {
                 Gdx.input.setInputProcessor(null);
@@ -133,7 +137,7 @@ public class GameplayScreen extends ScreenAdapter {
         level.render(spriteBatch);
         spriteBatch.end();
 
-        if (onMobile()) {
+        if (onMobile() || debugMobile) {
             onScreeenControls.render(spriteBatch);
         }
 
@@ -144,10 +148,14 @@ public class GameplayScreen extends ScreenAdapter {
             pauseOverlay.render(spriteBatch);
         }
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        level.debugRender(shapeRenderer);
-        onScreeenControls.debugRender(shapeRenderer);
-        shapeRenderer.end();
+        if (debug) {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            level.debugRender(shapeRenderer);
+            if (onMobile() || debugMobile) {
+                onScreeenControls.debugRender(shapeRenderer);
+            }
+            shapeRenderer.end();
+        }
     }
 
     private void renderLevelEndOverlays(SpriteBatch spriteBatch) {

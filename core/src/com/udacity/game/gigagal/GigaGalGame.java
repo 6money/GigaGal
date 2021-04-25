@@ -9,10 +9,34 @@ import com.udacity.game.gigagal.screens.MenuScreen;
 import com.udacity.game.gigagal.utils.Assets;
 
 public class GigaGalGame extends Game {
+	public static final String TAG = GigaGalGame.class.getName();
+
 	private Assets assets;
+	private final String[] args;
+
+	public boolean debug;
+	public boolean debugMobile;
+
+	public GigaGalGame(String[] args) {
+		this.args = args;
+		debug = false;
+		debugMobile = false;
+	}
 
 	@Override
 	public void create() {
+		if (args != null) {
+			for (String arg : args) {
+				if (arg.equals("debug")) {
+					debug = true;
+				}
+				if (arg.equals("debug_mobile")) {
+					debugMobile = true;
+				}
+			}
+		}
+		Gdx.app.log(TAG, ("debug mode: " + debug));
+		Gdx.app.log(TAG, ("debug mobile mode: " + debugMobile));
 		assets = Assets.instance;
 		assets.init();
 		switchScreen("menu");

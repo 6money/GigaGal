@@ -5,6 +5,8 @@ import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import com.udacity.game.gigagal.GigaGalGame;
 
+import java.lang.reflect.Array;
+
 public class HtmlLauncher extends GwtApplication {
 
         @Override
@@ -17,6 +19,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new GigaGalGame();
+                return new GigaGalGame(null);
         }
 }
