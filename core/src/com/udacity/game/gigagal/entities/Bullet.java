@@ -1,6 +1,8 @@
 package com.udacity.game.gigagal.entities;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -37,6 +39,7 @@ public class Bullet {
         for (Enemy enemy: level.getEnemies()) {
             Vector2 bullet_center = new Vector2(position.x + Constants.BULLET_CENTER.x, position.y + Constants.BULLET_CENTER.y);
             if (bullet_center.dst(enemy.position) < Constants.ENEMY_HIT_COLLISION_RADIUS) {
+                playExplosion();
                 add_explosion(bullet_center);
                 active = false;
                 enemy.setHealth(enemy.getHealth() - damage);
@@ -50,6 +53,24 @@ public class Bullet {
         if (position.x < viewport_position.x - viewport_width / 2 || position.x > viewport_position.x + viewport_width / 2) {
             active = false;
         }
+    }
+
+    public void playExplosion() {
+        Sound explosion;
+        int explosionid = MathUtils.random(1, 2);
+        switch (explosionid) {
+            case 1:
+                explosion = Assets.instance.soundAssets.explosion1;
+                break;
+            case 2:
+                explosion = Assets.instance.soundAssets.explosion2;
+                break;
+            default:
+                explosion = Assets.instance.soundAssets.explosion1;
+                break;
+        }
+        long effectid = explosion.play();
+        explosion.setVolume(effectid, 0.6f);
     }
 
     public void add_explosion(Vector2 bullet_center) {

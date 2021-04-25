@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -27,6 +29,8 @@ public class Assets implements Disposable, AssetErrorListener {
     public ExitPortalAssets exitPortalAssets;
     public OnscreenControlsAssets onscreenControlsAssets;
     public DiamondAssets diamondAssets;
+    public MusicAssets musicAssets;
+    public SoundAssets soundAssets;
 
     private Assets() {
     }
@@ -47,6 +51,8 @@ public class Assets implements Disposable, AssetErrorListener {
         exitPortalAssets = new ExitPortalAssets(atlas);
         onscreenControlsAssets = new OnscreenControlsAssets(atlas);
         diamondAssets = new DiamondAssets(atlas);
+        musicAssets = new MusicAssets();
+        soundAssets = new SoundAssets();
     }
 
     @Override
@@ -56,8 +62,11 @@ public class Assets implements Disposable, AssetErrorListener {
 
     @Override
     public void dispose() {
+        musicAssets.dispose();
+        soundAssets.dispose();
         assetManager.dispose();
     }
+
 
     public class GigaGalAssets {
 
@@ -102,6 +111,7 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+
     public class PlatformAssets {
 
         public TextureAtlas.AtlasRegion platform;
@@ -140,6 +150,7 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+
     public class EnemyAssets {
         public TextureAtlas.AtlasRegion enemy;
         public TextureAtlas.AtlasRegion enemy2;
@@ -150,6 +161,7 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+
     public class BulletAssets {
         public TextureAtlas.AtlasRegion bullet;
         public TextureAtlas.AtlasRegion bullet2;
@@ -159,6 +171,7 @@ public class Assets implements Disposable, AssetErrorListener {
             bullet2 = atlas.findRegion(Constants.BULLET2);
         }
     }
+
 
     public class ExplosionAssets {
         private TextureAtlas.AtlasRegion explosion_large;
@@ -194,6 +207,7 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+
     public class PowerupAssets {
         public TextureAtlas.AtlasRegion powerup;
         public TextureAtlas.AtlasRegion powerup2;
@@ -204,6 +218,7 @@ public class Assets implements Disposable, AssetErrorListener {
         }
 
     }
+
 
     public class ExitPortalAssets {
 
@@ -230,6 +245,7 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+
     public class OnscreenControlsAssets {
         public TextureAtlas.AtlasRegion move_left;
         public TextureAtlas.AtlasRegion move_right;
@@ -246,11 +262,62 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+
     public class DiamondAssets {
         public TextureAtlas.AtlasRegion diamond;
 
         public DiamondAssets(TextureAtlas atlas) {
             diamond = atlas.findRegion(Constants.DIAMOND);
+        }
+    }
+
+
+    public class MusicAssets {
+        public Music backgroundMusic;
+
+        public MusicAssets() {
+            backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(Constants.MUSIC_PATH));
+        }
+
+        public void dispose() {
+            backgroundMusic.dispose();
+        }
+    }
+
+
+    public class SoundAssets {
+        public Sound gunshot1;
+        public Sound gunshot2;
+        public Sound gunshot3;
+        public Sound gunshot4;
+        public Sound explosion1;
+        public Sound explosion2;
+        public Sound deathEffect;
+        public Sound jumpEffect;
+        public Sound runningEffect;
+
+        public SoundAssets() {
+            gunshot1 = Gdx.audio.newSound(Gdx.files.internal(Constants.GUNSHOT1_PATH));
+            gunshot2 = Gdx.audio.newSound(Gdx.files.internal(Constants.GUNSHOT2_PATH));
+            gunshot3 = Gdx.audio.newSound(Gdx.files.internal(Constants.GUNSHOT3_PATH));
+            gunshot4 = Gdx.audio.newSound(Gdx.files.internal(Constants.GUNSHOT4_PATH));
+            explosion1 = Gdx.audio.newSound(Gdx.files.internal(Constants.EXPLOSION1_PATH));
+            explosion2 = Gdx.audio.newSound(Gdx.files.internal(Constants.EXPLOSION2_PATH));
+            deathEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.DEATH_SOUND_PATH));
+            jumpEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.JUMP_SOUND_PATH));
+            runningEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.RUNNING_SOUND_PATH));
+        }
+
+        public void dispose() {
+            gunshot1.dispose();
+            gunshot2.dispose();
+            gunshot3.dispose();
+            gunshot4.dispose();
+            explosion1.dispose();
+            explosion2.dispose();
+            deathEffect.dispose();
+            jumpEffect.dispose();
+            runningEffect.dispose();
         }
     }
 }

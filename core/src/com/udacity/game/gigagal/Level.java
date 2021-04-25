@@ -2,6 +2,7 @@ package com.udacity.game.gigagal;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -18,6 +19,7 @@ import com.udacity.game.gigagal.entities.ExplosionBig;
 import com.udacity.game.gigagal.entities.GigaGal;
 import com.udacity.game.gigagal.entities.Platform;
 import com.udacity.game.gigagal.entities.Powerup;
+import com.udacity.game.gigagal.utils.Assets;
 import com.udacity.game.gigagal.utils.Constants;
 
 public class Level {
@@ -105,6 +107,10 @@ public class Level {
             paused = !paused;
         }
 
+        if (gameOver || victory) {
+            gigaGal.stopRunningEffect();
+        }
+
         if (!gameOver && !victory && !paused) {
             Rectangle gigagal_bounding_box = new Rectangle(
                     gigaGal.position.x - Constants.GIGAGAL_STANCE_WIDTH,
@@ -127,6 +133,9 @@ public class Level {
             for (Enemy enemy : enemies) {
                 enemy.update(delta);
                 if (enemy.getHealth() <= 0) {
+                    Sound deathSound = Assets.instance.soundAssets.deathEffect;
+                    long effectid = deathSound.play();
+                    deathSound.setVolume(effectid, 0.5f);
                     explosions.add(new ExplosionBig(enemy.position));
                     enemies.removeValue(enemy, true);
                     score += Constants.ENEMY_KILL_SCORE;

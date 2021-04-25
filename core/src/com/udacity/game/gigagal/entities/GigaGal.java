@@ -2,10 +2,12 @@ package com.udacity.game.gigagal.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -30,6 +32,7 @@ public class GigaGal {
     private Level level;
     private boolean hit_solid;
     private boolean canDrop;
+    private Sound runningEffect;
 
     public Vector2 position;
     public int ammmo_basic;
@@ -43,6 +46,9 @@ public class GigaGal {
     public GigaGal(Vector2 spawn_position, Level level) {
         this.spawn_position = spawn_position;
         this.level = level;
+        runningEffect = Assets.instance.soundAssets.runningEffect;
+        runningEffect.loop();
+        runningEffect.pause();
         init();
     }
 
@@ -152,14 +158,27 @@ public class GigaGal {
 
         if (jumpState != JumpState.RECOILING && !hit_solid) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || leftButtonPressed) {
+                if (jumpState == JumpState.GROUNDED) {
+                    runningEffect.resume();
+                } else {
+                    runningEffect.pause();
+                }
                 moveLeft(delta);
             } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed) {
+                if (jumpState == JumpState.GROUNDED) {
+                    runningEffect.resume();
+                } else {
+                    runningEffect.pause();
+                }
                 moveRight(delta);
             } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
                 moveDown(delta);
             } else {
                 walkState = WalkState.STANDING;
+                runningEffect.pause();
             }
+
+
         }
 
         level.getPowerups().begin();
@@ -208,6 +227,7 @@ public class GigaGal {
 
     public void shoot() {
         if (ammmo_big > 0) {
+            playGunshot();
             ammmo_big--;
             Vector2 bullet_position;
 
@@ -224,6 +244,7 @@ public class GigaGal {
             }
             level.getBullets().add(new BigBullet(level, bullet_position, facing));
         } else if (ammmo_basic > 0) {
+            playGunshot();
             ammmo_basic--;
             Vector2 bullet_position;
 
@@ -240,6 +261,30 @@ public class GigaGal {
             }
             level.getBullets().add(new Bullet(level, bullet_position, facing));
         }
+    }
+
+    public void playGunshot() {
+        Sound gunshot;
+        int gunshotid = MathUtils.random(1, 4);
+        switch (gunshotid) {
+            case 1:
+                gunshot = Assets.instance.soundAssets.gunshot1;
+                break;
+            case 2:
+                gunshot = Assets.instance.soundAssets.gunshot2;
+                break;
+            case 3:
+                gunshot = Assets.instance.soundAssets.gunshot3;
+                break;
+            case 4:
+                gunshot = Assets.instance.soundAssets.gunshot4;
+                break;
+            default:
+                gunshot = Assets.instance.soundAssets.gunshot1;
+                break;
+        }
+        long effectid = gunshot.play();
+        gunshot.setVolume(effectid, 0.5f);
     }
 
     boolean landedOnPlatform(Platform platform) {
@@ -288,12 +333,16 @@ public class GigaGal {
 
     private void moveDown(float delta) {
         if (jumpState == JumpState.GROUNDED && canDrop) {
+            Sound jumpEffect = Assets.instance.soundAssets.jumpEffect;
+            jumpEffect.play();
             position.y -= delta * Constants.GIGAGAL_MOVEMENT_SPEED;
             jumpState = JumpState.FALLING;
         }
     }
 
     private void startJump(Rectangle gigagal_bounding_box, Array<Platform> platforms) {
+        Sound jumpEffect = Assets.instance.soundAssets.jumpEffect;
+        jumpEffect.play();
         jumpState = JumpState.JUMPING;
         jumpStartTime = TimeUtils.nanoTime();
         continueJump(gigagal_bounding_box,  platforms);
@@ -331,6 +380,8 @@ public class GigaGal {
     }
 
     private void recoilFromEnemy(Direction hitDirection) {
+        Sound jumpEffect = Assets.instance.soundAssets.jumpEffect;
+        jumpEffect.play();
         jumpState = JumpState.RECOILING;
         velocity.y = Constants.GIGAGAL_KNOCKBACK_SPEED.y;
 
@@ -340,6 +391,10 @@ public class GigaGal {
             velocity.x = Constants.GIGAGAL_KNOCKBACK_SPEED.x;
         }
 
+    }
+
+    public void stopRunningEffect() {
+        runningEffect.stop();
     }
 
     public void render(SpriteBatch spriteBatch) {

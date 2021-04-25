@@ -42,7 +42,7 @@ public class GigaGalGame extends Game {
 		Gdx.app.log(TAG, ("debug mobile mode: " + debugMobile));
 		assets = Assets.instance;
 		assets.init();
-		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(Constants.MUSIC_PATH));
+		backgroundMusic = assets.musicAssets.backgroundMusic;
 		backgroundMusic.setLooping(true);
 		backgroundMusic.play();
 
@@ -53,7 +53,6 @@ public class GigaGalGame extends Game {
 	public void dispose() {
 		super.dispose();
 		assets.dispose();
-		backgroundMusic.dispose();
 	}
 
 	public void switchScreen(String screen_name) {

@@ -155,4 +155,13 @@ public class Constants {
 
     // Music and sounds
     public static final String MUSIC_PATH = "music/zapsplat_game_music_action_dark_electronic_dramatic_tension_electronica_002.mp3";
+    public static final String GUNSHOT1_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_001_62523.mp3";
+    public static final String GUNSHOT2_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_002_62524.mp3";
+    public static final String GUNSHOT3_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_003_62525.mp3";
+    public static final String GUNSHOT4_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_004_62526.mp3";
+    public static final String EXPLOSION1_PATH = "sounds/zapsplat_explosions_large_explosion_003_63093.mp3";
+    public static final String EXPLOSION2_PATH = "sounds/zapsplat_explosions_large_explosion_005_63095.mp3";
+    public static final String DEATH_SOUND_PATH = "sounds/esm_8bit_splat_explosion_bomb_boom_blast_cannon_retro_old_school_classic_cartoon.mp3";
+    public static final String JUMP_SOUND_PATH = "sounds/zapsplat_multimedia_game_sound_classic_jump_003_41724.mp3";
+    public static final String RUNNING_SOUND_PATH = "sounds/cartoon_footsteps_walking_fast_jogging.mp3";
 }
