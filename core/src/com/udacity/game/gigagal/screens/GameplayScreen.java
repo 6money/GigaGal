@@ -159,7 +159,7 @@ public class GameplayScreen extends ScreenAdapter {
                 Array<Integer> levelScores = preferenceManager.getScores(level_name);
                 boolean highScore = false;
 
-                if (level.score > levelScores.get(0)) {
+                if (levelScores.size == 0 || level.score > levelScores.get(0)) {
                     highScore = true;
                 }
 
