@@ -25,37 +25,44 @@ button
   orig: 64, 64
   offset: 0, 0
   index: -1
-button-jump
+button-drop
   rotate: false
   xy: 271, 27
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-button-move-left
+button-jump
   rotate: false
   xy: 793, 93
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-button-move-right
+button-move-left
   rotate: false
   xy: 305, 27
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-button-shoot
+button-move-right
   rotate: false
   xy: 827, 93
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+button-shoot
+  rotate: false
+  xy: 339, 27
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 diamond
   rotate: false
-  xy: 861, 110
+  xy: 373, 44
   size: 20, 15
   orig: 20, 15
   offset: 0, 0
@@ -160,7 +167,7 @@ explosion-small
   index: -1
 jumping-left
   rotate: false
-  xy: 339, 24
+  xy: 861, 90
   size: 29, 35
   orig: 29, 35
   offset: 0, 0
@@ -188,21 +195,21 @@ platform-hard
   index: -1
 powerup
   rotate: false
-  xy: 486, 42
+  xy: 373, 25
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup2
   rotate: false
-  xy: 503, 42
+  xy: 395, 42
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 standing-left
   rotate: false
-  xy: 370, 24
+  xy: 892, 90
   size: 28, 35
   orig: 28, 35
   offset: 0, 0
@@ -216,7 +223,7 @@ standing-right
   index: -1
 walk-1-left
   rotate: false
-  xy: 430, 24
+  xy: 952, 90
   size: 27, 35
   orig: 27, 35
   offset: 0, 0
@@ -230,7 +237,7 @@ walk-1-right
   index: -1
 walk-2-left
   rotate: false
-  xy: 459, 24
+  xy: 981, 90
   size: 25, 35
   orig: 25, 35
   offset: 0, 0
@@ -244,7 +251,7 @@ walk-2-right
   index: -1
 walk-3-left
   rotate: false
-  xy: 400, 24
+  xy: 922, 90
   size: 28, 35
   orig: 28, 35
   offset: 0, 0

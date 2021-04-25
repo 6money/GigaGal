@@ -62,7 +62,6 @@ project(":android") {
     dependencies {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
@@ -115,7 +114,7 @@ project(":core") {
 
     task packTextures {
         def inputDir = "$rootDir/core/rawAssets/sprites"
-        def outputDir = "$rootDir/android/assets/images"
+        def outputDir = "$rootDir/android/assets/images/packaged"
         inputs.dir inputDir
         outputs.dir outputDir
         doLast {

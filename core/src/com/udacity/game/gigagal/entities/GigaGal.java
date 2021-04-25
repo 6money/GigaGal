@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -38,7 +37,7 @@ public class GigaGal {
     public boolean jumpButtonPressed;
     public boolean leftButtonPressed;
     public boolean rightButtonPressed;
-    public boolean downButtonPressed;
+    public boolean dropButtonPressed;
 
     public GigaGal(Vector2 spawn_position, Level level) {
         this.spawn_position = spawn_position;
@@ -155,7 +154,7 @@ public class GigaGal {
                 moveLeft(delta);
             } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed) {
                 moveRight(delta);
-            } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || downButtonPressed) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
                 moveDown(delta);
             } else {
                 walkState = WalkState.STANDING;

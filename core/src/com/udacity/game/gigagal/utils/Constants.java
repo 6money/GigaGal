@@ -8,7 +8,7 @@ public class Constants {
     // world
     public static final Color BG_COLOR = Color.SKY;
     public static final float WORLD_SIZE = 160f;
-    public static final String TEXTURE_ATLAS = "images/gigagal.pack.atlas";
+    public static final String TEXTURE_ATLAS = "images/packaged/gigagal.pack.atlas";
     public static final float GRAVITY = 1000f;
     public static final int CHASE_CAM_SPEED = 200;
     public static final String PREFERENCES_NAME = "gigagal";
@@ -148,6 +148,7 @@ public class Constants {
     public static final String MOVE_RIGHT_BUTTON = "button-move-right";
     public static final String SHOOT_BUTTON = "button-shoot";
     public static final String JUMP_BUTTON = "button-jump";
+    public static final String DROP_BUTTON = "button-drop";
     public static final Vector2 BUTTON_CENTER = new Vector2(15, 15);
     public static final float BUTTON_RADIUS = 24;
 }

@@ -20,10 +20,12 @@ public class OnScreeenControls extends InputAdapter {
     private Vector2 moveRightCenter = new Vector2();
     private Vector2 shootCenter = new Vector2();
     private Vector2 jumpCenter = new Vector2();
+    private Vector2 dropCenter = new Vector2();
     private Vector2 pauseCenter = new Vector2();
     private int moveLeftPointer;
     private int moveRightPointer;
     private int jumpPointer;
+    private int dropPointer;
     private  GameplayScreen gameplayScreen;
 
     public final Viewport viewport;
@@ -49,11 +51,12 @@ public class OnScreeenControls extends InputAdapter {
         } else if (viewportPosition.dst(jumpCenter) < Constants.BUTTON_RADIUS) {
             jumpPointer = pointer;
             gigaGal.jumpButtonPressed = true;
-
+        } else if (viewportPosition.dst(dropCenter) < Constants.BUTTON_RADIUS) {
+            dropPointer = pointer;
+            gigaGal.dropButtonPressed = true;
         } else if (viewportPosition.dst(moveLeftCenter) < Constants.BUTTON_RADIUS) {
             moveLeftPointer = pointer;
             gigaGal.leftButtonPressed = true;
-
         } else if (viewportPosition.dst(moveRightCenter) < Constants.BUTTON_RADIUS) {
             moveRightPointer = pointer;
             gigaGal.rightButtonPressed = true;
@@ -97,6 +100,11 @@ public class OnScreeenControls extends InputAdapter {
             jumpPointer = 0;
         }
 
+        if (!Gdx.input.isTouched(dropPointer)) {
+            gigaGal.dropButtonPressed = false;
+            dropPointer = 0;
+        }
+
         if (!Gdx.input.isTouched(moveLeftPointer)) {
             gigaGal.leftButtonPressed = false;
             moveLeftPointer = 0;
@@ -135,6 +143,13 @@ public class OnScreeenControls extends InputAdapter {
                 Constants.BUTTON_CENTER
         );
 
+        Utils.drawTextureRegion(
+                batch,
+                Assets.instance.onscreenControlsAssets.drop,
+                dropCenter,
+                Constants.BUTTON_CENTER
+        );
+
         batch.end();
     }
 
@@ -145,13 +160,15 @@ public class OnScreeenControls extends InputAdapter {
         shapeRenderer.circle(moveRightCenter.x, moveRightCenter.y, Constants.BUTTON_RADIUS);
         shapeRenderer.circle(jumpCenter.x, jumpCenter.y, Constants.BUTTON_RADIUS);
         shapeRenderer.circle(shootCenter.x, shootCenter.y, Constants.BUTTON_RADIUS);
-        shapeRenderer.circle(pauseCenter.x, pauseCenter.y, Constants.BUTTON_RADIUS);
+        shapeRenderer.circle(pauseCenter.x, pauseCenter.y, Constants.BUTTON_RADIUS / 2);
+        shapeRenderer.circle(dropCenter.x, dropCenter.y, Constants.BUTTON_RADIUS);
     }
 
     public void recalculateButtonPositions() {
         moveLeftCenter.set(Constants.BUTTON_RADIUS, Constants.BUTTON_RADIUS * 1.5f);
         moveRightCenter.set(Constants.BUTTON_RADIUS * 3, Constants.BUTTON_RADIUS * 3 / 4);
         jumpCenter.set(viewport.getWorldWidth() - Constants.BUTTON_RADIUS * 3, Constants.BUTTON_RADIUS * 3 / 4);
+        dropCenter.set(viewport.getWorldWidth() - Constants.BUTTON_RADIUS * 5, Constants.BUTTON_RADIUS * 3 / 4);
         shootCenter.set(viewport.getWorldWidth() - Constants.BUTTON_RADIUS, Constants.BUTTON_RADIUS * 1.5f);
         pauseCenter.set(Constants.BUTTON_RADIUS, viewport.getWorldHeight() - Constants.BUTTON_RADIUS);
 
