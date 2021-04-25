@@ -152,4 +152,7 @@ public class Constants {
     public static final String DROP_BUTTON = "button-drop";
     public static final Vector2 BUTTON_CENTER = new Vector2(15, 15);
     public static final float BUTTON_RADIUS = 24;
+
+    // Music and sounds
+    public static final String MUSIC_PATH = "music/zapsplat_game_music_action_dark_electronic_dramatic_tension_electronica_002.mp3";
 }
