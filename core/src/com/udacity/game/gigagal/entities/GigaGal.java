@@ -33,6 +33,7 @@ public class GigaGal {
     private boolean hit_solid;
     private boolean canDrop;
     private Sound runningEffect;
+    private long runningEffectId;
 
     public Vector2 position;
     public int ammmo_basic;
@@ -47,8 +48,8 @@ public class GigaGal {
         this.spawn_position = spawn_position;
         this.level = level;
         runningEffect = Assets.instance.soundAssets.runningEffect;
-        runningEffect.loop();
-        runningEffect.pause();
+        runningEffectId = runningEffect.loop();
+        runningEffect.pause(runningEffectId);
         init();
     }
 
@@ -162,23 +163,23 @@ public class GigaGal {
         if (jumpState != JumpState.RECOILING && !hit_solid) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || leftButtonPressed) {
                 if (jumpState == JumpState.GROUNDED) {
-                    runningEffect.resume();
+                    runningEffect.resume(runningEffectId);
                 } else {
-                    runningEffect.pause();
+                    runningEffect.pause(runningEffectId);
                 }
                 moveLeft(delta);
             } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed) {
                 if (jumpState == JumpState.GROUNDED) {
-                    runningEffect.resume();
+                    runningEffect.resume(runningEffectId);
                 } else {
-                    runningEffect.pause();
+                    runningEffect.pause(runningEffectId);
                 }
                 moveRight(delta);
             } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
                 moveDown(delta);
             } else {
                 walkState = WalkState.STANDING;
-                runningEffect.pause();
+                runningEffect.pause(runningEffectId);
             }
 
 
