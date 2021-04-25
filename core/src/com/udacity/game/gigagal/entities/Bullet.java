@@ -70,7 +70,7 @@ public class Bullet {
                 break;
         }
         long effectid = explosion.play();
-        explosion.setVolume(effectid, 0.6f);
+        explosion.setVolume(effectid, 0.4f);
     }
 
     public void add_explosion(Vector2 bullet_center) {

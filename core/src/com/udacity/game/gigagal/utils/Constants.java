@@ -154,7 +154,7 @@ public class Constants {
     public static final float BUTTON_RADIUS = 24;
 
     // Music and sounds
-    public static final String MUSIC_PATH = "music/zapsplat_game_music_action_dark_electronic_dramatic_tension_electronica_002.mp3";
+    public static final String MUSIC_PATH = "music/music_zapsplat_game_music_arcade_electro_repeating_retro_arp_electro_drums_serious_012.mp3";
     public static final String GUNSHOT1_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_001_62523.mp3";
     public static final String GUNSHOT2_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_002_62524.mp3";
     public static final String GUNSHOT3_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_003_62525.mp3";
@@ -164,4 +164,6 @@ public class Constants {
     public static final String DEATH_SOUND_PATH = "sounds/esm_8bit_splat_explosion_bomb_boom_blast_cannon_retro_old_school_classic_cartoon.mp3";
     public static final String JUMP_SOUND_PATH = "sounds/zapsplat_multimedia_game_sound_classic_jump_003_41724.mp3";
     public static final String RUNNING_SOUND_PATH = "sounds/cartoon_footsteps_walking_fast_jogging.mp3";
+    public static final String COLLECT_DIAMOND_PATH = "sounds/zapsplat_multimedia_game_sound_coins_collect_several_at_once_001_40812.mp3";
+    public static final String COLLECT_POWERUP_PATH = "sounds/zapsplat_multimedia_game_sound_coin_collect_clink_002_54060.mp3";
 }

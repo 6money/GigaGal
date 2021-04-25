@@ -89,6 +89,9 @@ public class GigaGal {
             if (lives <= 0) {
                 return;
             }
+            Sound deathEffect = Assets.instance.soundAssets.deathEffect;
+            long effectid = deathEffect.play();
+            deathEffect.setVolume(effectid, 0.5f);
             respawn();
         }
 
@@ -192,6 +195,8 @@ public class GigaGal {
 
             boolean hit_powerup = gigagal_bounding_box.overlaps(power_bounding_box);
             if (hit_powerup) {
+                Sound collectEffect = Assets.instance.soundAssets.collectPowerup;
+                collectEffect.play();
                 if (powerup.ammo_type.equals("basic")) {
                     ammmo_basic += Constants.POWERUP_AMOUNT;
                 } else if (powerup.ammo_type.equals("big")) {
@@ -214,6 +219,8 @@ public class GigaGal {
 
             boolean hit_diamond = gigagal_bounding_box.overlaps(diamond_bounding_box);
             if (hit_diamond) {
+                Sound collectEffect = Assets.instance.soundAssets.collectDiamond;
+                collectEffect.play();
                 level.getDiamonds().removeValue(diamond, true);
                 level.score += Constants.DIAMOND_SCORE;
             }

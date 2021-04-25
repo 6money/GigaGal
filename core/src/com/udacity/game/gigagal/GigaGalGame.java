@@ -45,6 +45,7 @@ public class GigaGalGame extends Game {
 		backgroundMusic = assets.musicAssets.backgroundMusic;
 		backgroundMusic.setLooping(true);
 		backgroundMusic.play();
+		backgroundMusic.setVolume(0.6f);
 
 		switchScreen("menu");
 	}
