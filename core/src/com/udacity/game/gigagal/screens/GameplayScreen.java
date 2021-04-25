@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -164,6 +165,9 @@ public class GameplayScreen extends ScreenAdapter {
             if (levelEndOverlayStartTime == 0) {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
 
+                Sound winEffect = Assets.instance.soundAssets.winEffect;
+                winEffect.play();
+
                 PreferenceManager preferenceManager = PreferenceManager.get_instance();
                 Array<Integer> levelScores = preferenceManager.getScores(level_name);
                 boolean highScore = false;
@@ -190,6 +194,9 @@ public class GameplayScreen extends ScreenAdapter {
         } else if (level.gameOver) {
             if (levelEndOverlayStartTime == 0) {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
+
+                Sound loseEffect = Assets.instance.soundAssets.loseEffect;
+                loseEffect.play();
             }
 
             gameOverOverlay.render(spriteBatch);

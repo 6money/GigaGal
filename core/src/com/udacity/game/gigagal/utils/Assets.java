@@ -297,6 +297,8 @@ public class Assets implements Disposable, AssetErrorListener {
         public Sound runningEffect;
         public Sound collectDiamond;
         public Sound collectPowerup;
+        public Sound winEffect;
+        public Sound loseEffect;
 
         public SoundAssets() {
             gunshot1 = Gdx.audio.newSound(Gdx.files.internal(Constants.GUNSHOT1_PATH));
@@ -310,6 +312,8 @@ public class Assets implements Disposable, AssetErrorListener {
             runningEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.RUNNING_SOUND_PATH));
             collectDiamond = Gdx.audio.newSound(Gdx.files.internal(Constants.COLLECT_DIAMOND_PATH));
             collectPowerup = Gdx.audio.newSound(Gdx.files.internal(Constants.COLLECT_POWERUP_PATH));
+            winEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.WIN_EFFECT_PATH));
+            loseEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.LOSE_EFFECT_PATH));
         }
 
         public void dispose() {
@@ -324,6 +328,8 @@ public class Assets implements Disposable, AssetErrorListener {
             runningEffect.dispose();
             collectDiamond.dispose();
             collectPowerup.dispose();
+            winEffect.dispose();
+            loseEffect.dispose();
         }
     }
 }

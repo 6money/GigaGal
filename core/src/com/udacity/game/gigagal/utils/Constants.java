@@ -163,7 +163,9 @@ public class Constants {
     public static final String EXPLOSION2_PATH = "sounds/zapsplat_explosions_large_explosion_005_63095.mp3";
     public static final String DEATH_SOUND_PATH = "sounds/esm_8bit_splat_explosion_bomb_boom_blast_cannon_retro_old_school_classic_cartoon.mp3";
     public static final String JUMP_SOUND_PATH = "sounds/zapsplat_multimedia_game_sound_classic_jump_003_41724.mp3";
-    public static final String RUNNING_SOUND_PATH = "sounds/cartoon_footsteps_walking_fast_jogging.mp3";
+    public static final String RUNNING_SOUND_PATH = "sounds/zapsplat_lego_person_running_001_25160.mp3";
     public static final String COLLECT_DIAMOND_PATH = "sounds/zapsplat_multimedia_game_sound_coins_collect_several_at_once_001_40812.mp3";
     public static final String COLLECT_POWERUP_PATH = "sounds/zapsplat_multimedia_game_sound_coin_collect_clink_002_54060.mp3";
+    public static final String WIN_EFFECT_PATH = "sounds/little_robot_sound_factory_Jingle_Win_00.mp3";
+    public static final String LOSE_EFFECT_PATH = "sounds/multimedia_game_sound_retro_lose_tone_002_52984.mp3";
 }
