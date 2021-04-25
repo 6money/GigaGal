@@ -14,6 +14,7 @@ import com.udacity.game.gigagal.entities.ExitPortal;
 import com.udacity.game.gigagal.entities.GigaGal;
 import com.udacity.game.gigagal.entities.Platform;
 import com.udacity.game.gigagal.entities.PlatformHard;
+import com.udacity.game.gigagal.entities.PlatformMedium;
 import com.udacity.game.gigagal.entities.Powerup;
 
 import org.json.simple.JSONArray;
@@ -77,6 +78,8 @@ public class LevelLoader {
 
             if (platformObject.get(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.PLATFORM_HARD)) {
                 platform = new PlatformHard(x, y + height, width, height);
+            } else if (platformObject.get(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.PLATFORM_MEDIUM)) {
+                platform = new PlatformMedium(x, y + height, width, height);
             } else {
                 platform = new Platform(x, y + height, width, height);
             }

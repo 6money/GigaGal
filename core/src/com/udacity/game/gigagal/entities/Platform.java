@@ -11,6 +11,7 @@ public class Platform implements Comparable<Platform> {
     public float width;
     public float height;
     public boolean solid;
+    public boolean droppable;
 
     public Platform(float left, float top, float width, float height) {
         this.top = top;
@@ -20,6 +21,7 @@ public class Platform implements Comparable<Platform> {
         this.width = width;
         this.height = height;
         solid = false;
+        droppable = true;
     }
 
     public void render(SpriteBatch spriteBatch) {

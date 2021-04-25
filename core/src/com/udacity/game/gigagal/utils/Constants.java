@@ -26,6 +26,7 @@ public class Constants {
     public static final String WALK_3_LEFT = "walk-3-left";
     public static final String PLATFORM = "platform";
     public static final String PLATFORM_HARD = "platform-hard";
+    public static final String PLATFORM_MEDIUM = "platform-medium";
     public static final String ENEMY = "enemy";
     public static final String ENEMY2 = "enemy2";
     public static final String BULLET = "bullet";

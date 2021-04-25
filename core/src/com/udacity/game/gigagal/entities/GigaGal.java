@@ -29,6 +29,7 @@ public class GigaGal {
     private long walkStartTime;
     private Level level;
     private boolean hit_solid;
+    private boolean canDrop;
 
     public Vector2 position;
     public int ammmo_basic;
@@ -243,6 +244,7 @@ public class GigaGal {
 
     boolean landedOnPlatform(Platform platform) {
         boolean landed = false;
+        canDrop = true;
 
         if (position_last_frame.y - Constants.GIGAGAL_EYE_HEIGHT >= platform.top &&
                 position.y - Constants.GIGAGAL_EYE_HEIGHT <= platform.top) {
@@ -251,10 +253,13 @@ public class GigaGal {
 
             if (left_toe < platform.right && left_toe > platform.left) {
                 landed = true;
+                canDrop = platform.droppable;
             } else if (right_toe < platform.right && right_toe > platform.left) {
                 landed = true;
+                canDrop = platform.droppable;
             } else if (left_toe < platform.left && right_toe > platform.right) {
                 landed = true;
+                canDrop = platform.droppable;
             }
         }
 
@@ -282,7 +287,7 @@ public class GigaGal {
     }
 
     private void moveDown(float delta) {
-        if (jumpState == JumpState.GROUNDED) {
+        if (jumpState == JumpState.GROUNDED && canDrop) {
             position.y -= delta * Constants.GIGAGAL_MOVEMENT_SPEED;
             jumpState = JumpState.FALLING;
         }
