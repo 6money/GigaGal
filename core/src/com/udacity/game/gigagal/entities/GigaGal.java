@@ -38,6 +38,7 @@ public class GigaGal {
     public boolean jumpButtonPressed;
     public boolean leftButtonPressed;
     public boolean rightButtonPressed;
+    public boolean downButtonPressed;
 
     public GigaGal(Vector2 spawn_position, Level level) {
         this.spawn_position = spawn_position;
@@ -154,6 +155,8 @@ public class GigaGal {
                 moveLeft(delta);
             } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed) {
                 moveRight(delta);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || downButtonPressed) {
+                moveDown(delta);
             } else {
                 walkState = WalkState.STANDING;
             }
@@ -277,6 +280,13 @@ public class GigaGal {
         walkState = WalkState.WALKING;
         facing = Direction.RIGHT;
         position.x += delta * Constants.GIGAGAL_MOVEMENT_SPEED;
+    }
+
+    private void moveDown(float delta) {
+        if (jumpState == JumpState.GROUNDED) {
+            position.y -= delta * Constants.GIGAGAL_MOVEMENT_SPEED;
+            jumpState = JumpState.FALLING;
+        }
     }
 
     private void startJump(Rectangle gigagal_bounding_box, Array<Platform> platforms) {
