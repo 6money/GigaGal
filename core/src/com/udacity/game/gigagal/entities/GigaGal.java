@@ -133,12 +133,7 @@ public class GigaGal {
         }
 
         for (Enemy enemy : level.getEnemies()) {
-            Rectangle enemy_bounding_box = new Rectangle(
-                    enemy.position.x - Constants.ENEMY_COLLISION_RADIUS,
-                    enemy.position.y - Constants.ENEMY_COLLISION_RADIUS,
-                    Constants.ENEMY_COLLISION_RADIUS * 2,
-                    Constants.ENEMY_COLLISION_RADIUS * 2
-            );
+            Rectangle enemy_bounding_box = enemy.enemy_bounding_box;
 
             boolean hit_enemy = gigagal_bounding_box.overlaps(enemy_bounding_box);
             if (hit_enemy && position.x + Constants.GIGAGAL_STANCE_WIDTH < enemy.position.x + Constants.ENEMY_COLLISION_RADIUS / 2) {
@@ -191,12 +186,7 @@ public class GigaGal {
 
         level.getPowerups().begin();
         for (Powerup powerup : level.getPowerups()) {
-            Rectangle power_bounding_box = new Rectangle(
-                    powerup.position.x + Constants.POWERUP_CENTER.x,
-                    powerup.position.y + Constants.POWERUP_CENTER.y,
-                    Constants.POWERUP_CENTER.x * 2,
-                    Constants.POWERUP_CENTER.y * 2
-            );
+            Rectangle power_bounding_box = powerup.powerup_bounding_box;
 
             boolean hit_powerup = gigagal_bounding_box.overlaps(power_bounding_box);
             if (hit_powerup) {
@@ -214,12 +204,7 @@ public class GigaGal {
 
         level.getDiamonds().begin();
         for (Diamond diamond : level.getDiamonds()) {
-            Rectangle diamond_bounding_box = new Rectangle(
-                    diamond.position.x,
-                    diamond.position.y,
-                    Constants.DIAMOND_SIZE.x,
-                    Constants.DIAMOND_SIZE.y
-            );
+            Rectangle diamond_bounding_box = diamond.diamond_bounding_box;
 
             boolean hit_diamond = gigagal_bounding_box.overlaps(diamond_bounding_box);
             if (hit_diamond) {

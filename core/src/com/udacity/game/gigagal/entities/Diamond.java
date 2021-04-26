@@ -9,9 +9,16 @@ import com.udacity.game.gigagal.utils.Constants;
 
 public class Diamond {
     public Vector2 position;
+    public Rectangle diamond_bounding_box;
 
     public Diamond(Vector2 pos) {
         position = pos;
+        diamond_bounding_box = new Rectangle(
+                position.x,
+                position.y,
+                Constants.DIAMOND_SIZE.x,
+                Constants.DIAMOND_SIZE.y
+        );
     }
 
     public void render(SpriteBatch spriteBatch) {
@@ -19,6 +26,6 @@ public class Diamond {
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {
-        shapeRenderer.rect(position.x, position.y, Constants.DIAMOND_SIZE.x, Constants.DIAMOND_SIZE.y);
+        shapeRenderer.rect(diamond_bounding_box.x, diamond_bounding_box.y, diamond_bounding_box.width, diamond_bounding_box.height);
     }
 }

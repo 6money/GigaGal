@@ -3,6 +3,7 @@ package com.udacity.game.gigagal.entities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.udacity.game.gigagal.utils.Assets;
@@ -22,6 +23,7 @@ public class Enemy {
     protected float speed;
 
     public Vector2 position;
+    public Rectangle enemy_bounding_box;
 
     public Enemy(Platform platform) {
         this.platform = platform;
@@ -35,6 +37,12 @@ public class Enemy {
         this.health = Constants.ENEMY_HEALTH;
         random_phase = MathUtils.random();
         speed = MathUtils.random(Constants.ENEMY_SPEED, Constants.ENEMY_SPEED * 1.5f);
+        enemy_bounding_box = new Rectangle(
+                position.x - Constants.ENEMY_COLLISION_RADIUS,
+                position.y - Constants.ENEMY_COLLISION_RADIUS,
+                Constants.ENEMY_COLLISION_RADIUS * 2,
+                Constants.ENEMY_COLLISION_RADIUS * 2
+        );
     }
 
     public int getHealth() {
@@ -64,6 +72,9 @@ public class Enemy {
         float elapsed_time = Utils.secondsSince(start_time);
         float bob_multiplier = 1 + sin(PI2 * elapsed_time / Constants.ENEMY_BOB_PERIOD) + random_phase;
         position.y = platform.top  + Constants.ENEMY_CENTER_POS.y + Constants.ENEMY_BOB_APLITUDE * bob_multiplier;
+
+        enemy_bounding_box.x = position.x - Constants.ENEMY_COLLISION_RADIUS;
+        enemy_bounding_box.y = position.y - Constants.ENEMY_COLLISION_RADIUS;
     }
 
     public void render(SpriteBatch spriteBatch) {
@@ -72,10 +83,10 @@ public class Enemy {
 
     public void debugRender(ShapeRenderer shapeRenderer) {
         shapeRenderer.rect(
-                position.x - Constants.ENEMY_COLLISION_RADIUS,
-                position.y - Constants.ENEMY_COLLISION_RADIUS,
-                Constants.ENEMY_COLLISION_RADIUS * 2,
-                Constants.ENEMY_COLLISION_RADIUS * 2
+                enemy_bounding_box.x,
+                enemy_bounding_box.y,
+                enemy_bounding_box.width,
+                enemy_bounding_box.height
         );
     }
 

@@ -92,10 +92,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         bitmapFont.draw(spriteBatch, "LEVEL SELECT", level_select_button.x + level_select_button.width / 2, level_select_button.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
         bitmapFont.draw(spriteBatch, "HIGH SCORES", highScoreButton.x + highScoreButton.width / 2, highScoreButton.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
         bitmapFont.draw(spriteBatch, "OPTIONS", optionsButton.x + optionsButton.width / 2, optionsButton.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
-
         spriteBatch.end();
-
-
     }
 
 
