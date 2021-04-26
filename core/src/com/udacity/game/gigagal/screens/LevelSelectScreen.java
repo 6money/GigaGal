@@ -81,7 +81,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
 
         spriteBatch.setProjectionMatrix(extendViewport.getCamera().combined);
         spriteBatch.begin();
-        bitmapFont.getData().setScale(0.8f);
+        bitmapFont.getData().setScale(0.5f);
         bitmapFont.draw(spriteBatch, "SELECT A LEVEL", extendViewport.getWorldWidth() / 2, extendViewport.getWorldHeight() / 1.2f, 0, Align.center, false);
         Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, level1_button.x, level1_button.y, level1_button.width, level1_button.height);
         Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, level2_button.x, level2_button.y, level2_button.width, level2_button.height);
@@ -90,7 +90,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
         bitmapFont.draw(spriteBatch, "LEVEL 1", extendViewport.getWorldWidth() / 2, level1_button.y + level1_button.height / 1.3f, 0, Align.center, false);
         bitmapFont.draw(spriteBatch, "LEVEL 2", extendViewport.getWorldWidth() / 2, level2_button.y + level2_button.height / 1.3f, 0, Align.center, false);
         bitmapFont.draw(spriteBatch, "LEVEL 3", extendViewport.getWorldWidth() / 2, level3_button.y + level3_button.height / 1.3f, 0, Align.center, false);
-        bitmapFont.getData().setScale(0.4f);
+        bitmapFont.getData().setScale(0.3f);
         bitmapFont.draw(spriteBatch, "BACK", back_button.width / 2, back_button.y + back_button.height / 1.5f, 0, Align.center, false);
         spriteBatch.end();
 

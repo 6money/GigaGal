@@ -7,6 +7,7 @@ import com.udacity.game.gigagal.screens.GameplayScreen;
 import com.udacity.game.gigagal.screens.HighScoresScreen;
 import com.udacity.game.gigagal.screens.LevelSelectScreen;
 import com.udacity.game.gigagal.screens.MenuScreen;
+import com.udacity.game.gigagal.screens.OptionsScreen;
 import com.udacity.game.gigagal.utils.Assets;
 import com.udacity.game.gigagal.utils.Constants;
 
@@ -69,6 +70,8 @@ public class GigaGalGame extends Game {
 			setScreen(new LevelSelectScreen(this));
 		} else if (screen_name.equals("high_score")) {
 			setScreen(new HighScoresScreen(this));
+		} else if (screen_name.equals("options")) {
+			setScreen(new OptionsScreen(this));
 		} else {
 			setScreen(new MenuScreen(this));
 		}

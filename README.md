@@ -14,3 +14,6 @@ Gigagal is basic platforming game in which the player controls GigaGal and attem
 Diamond asset from: https://pixlr.com/stock/details/1001468587-pixel-art-diamond/
 
 Music and sound effects from: https://www.zapsplat.com
+
+Scene2D UI skin made by: https://ray3k.wordpress.com
+Used under CC BY 4.0 license: https://creativecommons.org/licenses/by/4.0/

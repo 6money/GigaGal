@@ -12,6 +12,8 @@ public class Constants {
     public static final float GRAVITY = 1000f;
     public static final int CHASE_CAM_SPEED = 200;
     public static final String PREFERENCES_NAME = "gigagal";
+    public static final String SKIN_PATH = "images/ParticleParkUI.json";
+    public static final String FONT_FILE = "font/dialog.fnt";
 
     // sprites
     public static final String STANDING_RIGHT = "standing-right";
@@ -138,7 +140,6 @@ public class Constants {
     public static final String VICTORY_SCORE = "Score: ";
     public static final String GAME_OVER_MESSAGE = "Game Over, Gal";
     public static final int EXPLOSION_COUNT = 200;
-    public static final String FONT_FILE = "font/header.fnt";
     public static final String PAUSED_MESSAGE = "PAUSED";
     public static final String RESUME_MESSAGE = "RESUME";
     public static final String QUIT_MESSAGE = "QUIT";
