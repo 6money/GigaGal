@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.udacity.game.gigagal.GigaGalGame;
 import com.udacity.game.gigagal.utils.Constants;
 import com.udacity.game.gigagal.utils.PreferenceManager;
