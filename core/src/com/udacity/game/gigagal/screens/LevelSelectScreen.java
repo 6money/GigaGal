@@ -87,11 +87,11 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
         Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, level2_button.x, level2_button.y, level2_button.width, level2_button.height);
         Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, level3_button.x, level3_button.y, level3_button.width, level3_button.height);
         Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, back_button.x, back_button.y, back_button.width, back_button.height);
-        bitmapFont.draw(spriteBatch, "LEVEL 1", extendViewport.getWorldWidth() / 2, level1_button.y + level1_button.height / 1.3f, 0, Align.center, false);
-        bitmapFont.draw(spriteBatch, "LEVEL 2", extendViewport.getWorldWidth() / 2, level2_button.y + level2_button.height / 1.3f, 0, Align.center, false);
-        bitmapFont.draw(spriteBatch, "LEVEL 3", extendViewport.getWorldWidth() / 2, level3_button.y + level3_button.height / 1.3f, 0, Align.center, false);
+        bitmapFont.draw(spriteBatch, "LEVEL 1", level1_button.x + level1_button.width / 2, level1_button.y + level1_button.height / 1.3f, 0, Align.center, false);
+        bitmapFont.draw(spriteBatch, "LEVEL 2", level2_button.x + level2_button.width / 2, level2_button.y + level2_button.height / 1.3f, 0, Align.center, false);
+        bitmapFont.draw(spriteBatch, "LEVEL 3", level3_button.x + level3_button.width / 2, level3_button.y + level3_button.height / 1.3f, 0, Align.center, false);
         bitmapFont.getData().setScale(0.3f);
-        bitmapFont.draw(spriteBatch, "BACK", back_button.width / 2, back_button.y + back_button.height / 1.5f, 0, Align.center, false);
+        bitmapFont.draw(spriteBatch, "BACK", back_button.x + back_button.width / 2, back_button.y + back_button.height / 1.5f, 0, Align.center, false);
         spriteBatch.end();
 
 
