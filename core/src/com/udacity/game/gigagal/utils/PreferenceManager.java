@@ -66,4 +66,40 @@ public class PreferenceManager {
         preferences.putString(levelName, stringBuilder.toString());
         preferences.flush();
     }
+
+    public boolean getMusic() {
+        return preferences.getBoolean("musicEnabled", true);
+    }
+
+    public void setMusic(boolean value) {
+        preferences.putBoolean("musicEnabled", value);
+        preferences.flush();
+    }
+
+    public float getMusicVolume() {
+        return preferences.getFloat("musicVolume", 100f);
+    }
+
+    public void setMusicVolume(float value) {
+        preferences.putFloat("musicVolume", value);
+        preferences.flush();
+    }
+
+    public boolean getSound() {
+        return preferences.getBoolean("soundEnabled", true);
+    }
+
+    public void setSound(boolean value) {
+        preferences.putBoolean("soundEnabled", value);
+        preferences.flush();
+    }
+
+    public float getSoundVolume() {
+        return preferences.getFloat("soundVolume", 100f);
+    }
+
+    public void setSoundVolume(float value) {
+        preferences.putFloat("soundVolume", value);
+        preferences.flush();
+    }
 }
