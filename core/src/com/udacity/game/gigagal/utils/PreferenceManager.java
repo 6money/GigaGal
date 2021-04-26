@@ -102,4 +102,15 @@ public class PreferenceManager {
         preferences.putFloat("soundVolume", value);
         preferences.flush();
     }
+
+    public void removeData() {
+        preferences.remove("musicEnabled");
+        preferences.remove("musicVolume");
+        preferences.remove("soundEnabled");
+        preferences.remove("soundVolume");
+        preferences.remove("Level1");
+        preferences.remove("Level2");
+        preferences.remove("Level3");
+        preferences.flush();
+    }
 }

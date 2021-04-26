@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -29,6 +30,11 @@ public class OptionsScreen implements Screen {
     private Button buttonBack;
     private Table tableOptions;
     private Window window;
+    private CheckBox checkboxMusic;
+    private CheckBox checkboxSounds;
+    private Slider sliderMusic;
+    private Slider sliderSounds;
+    private PreferenceManager preferenceManager;
 
     public OptionsScreen(GigaGalGame gigaGalGame) {
         game = gigaGalGame;
@@ -36,13 +42,7 @@ public class OptionsScreen implements Screen {
 
     @Override
     public void show() {
-        final PreferenceManager preferenceManager = PreferenceManager.get_instance();
-        boolean musicEnabled = preferenceManager.getMusic();
-        boolean soundEnabled = preferenceManager.getSound();
-        float musicVolume = preferenceManager.getMusicVolume();
-        float soundVolume = preferenceManager.getSoundVolume();
-
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage();
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
 
         buttonBack = new Button(skin);
@@ -63,8 +63,7 @@ public class OptionsScreen implements Screen {
 
         tableOptions.row().pad(5);
         tableOptions.add(new Label("Music", skin)).pad(5);
-        final CheckBox checkboxMusic = new CheckBox(null, skin);
-        checkboxMusic.setChecked(musicEnabled);
+        checkboxMusic = new CheckBox(null, skin);
         tableOptions.add(checkboxMusic).pad(5);
         checkboxMusic.addListener(new ClickListener() {
             @Override
@@ -76,8 +75,7 @@ public class OptionsScreen implements Screen {
 
         tableOptions.row().pad(5);
         tableOptions.add(new Label("Music Volume", skin)).pad(5);
-        final Slider sliderMusic = new Slider(0, 100, 5, false, skin);
-        sliderMusic.setValue(musicVolume);
+        sliderMusic = new Slider(0, 100, 5, false, skin);
         tableOptions.add(sliderMusic).pad(5);
         sliderMusic.addListener(new DragListener() {
             @Override
@@ -89,8 +87,7 @@ public class OptionsScreen implements Screen {
 
         tableOptions.row().pad(5);
         tableOptions.add(new Label("Sound Effects", skin)).pad(5);
-        final CheckBox checkboxSounds = new CheckBox(null, skin);
-        checkboxSounds.setChecked(soundEnabled);
+        checkboxSounds = new CheckBox(null, skin);
         tableOptions.add(checkboxSounds).pad(5);
         checkboxSounds.addListener(new ClickListener() {
             @Override
@@ -102,16 +99,27 @@ public class OptionsScreen implements Screen {
 
         tableOptions.row().pad(5);
         tableOptions.add(new Label("Effects Volume", skin)).pad(5);
-        final Slider sliderEffects = new Slider(0, 100, 5, false, skin);
-        sliderEffects.setValue(soundVolume);
-        tableOptions.add(sliderEffects).pad(5);
-        sliderEffects.addListener(new DragListener() {
+        sliderSounds = new Slider(0, 100, 5, false, skin);
+        tableOptions.add(sliderSounds).pad(5);
+        sliderSounds.addListener(new DragListener() {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                preferenceManager.setSoundVolume(sliderEffects.getValue());
+                preferenceManager.setSoundVolume(sliderSounds.getValue());
                 SoundManager.get_instance().updateSoundPreferences();
             }
         });
+
+        tableOptions.row().pad(5);
+        TextButton buttonResetData = new TextButton("Reset all data", skin);
+        tableOptions.add(buttonResetData);
+        buttonResetData.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                preferenceManager.removeData();
+                init_saved_settings();
+            }
+        });
+        tableOptions.add(new Label("This includes highsores", skin));
 
         window = new Window("Options", skin);
         window.add(tableOptions);
@@ -121,7 +129,24 @@ public class OptionsScreen implements Screen {
         stage.addActor(window);
         stage.addActor(buttonBack);
 
+        preferenceManager = PreferenceManager.get_instance();
+        init_saved_settings();
+
         Gdx.input.setInputProcessor(stage);
+    }
+
+    private void init_saved_settings() {
+        boolean musicEnabled = preferenceManager.getMusic();
+        boolean soundEnabled = preferenceManager.getSound();
+        float musicVolume = preferenceManager.getMusicVolume();
+        float soundVolume = preferenceManager.getSoundVolume();
+
+        checkboxMusic.setChecked(musicEnabled);
+        sliderMusic.setValue(musicVolume);
+        checkboxSounds.setChecked(soundEnabled);
+        sliderSounds.setValue(soundVolume);
+
+        SoundManager.get_instance().updateSoundPreferences();
     }
 
     @Override
