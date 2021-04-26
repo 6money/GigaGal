@@ -46,7 +46,7 @@ public class GigaGalGame extends Game {
 		soundManager = SoundManager.get_instance();
 		soundManager.playMusic(Constants.MUSIC_PATH);
 
-		switchScreen("menu");
+		setScreen(new MenuScreen(this));
 	}
 
 	@Override
@@ -54,6 +54,7 @@ public class GigaGalGame extends Game {
 		super.dispose();
 		assets.dispose();
 		soundManager.dispose();
+		screen.dispose();
 	}
 
 	public void switchScreen(String screen_name) {
@@ -64,14 +65,19 @@ public class GigaGalGame extends Game {
 		Gdx.input.setInputProcessor(null);
 
 		if (screen_name.equals("gameplay")) {
+			screen.dispose();
 			setScreen(new GameplayScreen(this, level));
 		}	else if (screen_name.equals("level select")) {
+			screen.dispose();
 			setScreen(new LevelSelectScreen(this));
 		} else if (screen_name.equals("high_score")) {
+			screen.dispose();
 			setScreen(new HighScoresScreen(this));
 		} else if (screen_name.equals("options")) {
+			screen.dispose();
 			setScreen(new OptionsScreen(this));
 		} else {
+			screen.dispose();
 			setScreen(new MenuScreen(this));
 		}
 	}

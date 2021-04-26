@@ -74,11 +74,6 @@ public class SoundManager implements Disposable, AssetErrorListener {
     }
 
 
-    public Sound getSound(String soundname) {
-        return assetManager.get(soundname);
-    }
-
-
     public long playSound(String soundname) {
         return playSound(soundname, false);
     }
@@ -150,5 +145,7 @@ public class SoundManager implements Disposable, AssetErrorListener {
     @Override
     public void dispose() {
         assetManager.dispose();
+        backgroundMusic.stop();
+        backgroundMusic.dispose();
     }
 }
