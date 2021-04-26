@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.udacity.game.gigagal.utils.Assets;
 import com.udacity.game.gigagal.utils.Constants;
+import com.udacity.game.gigagal.utils.Enums.Direction;
 import com.udacity.game.gigagal.utils.Utils;
 
 import static com.badlogic.gdx.math.MathUtils.PI2;
@@ -22,6 +23,7 @@ public class Enemy {
     protected long start_time;
     protected float speed;
     protected float speedCharge;
+    protected boolean charging;
 
     public Vector2 position;
     public Rectangle enemy_bounding_box;
@@ -37,6 +39,7 @@ public class Enemy {
         start_time = TimeUtils.nanoTime();
         this.health = Constants.ENEMY_HEALTH;
         random_phase = MathUtils.random();
+        charging = false;
         speed = MathUtils.random(Constants.ENEMY_SPEED, Constants.ENEMY_SPEED * 1.5f);
         speedCharge = Constants.ENEMY_SPEED_CHARGE;
         enemy_bounding_box = new Rectangle(
@@ -57,6 +60,7 @@ public class Enemy {
 
     public void update(float delta) {
         if (platform.hasPlayer) {
+            charging = true;
             float move_distance = delta * speedCharge;
             if (platform.playerPosition < position.x - platform.left) {
                 direction = Direction.LEFT;
@@ -69,6 +73,7 @@ public class Enemy {
                 position.x += move_distance;
             }
         } else {
+            charging = false;
             float move_distance = delta * speed;
             if (direction == Direction.LEFT) {
                 position.x -= move_distance;
@@ -94,7 +99,13 @@ public class Enemy {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(Assets.instance.enemyAssets.enemy, position.x  - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y);
+        if (charging && direction == Direction.LEFT) {
+            Utils.drawTextureRegion(spriteBatch, Assets.instance.enemyAssets.enemy, position.x - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y, 30);
+        } else if (charging && direction == Direction.RIGHT) {
+            Utils.drawTextureRegion(spriteBatch, Assets.instance.enemyAssets.enemy, position.x - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y, -30);
+        } else {
+            Utils.drawTextureRegion(spriteBatch, Assets.instance.enemyAssets.enemy, position.x - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y);
+        }
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {
@@ -105,6 +116,4 @@ public class Enemy {
                 enemy_bounding_box.height
         );
     }
-
-    private enum Direction{LEFT, RIGHT}
 }
