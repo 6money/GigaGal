@@ -175,11 +175,13 @@ public class GigaGal {
                     runningEffect.pause(runningEffectId);
                 }
                 moveRight(delta);
-            } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
-                moveDown(delta);
             } else {
                 walkState = WalkState.STANDING;
                 runningEffect.pause(runningEffectId);
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
+                moveDown(delta);
             }
 
 
