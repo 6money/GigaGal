@@ -21,6 +21,7 @@ public class Enemy {
     protected int health;
     protected long start_time;
     protected float speed;
+    protected float speedCharge;
 
     public Vector2 position;
     public Rectangle enemy_bounding_box;
@@ -37,6 +38,7 @@ public class Enemy {
         this.health = Constants.ENEMY_HEALTH;
         random_phase = MathUtils.random();
         speed = MathUtils.random(Constants.ENEMY_SPEED, Constants.ENEMY_SPEED * 1.5f);
+        speedCharge = Constants.ENEMY_SPEED_CHARGE;
         enemy_bounding_box = new Rectangle(
                 position.x - Constants.ENEMY_COLLISION_RADIUS,
                 position.y - Constants.ENEMY_COLLISION_RADIUS,
@@ -54,19 +56,33 @@ public class Enemy {
     }
 
     public void update(float delta) {
-        float move_distance = delta * speed;
-        if (direction == Direction.LEFT) {
-            position.x -= move_distance;
+        if (platform.hasPlayer) {
+            float move_distance = delta * speedCharge;
+            if (platform.playerPosition < position.x - platform.left) {
+                direction = Direction.LEFT;
+            } else {
+                direction = Direction.RIGHT;
+            }
+            if (direction == Direction.LEFT) {
+                position.x -= move_distance;
+            } else {
+                position.x += move_distance;
+            }
         } else {
-            position.x += move_distance;
-        }
+            float move_distance = delta * speed;
+            if (direction == Direction.LEFT) {
+                position.x -= move_distance;
+            } else {
+                position.x += move_distance;
+            }
 
-        if (position.x < platform.left) {
-            direction = Direction.RIGHT;
-            position.x = platform.left;
-        } else if (position.x > platform.left + platform.width) {
-            direction = Direction.LEFT;
-            position.x = platform.left + platform.width;
+            if (position.x < platform.left) {
+                direction = Direction.RIGHT;
+                position.x = platform.left;
+            } else if (position.x > platform.left + platform.width) {
+                direction = Direction.LEFT;
+                position.x = platform.left + platform.width;
+            }
         }
 
         float elapsed_time = Utils.secondsSince(start_time);

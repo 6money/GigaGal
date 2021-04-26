@@ -122,6 +122,7 @@ public class GigaGal {
             }
 
             for (Platform platform: platforms) {
+                platform.hasPlayer = false;
                 if (landedOnPlatform(platform)) {
                     jumpState = JumpState.GROUNDED;
                     velocity.y = 0;
@@ -287,14 +288,17 @@ public class GigaGal {
 
             if (left_toe < platform.right && left_toe > platform.left) {
                 landed = true;
-                canDrop = platform.droppable;
             } else if (right_toe < platform.right && right_toe > platform.left) {
                 landed = true;
-                canDrop = platform.droppable;
             } else if (left_toe < platform.left && right_toe > platform.right) {
                 landed = true;
-                canDrop = platform.droppable;
             }
+        }
+
+        if (landed) {
+            canDrop = platform.droppable;
+            platform.hasPlayer = true;
+            platform.playerPosition = position.x - platform.left;
         }
 
         return landed;

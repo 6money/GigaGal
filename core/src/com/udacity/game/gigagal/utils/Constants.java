@@ -67,6 +67,7 @@ public class Constants {
     // ememy
     public  static final Vector2 ENEMY_CENTER_POS = new Vector2(14, 22);
     public  static final float ENEMY_SPEED = 20f;
+    public  static final float ENEMY_SPEED_CHARGE = 80f;
     public  static final float ENEMY_BOB_APLITUDE = 2f;
     public  static final float ENEMY_BOB_PERIOD = 3f;
     public  static final float ENEMY_COLLISION_RADIUS = 15f;
