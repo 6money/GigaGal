@@ -13,10 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.udacity.game.gigagal.GigaGalGame;
 import com.udacity.game.gigagal.utils.Constants;
 import com.udacity.game.gigagal.utils.PreferenceManager;
+import com.udacity.game.gigagal.utils.SoundManager;
 
 public class OptionsScreen implements Screen {
     public static final String TAG = OptionsScreen.class.getName();
@@ -68,6 +70,7 @@ public class OptionsScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 preferenceManager.setMusic(checkboxMusic.isChecked());
+                SoundManager.get_instance().updateSoundPreferences();
             }
         });
 
@@ -76,10 +79,11 @@ public class OptionsScreen implements Screen {
         final Slider sliderMusic = new Slider(0, 100, 5, false, skin);
         sliderMusic.setValue(musicVolume);
         tableOptions.add(sliderMusic).pad(5);
-        sliderMusic.addListener(new ClickListener() {
+        sliderMusic.addListener(new DragListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void dragStop(InputEvent event, float x, float y, int pointer) {
                 preferenceManager.setMusicVolume(sliderMusic.getValue());
+                SoundManager.get_instance().updateSoundPreferences();
             }
         });
 
@@ -92,6 +96,7 @@ public class OptionsScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 preferenceManager.setSound(checkboxSounds.isChecked());
+                SoundManager.get_instance().updateSoundPreferences();
             }
         });
 
@@ -100,10 +105,11 @@ public class OptionsScreen implements Screen {
         final Slider sliderEffects = new Slider(0, 100, 5, false, skin);
         sliderEffects.setValue(soundVolume);
         tableOptions.add(sliderEffects).pad(5);
-        sliderEffects.addListener(new ClickListener() {
+        sliderEffects.addListener(new DragListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void dragStop(InputEvent event, float x, float y, int pointer) {
                 preferenceManager.setSoundVolume(sliderEffects.getValue());
+                SoundManager.get_instance().updateSoundPreferences();
             }
         });
 

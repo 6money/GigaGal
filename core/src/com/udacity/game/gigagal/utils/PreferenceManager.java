@@ -77,7 +77,7 @@ public class PreferenceManager {
     }
 
     public float getMusicVolume() {
-        return preferences.getFloat("musicVolume", 100f);
+        return preferences.getFloat("musicVolume", 60f);
     }
 
     public void setMusicVolume(float value) {

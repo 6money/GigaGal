@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -27,8 +25,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public ExitPortalAssets exitPortalAssets;
     public OnscreenControlsAssets onscreenControlsAssets;
     public DiamondAssets diamondAssets;
-    public MusicAssets musicAssets;
-    public SoundAssets soundAssets;
 
     private Assets() {
     }
@@ -49,8 +45,6 @@ public class Assets implements Disposable, AssetErrorListener {
         exitPortalAssets = new ExitPortalAssets(atlas);
         onscreenControlsAssets = new OnscreenControlsAssets(atlas);
         diamondAssets = new DiamondAssets(atlas);
-        musicAssets = new MusicAssets();
-        soundAssets = new SoundAssets();
     }
 
     @Override
@@ -60,8 +54,6 @@ public class Assets implements Disposable, AssetErrorListener {
 
     @Override
     public void dispose() {
-        musicAssets.dispose();
-        soundAssets.dispose();
         assetManager.dispose();
     }
 
@@ -266,68 +258,6 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public DiamondAssets(TextureAtlas atlas) {
             diamond = atlas.findRegion(Constants.DIAMOND);
-        }
-    }
-
-
-    public class MusicAssets {
-        public Music backgroundMusic;
-
-        public MusicAssets() {
-            backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(Constants.MUSIC_PATH));
-        }
-
-        public void dispose() {
-            backgroundMusic.dispose();
-        }
-    }
-
-
-    public class SoundAssets {
-        public Sound gunshot1;
-        public Sound gunshot2;
-        public Sound gunshot3;
-        public Sound gunshot4;
-        public Sound explosion1;
-        public Sound explosion2;
-        public Sound deathEffect;
-        public Sound jumpEffect;
-        public Sound runningEffect;
-        public Sound collectDiamond;
-        public Sound collectPowerup;
-        public Sound winEffect;
-        public Sound loseEffect;
-
-        public SoundAssets() {
-            gunshot1 = Gdx.audio.newSound(Gdx.files.internal(Constants.GUNSHOT1_PATH));
-            gunshot2 = Gdx.audio.newSound(Gdx.files.internal(Constants.GUNSHOT2_PATH));
-            gunshot3 = Gdx.audio.newSound(Gdx.files.internal(Constants.GUNSHOT3_PATH));
-            gunshot4 = Gdx.audio.newSound(Gdx.files.internal(Constants.GUNSHOT4_PATH));
-            explosion1 = Gdx.audio.newSound(Gdx.files.internal(Constants.EXPLOSION1_PATH));
-            explosion2 = Gdx.audio.newSound(Gdx.files.internal(Constants.EXPLOSION2_PATH));
-            deathEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.DEATH_SOUND_PATH));
-            jumpEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.JUMP_SOUND_PATH));
-            runningEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.RUNNING_SOUND_PATH));
-            collectDiamond = Gdx.audio.newSound(Gdx.files.internal(Constants.COLLECT_DIAMOND_PATH));
-            collectPowerup = Gdx.audio.newSound(Gdx.files.internal(Constants.COLLECT_POWERUP_PATH));
-            winEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.WIN_EFFECT_PATH));
-            loseEffect = Gdx.audio.newSound(Gdx.files.internal(Constants.LOSE_EFFECT_PATH));
-        }
-
-        public void dispose() {
-            gunshot1.dispose();
-            gunshot2.dispose();
-            gunshot3.dispose();
-            gunshot4.dispose();
-            explosion1.dispose();
-            explosion2.dispose();
-            deathEffect.dispose();
-            jumpEffect.dispose();
-            runningEffect.dispose();
-            collectDiamond.dispose();
-            collectPowerup.dispose();
-            winEffect.dispose();
-            loseEffect.dispose();
         }
     }
 }

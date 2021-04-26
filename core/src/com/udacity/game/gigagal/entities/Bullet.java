@@ -1,15 +1,14 @@
 package com.udacity.game.gigagal.entities;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.udacity.game.gigagal.Level;
 import com.udacity.game.gigagal.utils.Assets;
 import com.udacity.game.gigagal.utils.Constants;
 import com.udacity.game.gigagal.utils.Enums.Direction;
+import com.udacity.game.gigagal.utils.SoundManager;
 
 public class Bullet {
     protected Direction direction;
@@ -56,21 +55,12 @@ public class Bullet {
     }
 
     public void playExplosion() {
-        Sound explosion;
         int explosionid = MathUtils.random(1, 2);
-        switch (explosionid) {
-            case 1:
-                explosion = Assets.instance.soundAssets.explosion1;
-                break;
-            case 2:
-                explosion = Assets.instance.soundAssets.explosion2;
-                break;
-            default:
-                explosion = Assets.instance.soundAssets.explosion1;
-                break;
+        if (explosionid == 1) {
+            SoundManager.get_instance().playSound(Constants.EXPLOSION1_PATH);
+        } else {
+            SoundManager.get_instance().playSound(Constants.EXPLOSION2_PATH);
         }
-        long effectid = explosion.play();
-        explosion.setVolume(effectid, 0.4f);
     }
 
     public void add_explosion(Vector2 bullet_center) {

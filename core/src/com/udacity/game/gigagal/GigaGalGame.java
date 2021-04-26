@@ -2,7 +2,6 @@ package com.udacity.game.gigagal;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.udacity.game.gigagal.screens.GameplayScreen;
 import com.udacity.game.gigagal.screens.HighScoresScreen;
 import com.udacity.game.gigagal.screens.LevelSelectScreen;
@@ -10,13 +9,14 @@ import com.udacity.game.gigagal.screens.MenuScreen;
 import com.udacity.game.gigagal.screens.OptionsScreen;
 import com.udacity.game.gigagal.utils.Assets;
 import com.udacity.game.gigagal.utils.Constants;
+import com.udacity.game.gigagal.utils.SoundManager;
 
 public class GigaGalGame extends Game {
 	public static final String TAG = GigaGalGame.class.getName();
 
 	private Assets assets;
+	private SoundManager soundManager;
 	private final String[] args;
-	private Music backgroundMusic;
 
 	public boolean debug;
 	public boolean debugMobile;
@@ -43,10 +43,8 @@ public class GigaGalGame extends Game {
 		Gdx.app.log(TAG, ("debug mobile mode: " + debugMobile));
 		assets = Assets.instance;
 		assets.init();
-		backgroundMusic = assets.musicAssets.backgroundMusic;
-		backgroundMusic.setLooping(true);
-		backgroundMusic.play();
-		backgroundMusic.setVolume(0.6f);
+		soundManager = SoundManager.get_instance();
+		soundManager.playMusic(Constants.MUSIC_PATH);
 
 		switchScreen("menu");
 	}
@@ -55,6 +53,7 @@ public class GigaGalGame extends Game {
 	public void dispose() {
 		super.dispose();
 		assets.dispose();
+		soundManager.dispose();
 	}
 
 	public void switchScreen(String screen_name) {

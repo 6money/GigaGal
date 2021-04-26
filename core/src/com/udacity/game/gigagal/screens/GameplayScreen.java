@@ -3,9 +3,7 @@ package com.udacity.game.gigagal.screens;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -24,6 +22,7 @@ import com.udacity.game.gigagal.utils.ChaseCam;
 import com.udacity.game.gigagal.utils.Constants;
 import com.udacity.game.gigagal.utils.LevelLoader;
 import com.udacity.game.gigagal.utils.PreferenceManager;
+import com.udacity.game.gigagal.utils.SoundManager;
 import com.udacity.game.gigagal.utils.Utils;
 
 public class GameplayScreen extends ScreenAdapter {
@@ -165,8 +164,7 @@ public class GameplayScreen extends ScreenAdapter {
             if (levelEndOverlayStartTime == 0) {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
 
-                Sound winEffect = Assets.instance.soundAssets.winEffect;
-                winEffect.play();
+                SoundManager.get_instance().playSound(Constants.WIN_EFFECT_PATH);
 
                 PreferenceManager preferenceManager = PreferenceManager.get_instance();
                 Array<Integer> levelScores = preferenceManager.getScores(level_name);
@@ -195,8 +193,7 @@ public class GameplayScreen extends ScreenAdapter {
             if (levelEndOverlayStartTime == 0) {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
 
-                Sound loseEffect = Assets.instance.soundAssets.loseEffect;
-                loseEffect.play();
+                SoundManager.get_instance().playSound(Constants.LOSE_EFFECT_PATH);
             }
 
             gameOverOverlay.render(spriteBatch);

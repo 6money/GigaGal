@@ -16,6 +16,7 @@ import com.udacity.game.gigagal.Level;
 import com.udacity.game.gigagal.utils.Assets;
 import com.udacity.game.gigagal.utils.Constants;
 import com.udacity.game.gigagal.utils.Enums.*;
+import com.udacity.game.gigagal.utils.SoundManager;
 import com.udacity.game.gigagal.utils.Utils;
 
 public class GigaGal {
@@ -32,6 +33,7 @@ public class GigaGal {
     private Level level;
     private boolean hit_solid;
     private boolean canDrop;
+    private SoundManager soundManager;
     private Sound runningEffect;
     private long runningEffectId;
 
@@ -47,9 +49,11 @@ public class GigaGal {
     public GigaGal(Vector2 spawn_position, Level level) {
         this.spawn_position = spawn_position;
         this.level = level;
-        runningEffect = Assets.instance.soundAssets.runningEffect;
-        runningEffectId = runningEffect.loop();
-        runningEffect.pause(runningEffectId);
+        soundManager = SoundManager.get_instance();
+//        runningEffect = soundManager.getSound(Constants.RUNNING_SOUND_PATH);
+//        runningEffectId = runningEffect.play();
+        runningEffectId = soundManager.playSound(Constants.RUNNING_SOUND_PATH, true);
+        soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
         init();
     }
 
@@ -90,9 +94,7 @@ public class GigaGal {
             if (lives <= 0) {
                 return;
             }
-            Sound deathEffect = Assets.instance.soundAssets.deathEffect;
-            long effectid = deathEffect.play();
-            deathEffect.setVolume(effectid, 0.5f);
+            soundManager.playSound(Constants.DEATH_SOUND_PATH);
             respawn();
         }
 
@@ -163,21 +165,21 @@ public class GigaGal {
         if (jumpState != JumpState.RECOILING && !hit_solid) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || leftButtonPressed) {
                 if (jumpState == JumpState.GROUNDED) {
-                    runningEffect.resume(runningEffectId);
+                    soundManager.resumeSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
                 } else {
-                    runningEffect.pause(runningEffectId);
+                    soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
                 }
                 moveLeft(delta);
             } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed) {
                 if (jumpState == JumpState.GROUNDED) {
-                    runningEffect.resume(runningEffectId);
+                    soundManager.resumeSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
                 } else {
-                    runningEffect.pause(runningEffectId);
+                    soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
                 }
                 moveRight(delta);
             } else {
                 walkState = WalkState.STANDING;
-                runningEffect.pause(runningEffectId);
+                soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
@@ -198,8 +200,7 @@ public class GigaGal {
 
             boolean hit_powerup = gigagal_bounding_box.overlaps(power_bounding_box);
             if (hit_powerup) {
-                Sound collectEffect = Assets.instance.soundAssets.collectPowerup;
-                collectEffect.play();
+                soundManager.playSound(Constants.COLLECT_POWERUP_PATH);
                 if (powerup.ammo_type.equals("basic")) {
                     ammmo_basic += Constants.POWERUP_AMOUNT;
                 } else if (powerup.ammo_type.equals("big")) {
@@ -222,8 +223,7 @@ public class GigaGal {
 
             boolean hit_diamond = gigagal_bounding_box.overlaps(diamond_bounding_box);
             if (hit_diamond) {
-                Sound collectEffect = Assets.instance.soundAssets.collectDiamond;
-                collectEffect.play();
+                soundManager.playSound(Constants.COLLECT_DIAMOND_PATH);
                 level.getDiamonds().removeValue(diamond, true);
                 level.score += Constants.DIAMOND_SCORE;
             }
@@ -274,27 +274,21 @@ public class GigaGal {
     }
 
     public void playGunshot() {
-        Sound gunshot;
         int gunshotid = MathUtils.random(1, 4);
         switch (gunshotid) {
-            case 1:
-                gunshot = Assets.instance.soundAssets.gunshot1;
-                break;
             case 2:
-                gunshot = Assets.instance.soundAssets.gunshot2;
+                soundManager.playSound(Constants.GUNSHOT2_PATH);
                 break;
             case 3:
-                gunshot = Assets.instance.soundAssets.gunshot3;
+                soundManager.playSound(Constants.GUNSHOT3_PATH);
                 break;
             case 4:
-                gunshot = Assets.instance.soundAssets.gunshot4;
+                soundManager.playSound(Constants.GUNSHOT4_PATH);
                 break;
             default:
-                gunshot = Assets.instance.soundAssets.gunshot1;
+                soundManager.playSound(Constants.GUNSHOT1_PATH);
                 break;
         }
-        long effectid = gunshot.play();
-        gunshot.setVolume(effectid, 0.5f);
     }
 
     boolean landedOnPlatform(Platform platform) {
@@ -343,16 +337,14 @@ public class GigaGal {
 
     private void moveDown(float delta) {
         if (jumpState == JumpState.GROUNDED && canDrop) {
-            Sound jumpEffect = Assets.instance.soundAssets.jumpEffect;
-            jumpEffect.play();
+            soundManager.playSound(Constants.JUMP_SOUND_PATH);
             position.y -= delta * Constants.GIGAGAL_MOVEMENT_SPEED;
             jumpState = JumpState.FALLING;
         }
     }
 
     private void startJump(Rectangle gigagal_bounding_box, Array<Platform> platforms) {
-        Sound jumpEffect = Assets.instance.soundAssets.jumpEffect;
-        jumpEffect.play();
+        soundManager.playSound(Constants.JUMP_SOUND_PATH);
         jumpState = JumpState.JUMPING;
         jumpStartTime = TimeUtils.nanoTime();
         continueJump(gigagal_bounding_box,  platforms);
@@ -390,8 +382,7 @@ public class GigaGal {
     }
 
     private void recoilFromEnemy(Direction hitDirection) {
-        Sound jumpEffect = Assets.instance.soundAssets.jumpEffect;
-        jumpEffect.play();
+        soundManager.playSound(Constants.JUMP_SOUND_PATH);
         jumpState = JumpState.RECOILING;
         velocity.y = Constants.GIGAGAL_KNOCKBACK_SPEED.y;
 
@@ -404,7 +395,7 @@ public class GigaGal {
     }
 
     public void stopRunningEffect() {
-        runningEffect.stop();
+        soundManager.stopSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
     }
 
     public void render(SpriteBatch spriteBatch) {
