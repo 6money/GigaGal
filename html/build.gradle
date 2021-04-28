@@ -19,7 +19,7 @@ gwt {
 	minHeapSize = '1G'
 
 	src = files(file('src/main/java')) // Needs to be in front of "modules" below.
-	modules 'com.sixmoney.GdxDefinition'
+	modules 'com.sixmoney.gigagal.GdxDefinition'
 	devModules 'com.sixmoney.GdxDefinitionSuperdev'
 	project.webAppDirName = 'webapp'
 
