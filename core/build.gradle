@@ -1,6 +1,28 @@
-sourceCompatibility = 1.7
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
 
-sourceSets.main.java.srcDirs = [ "src/" ]
+dependencies {
+	api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-eclipse.project.name = appName + "-core"
+	task packTextures {
+		def inputDir = "$rootDir/core/rawAssets/sprites"
+		def outputDir = "$rootDir/android/assets/images/packaged"
+		inputs.dir inputDir
+		outputs.dir outputDir
+		doLast {
+			delete(outputDir)
+			TexturePacker.process(inputDir, outputDir, "gigagal.pack")
+		}
+	}
+
+	task copyLevels(type: Copy){
+		from "$rootDir/GigaGalLevels/scenes"
+		into "$rootDir/android/assets/levels"
+		exclude "MainScene.dt"
+	}
+
+	project.tasks.compileJava.dependsOn packTextures
+	project.tasks.compileJava.dependsOn copyLevels
+}

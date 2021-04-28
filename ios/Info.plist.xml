@@ -50,5 +50,7 @@
     <string>LaunchScreen</string>
     <key>CFBundleIconName</key>
     <string>AppIcon</string>
+    <key>UIRequiresFullScreen</key>
+    <true/>
 </dict>
 </plist>
