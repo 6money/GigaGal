@@ -120,14 +120,17 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         if (play_button.contains(viewportPosition)) {
             gigaGalGame.switchScreen("gameplay", Constants.LEVEL_1);
+            dispose();
         } else if (level_select_button.contains(viewportPosition)) {
             gigaGalGame.switchScreen("level select");
+            dispose();
         } else if (highScoreButton.contains(viewportPosition)) {
             gigaGalGame.switchScreen("high_score");
+            dispose();
         } else if (optionsButton.contains(viewportPosition)) {
             gigaGalGame.switchScreen("options");
+            dispose();
         }
-        dispose();
         return true;
     }
 }
