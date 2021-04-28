@@ -28,7 +28,7 @@ configure(subprojects - project(':android')) {
 }
 
 subprojects {
-	version = '0.1.0-alpha'
+	version = '0.1.1-alpha'
 	ext.appName = 'GigaGal'
 	repositories {
 		mavenLocal()
