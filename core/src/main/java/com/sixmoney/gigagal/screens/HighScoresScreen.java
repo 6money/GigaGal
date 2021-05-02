@@ -38,7 +38,7 @@ public class HighScoresScreen implements Screen {
     @Override
     public void show() {
         stage = new Stage(new ExtendViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
+        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH2));
 //        skin.getFont("font").getData().setScale(2);
 //        skin.getFont("list").getData().setScale(2);
 //        skin.getFont("subtitle").getData().setScale(2);
@@ -48,11 +48,11 @@ public class HighScoresScreen implements Screen {
         Array<Integer> scoresLevel2 = preferenceManager.getScores("Level2");
         Array<Integer> scoresLevel3 = preferenceManager.getScores("Level3");
 
-        listLevel1 = new List<>(skin);
+        listLevel1 = new List<>(skin, "gigagal");
         listLevel1.setItems(scoresLevel1);
-        listLevel2 = new List<>(skin);
+        listLevel2 = new List<>(skin, "gigagal");
         listLevel2.setItems(scoresLevel2);
-        listLevel3 = new List<>(skin);
+        listLevel3 = new List<>(skin, "gigagal");
         listLevel3.setItems(scoresLevel3);
 
         labelHighScore = new Label("HIGH SCORES", skin);
@@ -60,7 +60,7 @@ public class HighScoresScreen implements Screen {
         labelHighScore.setFontScale(3f);
         labelHighScore.setAlignment(Align.center);
 
-        buttonBack = new Button(skin);
+        buttonBack = new Button(skin, "gigagal");
         buttonBack.add(new Label("Back" ,skin));
         buttonBack.setWidth(stage.getWidth() / 8);
         buttonBack.setHeight(stage.getHeight() / 10);
@@ -81,7 +81,7 @@ public class HighScoresScreen implements Screen {
 
         table.add(new Label("Level 1", skin));
         table.add(new Label("Level 2", skin));
-        table.add(new Label("Level 2", skin));
+        table.add(new Label("Level 3", skin));
 
         table.row();
         table.add(listLevel1);
@@ -97,7 +97,7 @@ public class HighScoresScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0f,0f,0f,1);
+        Gdx.gl.glClearColor(Constants.BG_COLOR.r,Constants.BG_COLOR.g,Constants.BG_COLOR.b,Constants.BG_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(Gdx.graphics.getDeltaTime());

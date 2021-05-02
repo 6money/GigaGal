@@ -16,6 +16,7 @@ public class Constants {
     public static final int CHASE_CAM_SPEED = 200;
     public static final String PREFERENCES_NAME = "gigagal";
     public static final String SKIN_PATH = "images/ParticleParkUI.json";
+    public static final String SKIN_PATH2 = "images/gigaGalSkin/gigagal_custom_data.json";
     public static final String FONT_FILE = "font/dialog.fnt";
 
     // sprites
@@ -121,7 +122,8 @@ public class Constants {
     public static final int LEVEL_1 = 1;
     public static final int LEVEL_2 = 2;
     public static final int LEVEL_3 = 3;
-    public static final int MAX_LEVEL = 3;
+    public static final int LEVEL_4 = 4;
+    public static final int MAX_LEVEL = 4;
 
     //HUD
     public static final float HUD_VIEWPORT_SIZE = 480;

@@ -44,13 +44,13 @@ public class OptionsScreen implements Screen {
     @Override
     public void show() {
         stage = new Stage(new ExtendViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
+        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH2));
 //        skin.getFont("font").getData().setScale(2);
 //        skin.getFont("list").getData().setScale(2);
 //        skin.getFont("subtitle").getData().setScale(2);
 //        skin.getFont("window").getData().setScale(2);
 
-        buttonBack = new TextButton("Back", skin);
+        buttonBack = new TextButton("Back", skin, "gigagal");
         buttonBack.setWidth(stage.getWidth() / 8);
         buttonBack.setHeight(stage.getHeight() / 10);
         buttonBack.setPosition(0, stage.getHeight() - buttonBack.getHeight());
@@ -66,7 +66,7 @@ public class OptionsScreen implements Screen {
         tableOptions.pad(5);
         tableOptions.defaults().grow().pad(5);
 
-        window = new Window("Options", skin);
+        window = new Window("Options", skin, "gigagal");
         window.setSize(stage.getWidth() / 2, stage.getHeight() / 2);
         window.setPosition(stage.getWidth() / 2 - window.getWidth() / 2, stage.getHeight() / 2 - window.getHeight() / 2);
         window.defaults().grow();
@@ -120,7 +120,7 @@ public class OptionsScreen implements Screen {
         });
 
         tableOptions.row();
-        TextButton buttonResetData = new TextButton("Reset all data", skin);
+        TextButton buttonResetData = new TextButton("Reset all data", skin, "gigagal");
         tableOptions.add(buttonResetData);
         buttonResetData.addListener(new ClickListener() {
             @Override
@@ -158,7 +158,7 @@ public class OptionsScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0f,0f,0f,1);
+        Gdx.gl.glClearColor(Constants.BG_COLOR.r,Constants.BG_COLOR.g,Constants.BG_COLOR.b,Constants.BG_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(Gdx.graphics.getDeltaTime());

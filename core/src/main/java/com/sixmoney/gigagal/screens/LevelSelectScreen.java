@@ -125,6 +125,8 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
             gigaGalGame.switchScreen("gameplay", Constants.LEVEL_2);
         } else if (level3_button.contains(viewportPosition)) {
             gigaGalGame.switchScreen("gameplay", Constants.LEVEL_3);
+        } else if (level3_button.contains(viewportPosition)) {
+            gigaGalGame.switchScreen("gameplay", Constants.LEVEL_4);
         } else if(back_button.contains(viewportPosition)) {
             gigaGalGame.switchScreen("menu");
             dispose();
