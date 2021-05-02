@@ -37,7 +37,7 @@ public class HighScoresScreen implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage(new ExtendViewport(900, 480));
+        stage = new Stage(new ExtendViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
 //        skin.getFont("font").getData().setScale(2);
 //        skin.getFont("list").getData().setScale(2);
