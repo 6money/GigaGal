@@ -34,7 +34,7 @@ public class MenuScreen extends InputAdapter implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(this);
         spriteBatch = new SpriteBatch();
-        extendViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
+        extendViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         bitmapFont = new BitmapFont(Gdx.files.internal(Constants.FONT_FILE));
         bitmapFont.getData().setScale(0.5f);
         play_button = new Rectangle();

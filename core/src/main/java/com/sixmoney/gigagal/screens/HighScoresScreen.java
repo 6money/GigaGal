@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.sixmoney.gigagal.GigaGalGame;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.PreferenceManager;
@@ -36,8 +37,12 @@ public class HighScoresScreen implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage();
+        stage = new Stage(new ExtendViewport(900, 480));
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
+//        skin.getFont("font").getData().setScale(2);
+//        skin.getFont("list").getData().setScale(2);
+//        skin.getFont("subtitle").getData().setScale(2);
+//        skin.getFont("window").getData().setScale(2);
         PreferenceManager preferenceManager = PreferenceManager.get_instance();
         Array<Integer> scoresLevel1 = preferenceManager.getScores("Level1");
         Array<Integer> scoresLevel2 = preferenceManager.getScores("Level2");

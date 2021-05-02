@@ -62,7 +62,7 @@ public class GameplayScreen extends ScreenAdapter {
         setLevel_name();
         spriteBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
-        extendViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
+        extendViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         level = LevelLoader.load(level_name, extendViewport);
         chaseCam = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         hud = new GigaGalHUD();

@@ -7,7 +7,8 @@ public class Constants {
 
     // world
     public static final Color BG_COLOR = Color.SKY;
-    public static final float WORLD_SIZE = 160f;
+    public static final float WORLD_WIDTH = 160;
+    public static final float WORLD_HEIGHT = 160;
     public static final String TEXTURE_ATLAS = "images/packaged/gigagal.pack.atlas";
     public static final float GRAVITY = 1000f;
     public static final int CHASE_CAM_SPEED = 200;

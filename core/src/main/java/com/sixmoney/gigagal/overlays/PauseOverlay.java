@@ -25,7 +25,7 @@ public class PauseOverlay extends InputAdapter {
 
     public PauseOverlay(GameplayScreen gameplayScreen) {
         this.gameplayScreen = gameplayScreen;
-        this.viewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
+        this.viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         resume_rect = new Rectangle(viewport.getWorldWidth() / 4, viewport.getWorldHeight() / 7, viewport.getWorldWidth() * 3 / 4, viewport.getWorldHeight() / 7);
         quit_rect = new Rectangle(viewport.getWorldWidth() / 4, 0, viewport.getWorldWidth() * 3 / 4, viewport.getWorldHeight() / 7);
 

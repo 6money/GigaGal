@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.sixmoney.gigagal.GigaGalGame;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.PreferenceManager;
@@ -26,7 +28,7 @@ public class OptionsScreen implements Screen {
     private GigaGalGame game;
     private Stage stage;
     private Skin skin;
-    private Button buttonBack;
+    private TextButton buttonBack;
     private Table tableOptions;
     private Window window;
     private CheckBox checkboxMusic;
@@ -41,11 +43,14 @@ public class OptionsScreen implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage();
+        stage = new Stage(new ExtendViewport(900, 480));
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
+//        skin.getFont("font").getData().setScale(2);
+//        skin.getFont("list").getData().setScale(2);
+//        skin.getFont("subtitle").getData().setScale(2);
+//        skin.getFont("window").getData().setScale(2);
 
-        buttonBack = new Button(skin);
-        buttonBack.add(new Label("Back" ,skin));
+        buttonBack = new TextButton("Back", skin);
         buttonBack.setWidth(stage.getWidth() / 8);
         buttonBack.setHeight(stage.getHeight() / 10);
         buttonBack.setPosition(0, stage.getHeight() - buttonBack.getHeight());
@@ -59,12 +64,17 @@ public class OptionsScreen implements Screen {
 
         tableOptions = new Table(skin);
         tableOptions.pad(5);
-        tableOptions.setSize(stage.getWidth()/ 2, stage.getHeight());
+        tableOptions.defaults().grow().pad(5);
 
-        tableOptions.row().pad(5);
-        tableOptions.add(new Label("Music", skin)).pad(5);
+        window = new Window("Options", skin);
+        window.setSize(stage.getWidth() / 2, stage.getHeight() / 2);
+        window.setPosition(stage.getWidth() / 2 - window.getWidth() / 2, stage.getHeight() / 2 - window.getHeight() / 2);
+        window.defaults().grow();
+
+        tableOptions.row();
+        tableOptions.add(new Label("Music", skin));
         checkboxMusic = new CheckBox(null, skin);
-        tableOptions.add(checkboxMusic).pad(5);
+        tableOptions.add(checkboxMusic);
         checkboxMusic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -73,10 +83,10 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row().pad(5);
-        tableOptions.add(new Label("Music Volume", skin)).pad(5);
+        tableOptions.row();
+        tableOptions.add(new Label("Music Volume", skin));
         sliderMusic = new Slider(0, 100, 5, false, skin);
-        tableOptions.add(sliderMusic).pad(5);
+        tableOptions.add(sliderMusic);
         sliderMusic.addListener(new DragListener() {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
@@ -85,10 +95,10 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row().pad(5);
-        tableOptions.add(new Label("Sound Effects", skin)).pad(5);
+        tableOptions.row();
+        tableOptions.add(new Label("Sound Effects", skin));
         checkboxSounds = new CheckBox(null, skin);
-        tableOptions.add(checkboxSounds).pad(5);
+        tableOptions.add(checkboxSounds);
         checkboxSounds.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -97,10 +107,10 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row().pad(5);
-        tableOptions.add(new Label("Effects Volume", skin)).pad(5);
+        tableOptions.row();
+        tableOptions.add(new Label("Effects Volume", skin));
         sliderSounds = new Slider(0, 100, 5, false, skin);
-        tableOptions.add(sliderSounds).pad(5);
+        tableOptions.add(sliderSounds);
         sliderSounds.addListener(new DragListener() {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
@@ -109,7 +119,7 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row().pad(5);
+        tableOptions.row();
         TextButton buttonResetData = new TextButton("Reset all data", skin);
         tableOptions.add(buttonResetData);
         buttonResetData.addListener(new ClickListener() {
@@ -121,10 +131,7 @@ public class OptionsScreen implements Screen {
         });
         tableOptions.add(new Label("This includes highsores", skin));
 
-        window = new Window("Options", skin);
         window.add(tableOptions);
-        window.pack();
-        window.setPosition(stage.getWidth() / 2 - window.getWidth() / 2, stage.getHeight() / 2 - window.getHeight() / 2);
 
         stage.addActor(window);
         stage.addActor(buttonBack);
@@ -160,7 +167,7 @@ public class OptionsScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        stage.getViewport().update(width, height);
     }
 
     @Override

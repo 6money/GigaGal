@@ -34,7 +34,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(this);
         spriteBatch = new SpriteBatch();
-        extendViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
+        extendViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         bitmapFont = new BitmapFont(Gdx.files.internal(Constants.FONT_FILE));
         level1_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() * 4 / 8, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 6);
         level2_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() / 8, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 6);

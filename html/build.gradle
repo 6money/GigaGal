@@ -20,7 +20,7 @@ gwt {
 
 	src = files(file('src/main/java')) // Needs to be in front of "modules" below.
 	modules 'com.sixmoney.gigagal.GdxDefinition'
-	devModules 'com.sixmoney.GdxDefinitionSuperdev'
+	devModules 'com.sixmoney.gigagal.GdxDefinitionSuperdev'
 	project.webAppDirName = 'webapp'
 
 	compiler.strict = true
