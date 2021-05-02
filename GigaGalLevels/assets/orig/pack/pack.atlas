@@ -90,6 +90,7 @@ platform-medium
   xy: 62, 3
   size: 57, 57
   split: 10, 10, 8, 9
+  pad: 0, 0, 0, 0
   orig: 57, 57
   offset: 0, 0
   index: -1
@@ -103,6 +104,13 @@ powerup
 powerup2
   rotate: false
   xy: 456, 109
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+powerup3
+  rotate: false
+  xy: 473, 109
   size: 15, 17
   orig: 15, 17
   offset: 0, 0

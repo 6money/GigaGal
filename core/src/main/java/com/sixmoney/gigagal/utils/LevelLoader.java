@@ -8,8 +8,8 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sixmoney.gigagal.Level;
-import com.sixmoney.gigagal.entities.BigEnemy;
-import com.sixmoney.gigagal.entities.BigPowerup;
+import com.sixmoney.gigagal.entities.EnemyBig;
+import com.sixmoney.gigagal.entities.PowerupBig;
 import com.sixmoney.gigagal.entities.Diamond;
 import com.sixmoney.gigagal.entities.Enemy;
 import com.sixmoney.gigagal.entities.ExitPortal;
@@ -18,6 +18,7 @@ import com.sixmoney.gigagal.entities.Platform;
 import com.sixmoney.gigagal.entities.PlatformHard;
 import com.sixmoney.gigagal.entities.PlatformMedium;
 import com.sixmoney.gigagal.entities.Powerup;
+import com.sixmoney.gigagal.entities.PowerupRapid;
 
 import java.io.File;
 
@@ -80,7 +81,7 @@ public class LevelLoader {
             if (platform_identifier != null && platform_identifier.equals(Constants.LEVEL_ENEMY_TAG)) {
                 level.getEnemies().add(new Enemy(platform));
             } else if (platform_identifier != null && platform_identifier.equals(Constants.LEVEL_ENEMY_BIG_TAG)) {
-                level.getEnemies().add(new BigEnemy(platform));
+                level.getEnemies().add(new EnemyBig(platform));
             }
         }
 
@@ -122,15 +123,21 @@ public class LevelLoader {
                 continue;
             }
 
-            if (item.get(Constants.LEVEL_IMAGENAME_KEY).asString().equals(Constants.POWERUP2)) {
-                Gdx.app.log(TAG, "Loaded powerup at " + lowerLeftCorner);
-                level.getPowerups().add(new BigPowerup(lowerLeftCorner));
-                continue;
-            }
-
             if (item.get(Constants.LEVEL_IMAGENAME_KEY).asString().equals(Constants.POWERUP)) {
                 Gdx.app.log(TAG, "Loaded powerup at " + lowerLeftCorner);
                 level.getPowerups().add(new Powerup(lowerLeftCorner));
+                continue;
+            }
+
+            if (item.get(Constants.LEVEL_IMAGENAME_KEY).asString().equals(Constants.POWERUP2)) {
+                Gdx.app.log(TAG, "Loaded big powerup at " + lowerLeftCorner);
+                level.getPowerups().add(new PowerupBig(lowerLeftCorner));
+                continue;
+            }
+
+            if (item.get(Constants.LEVEL_IMAGENAME_KEY).asString().equals(Constants.POWERUP3)) {
+                Gdx.app.log(TAG, "Loaded rapid powerup at " + lowerLeftCorner);
+                level.getPowerups().add(new PowerupRapid(lowerLeftCorner));
                 continue;
             }
 

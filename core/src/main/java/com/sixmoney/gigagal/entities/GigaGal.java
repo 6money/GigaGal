@@ -2,7 +2,6 @@ package com.sixmoney.gigagal.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -34,12 +33,12 @@ public class GigaGal {
     private boolean hit_solid;
     private boolean canDrop;
     private SoundManager soundManager;
-    private Sound runningEffect;
     private long runningEffectId;
 
     public Vector2 position;
-    public int ammmo_basic;
-    public int ammmo_big;
+    public int ammmoBasic;
+    public int ammmoBig;
+    public int ammmoRapid;
     public int lives;
     public boolean jumpButtonPressed;
     public boolean leftButtonPressed;
@@ -57,8 +56,9 @@ public class GigaGal {
 
     public void init(){
         respawn();
-        ammmo_basic = Constants.GIGAGAL_INIT_AMMO;
-        ammmo_big = 0;
+        ammmoBasic = Constants.GIGAGAL_INIT_AMMO;
+        ammmoBig = 0;
+        ammmoRapid = 0;
         lives = Constants.GIGAGAL_INIT_LIVES;
     }
 
@@ -195,10 +195,16 @@ public class GigaGal {
             boolean hit_powerup = gigagal_bounding_box.overlaps(power_bounding_box);
             if (hit_powerup) {
                 soundManager.playSound(Constants.COLLECT_POWERUP_PATH);
-                if (powerup.ammo_type.equals("basic")) {
-                    ammmo_basic += Constants.POWERUP_AMOUNT;
-                } else if (powerup.ammo_type.equals("big")) {
-                    ammmo_big += Constants.POWERUP_AMOUNT;
+                switch (powerup.ammo_type) {
+                    case "basic":
+                        ammmoBasic += powerup.ammo_amount;
+                        break;
+                    case "big":
+                        ammmoBig += powerup.ammo_amount;
+                        break;
+                    case "rapid":
+                        ammmoRapid += powerup.ammo_amount;
+                        break;
                 }
                 level.getPowerups().removeValue(powerup, true);
                 level.score += Constants.POWERUP_SCORE;
@@ -219,45 +225,39 @@ public class GigaGal {
         }
         level.getDiamonds().end();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.X) && (ammmo_basic > 0 || ammmo_big > 0)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.X) && ammmoRapid > 0) {
+            shoot();
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.X) && (ammmoBasic > 0 || ammmoBig > 0)) {
             shoot();
         }
     }
 
     public void shoot() {
-        if (ammmo_big > 0) {
-            playGunshot();
-            ammmo_big--;
-            Vector2 bullet_position;
+        Vector2 bullet_position;
 
-            if (facing == Direction.RIGHT) {
-                bullet_position = new Vector2(
-                        position.x + Constants.GIGAGAL_BARREL_POS.x,
-                        position.y + Constants.GIGAGAL_BARREL_POS.y
-                );
-            } else {
-                bullet_position = new Vector2(
-                        position.x - Constants.GIGAGAL_BARREL_POS.x,
-                        position.y + Constants.GIGAGAL_BARREL_POS.y
-                );
-            }
-            level.getBullets().add(new BigBullet(level, bullet_position, facing));
-        } else if (ammmo_basic > 0) {
-            playGunshot();
-            ammmo_basic--;
-            Vector2 bullet_position;
+        if (facing == Direction.RIGHT) {
+            bullet_position = new Vector2(
+                    position.x + Constants.GIGAGAL_BARREL_POS.x,
+                    position.y + Constants.GIGAGAL_BARREL_POS.y
+            );
+        } else {
+            bullet_position = new Vector2(
+                    position.x - Constants.GIGAGAL_BARREL_POS.x,
+                    position.y + Constants.GIGAGAL_BARREL_POS.y
+            );
+        }
 
-            if (facing == Direction.RIGHT) {
-                bullet_position = new Vector2(
-                        position.x + Constants.GIGAGAL_BARREL_POS.x,
-                        position.y + Constants.GIGAGAL_BARREL_POS.y
-                );
-            } else {
-                bullet_position = new Vector2(
-                        position.x - Constants.GIGAGAL_BARREL_POS.x,
-                        position.y + Constants.GIGAGAL_BARREL_POS.y
-                );
-            }
+        if (ammmoRapid > 0) {
+            playGunshot();
+            ammmoRapid--;
+            level.getBullets().add(new BulletRapid(level, bullet_position, facing));
+        } else if (ammmoBig > 0) {
+            playGunshot();
+            ammmoBig--;
+            level.getBullets().add(new BulletBig(level, bullet_position, facing));
+        } else if (ammmoBasic > 0) {
+            playGunshot();
+            ammmoBasic--;
             level.getBullets().add(new Bullet(level, bullet_position, facing));
         }
     }

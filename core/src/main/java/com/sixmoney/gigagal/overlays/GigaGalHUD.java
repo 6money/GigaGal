@@ -17,7 +17,7 @@ public class GigaGalHUD {
         font = new BitmapFont();
     }
 
-    public void render(SpriteBatch spriteBatch, int lives, int ammo_basic, int ammo_big, int score) {
+    public void render(SpriteBatch spriteBatch, int lives, int ammo_basic, int ammo_big, int ammo_rapid, int score) {
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
 
@@ -25,6 +25,7 @@ public class GigaGalHUD {
         font.draw(spriteBatch, Constants.HUD_SCORE_LABEL + score, Constants.HUD_MARGIN, viewport.getCamera().viewportHeight - Constants.HUD_MARGIN);
         font.draw(spriteBatch, Constants.HUD_AMMO_LABEL + ammo_basic, Constants.HUD_MARGIN, viewport.getCamera().viewportHeight - (Constants.HUD_MARGIN * 2));
         font.draw(spriteBatch, Constants.HUD_AMMO_SPECIAL_LABEL + ammo_big, Constants.HUD_MARGIN, viewport.getCamera().viewportHeight - (Constants.HUD_MARGIN * 3));
+        font.draw(spriteBatch, Constants.HUD_AMMO_RAPID_LABEL + ammo_rapid, Constants.HUD_MARGIN, viewport.getCamera().viewportHeight - (Constants.HUD_MARGIN * 4));
 
         float offset = Constants.HUD_MARGIN * 2;
         for (int i = 1; i <= lives; i++) {

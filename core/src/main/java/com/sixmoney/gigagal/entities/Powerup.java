@@ -11,6 +11,7 @@ public class Powerup {
     protected Vector2 position;
 
     public String ammo_type;
+    public int ammo_amount;
     public Rectangle powerup_bounding_box;
 
     public Powerup(Vector2 position) {
@@ -22,6 +23,7 @@ public class Powerup {
                 Constants.POWERUP_CENTER.y * 2
         );
         ammo_type = "basic";
+        ammo_amount = Constants.POWERUP_AMOUNT;
     }
 
     public void render(SpriteBatch spriteBatch) {

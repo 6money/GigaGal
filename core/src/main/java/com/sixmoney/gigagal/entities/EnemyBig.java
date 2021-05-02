@@ -6,8 +6,8 @@ import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.Enums.*;
 import com.sixmoney.gigagal.utils.Utils;
 
-public class BigEnemy extends Enemy {
-    public BigEnemy(Platform platform) {
+public class EnemyBig extends Enemy {
+    public EnemyBig(Platform platform) {
         super(platform);
         health = Constants.ENEMY_BIG_HEALTH;
     }

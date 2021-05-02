@@ -14,7 +14,7 @@ public class Bullet {
     protected Direction direction;
     protected Vector2 position;
     protected Level level;
-    protected int damage;
+    protected float damage;
 
     public boolean active;
 

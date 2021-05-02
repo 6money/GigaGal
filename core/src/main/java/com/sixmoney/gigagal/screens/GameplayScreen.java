@@ -143,7 +143,7 @@ public class GameplayScreen extends ScreenAdapter {
             onScreeenControls.render(spriteBatch);
         }
 
-        hud.render(spriteBatch, level.gigaGal.lives, level.gigaGal.ammmo_basic, level.gigaGal.ammmo_big, level.score);
+        hud.render(spriteBatch, level.gigaGal.lives, level.gigaGal.ammmoBasic, level.gigaGal.ammmoBig, level.gigaGal.ammmoRapid, level.score);
         renderLevelEndOverlays(spriteBatch);
 
         if (level.paused) {

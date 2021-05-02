@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 
-public class BigPowerup extends Powerup {
-    public BigPowerup(Vector2 position) {
+public class PowerupBig extends Powerup {
+    public PowerupBig(Vector2 position) {
         super(position);
         ammo_type = "big";
     }

@@ -18,6 +18,13 @@ bullet2
   orig: 7, 5
   offset: 0, 0
   index: -1
+bullet3
+  rotate: false
+  xy: 120, 8
+  size: 7, 5
+  orig: 7, 5
+  offset: 0, 0
+  index: -1
 button
   rotate: false
   xy: 2, 61
@@ -210,6 +217,13 @@ powerup
 powerup2
   rotate: false
   xy: 928, 91
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+powerup3
+  rotate: false
+  xy: 512, 23
   size: 15, 17
   orig: 15, 17
   offset: 0, 0

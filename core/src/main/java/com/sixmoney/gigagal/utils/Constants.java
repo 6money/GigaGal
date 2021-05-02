@@ -37,6 +37,7 @@ public class Constants {
     public static final String ENEMY2 = "enemy2";
     public static final String BULLET = "bullet";
     public static final String BULLET2 = "bullet2";
+    public static final String BULLET3 = "bullet3";
     public static final String EXPLOSION_LARGE = "explosion-large";
     public static final String EXPLOSION_LARGER = "explosion-larger";
     public static final String EXPLOSION_LARGEST = "explosion-largest";
@@ -44,6 +45,7 @@ public class Constants {
     public static final String EXPLOSION_SMALL = "explosion-small";
     public static final String POWERUP = "powerup";
     public static final String POWERUP2 = "powerup2";
+    public static final String POWERUP3 = "powerup3";
     public static final String EXIT_PORTAL_SPRITE_1 = "exit-portal-1";
     public static final String EXIT_PORTAL_SPRITE_2 = "exit-portal-2";
     public static final String EXIT_PORTAL_SPRITE_3 = "exit-portal-3";
@@ -94,6 +96,7 @@ public class Constants {
     // powerup
     public static final Vector2 POWERUP_CENTER = new Vector2(7, 5);
     public static final int POWERUP_AMOUNT = 10;
+    public static final int POWERUP_AMOUNT_RAPID = 50;
 
     // diamond
     public static final Vector2 DIAMOND_SIZE = new Vector2(20, 15);
@@ -130,6 +133,7 @@ public class Constants {
     public static final float HUD_MARGIN = 20;
     public static final String HUD_AMMO_LABEL = "Ammo: ";
     public static final String HUD_AMMO_SPECIAL_LABEL = "Special: ";
+    public static final String HUD_AMMO_RAPID_LABEL = "Rapid: ";
     public static final String HUD_SCORE_LABEL = "Score: ";
 
     // Scoring
@@ -138,6 +142,7 @@ public class Constants {
     public static final int POWERUP_SCORE = 100;
     public static final int AMMO_SCORE = 25;
     public static final int AMMO_SPECIAL_SCORE = 50;
+    public static final int AMMO_RAPID_SCORE = 10;
     public static final int DIAMOND_SCORE = 1000;
 
     // Victory/Game Over/Pause screens

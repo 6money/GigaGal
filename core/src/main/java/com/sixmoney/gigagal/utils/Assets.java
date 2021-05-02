@@ -155,10 +155,12 @@ public class Assets implements Disposable, AssetErrorListener {
     public class BulletAssets {
         public TextureAtlas.AtlasRegion bullet;
         public TextureAtlas.AtlasRegion bullet2;
+        public TextureAtlas.AtlasRegion bullet3;
 
         public BulletAssets(TextureAtlas atlas) {
             bullet = atlas.findRegion(Constants.BULLET);
             bullet2 = atlas.findRegion(Constants.BULLET2);
+            bullet3 = atlas.findRegion(Constants.BULLET3);
         }
     }
 
@@ -201,10 +203,12 @@ public class Assets implements Disposable, AssetErrorListener {
     public class PowerupAssets {
         public TextureAtlas.AtlasRegion powerup;
         public TextureAtlas.AtlasRegion powerup2;
+        public TextureAtlas.AtlasRegion powerup3;
 
         public PowerupAssets(TextureAtlas atlas) {
             powerup = atlas.findRegion(Constants.POWERUP);
             powerup2 = atlas.findRegion(Constants.POWERUP2);
+            powerup3 = atlas.findRegion(Constants.POWERUP3);
         }
 
     }

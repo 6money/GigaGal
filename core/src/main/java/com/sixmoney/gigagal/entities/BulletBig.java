@@ -7,8 +7,8 @@ import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.Enums.*;
 
-public class BigBullet extends Bullet {
-    public BigBullet(Level level, Vector2 position, Direction direction) {
+public class BulletBig extends Bullet {
+    public BulletBig(Level level, Vector2 position, Direction direction) {
         super(level, position, direction);
         damage = 2;
     }

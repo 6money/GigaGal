@@ -19,7 +19,7 @@ public class Enemy {
 
     protected Platform platform;
     protected Direction direction;
-    protected int health;
+    protected float health;
     protected long start_time;
     protected float speed;
     protected float speedCharge;
@@ -50,11 +50,11 @@ public class Enemy {
         );
     }
 
-    public int getHealth() {
+    public float getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(float health) {
         this.health = health;
     }
 
