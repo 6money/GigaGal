@@ -15,6 +15,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
 
     private AssetManager assetManager;
+    private TextureAtlas atlas;
 
     public GigaGalAssets gigaGalAssets;
     public PlatformAssets platformAssets;
@@ -25,6 +26,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public ExitPortalAssets exitPortalAssets;
     public OnscreenControlsAssets onscreenControlsAssets;
     public DiamondAssets diamondAssets;
+    public ParticleAssets particleAssets;
 
     private Assets() {
     }
@@ -35,7 +37,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.finishLoading();
 
-        TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
+        atlas = assetManager.get(Constants.TEXTURE_ATLAS);
         gigaGalAssets = new GigaGalAssets(atlas);
         platformAssets = new PlatformAssets(atlas);
         enemyAssets = new EnemyAssets(atlas);
@@ -45,6 +47,11 @@ public class Assets implements Disposable, AssetErrorListener {
         exitPortalAssets = new ExitPortalAssets(atlas);
         onscreenControlsAssets = new OnscreenControlsAssets(atlas);
         diamondAssets = new DiamondAssets(atlas);
+        particleAssets = new ParticleAssets(atlas);
+    }
+
+    public TextureAtlas getAtlas() {
+        return atlas;
     }
 
     @Override
@@ -262,6 +269,14 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public DiamondAssets(TextureAtlas atlas) {
             diamond = atlas.findRegion(Constants.DIAMOND);
+        }
+    }
+
+    public class ParticleAssets {
+        public TextureAtlas.AtlasRegion particle;
+
+        public ParticleAssets(TextureAtlas atlas) {
+            particle = atlas.findRegion(Constants.PARTICLE);
         }
     }
 }

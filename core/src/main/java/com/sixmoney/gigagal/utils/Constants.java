@@ -53,6 +53,7 @@ public class Constants {
     public static final String EXIT_PORTAL_SPRITE_5 = "exit-portal-5";
     public static final String EXIT_PORTAL_SPRITE_6 = "exit-portal-6";
     public static final String DIAMOND = "diamond";
+    public static final String PARTICLE = "particle";
 
 
     // gigagal
@@ -68,6 +69,7 @@ public class Constants {
     public static final Vector2 GIGAGAL_BARREL_POS = new Vector2(12, -7);
     public static final int GIGAGAL_INIT_AMMO = 20;
     public static final int GIGAGAL_INIT_LIVES = 3;
+    public static final float GIGAGAL_PARTICLE_DELAY = 0.2f;
 
 
     // ememy

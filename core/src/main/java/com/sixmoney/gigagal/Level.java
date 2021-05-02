@@ -228,4 +228,8 @@ public class Level {
 
         gigaGal = new GigaGal(new Vector2(20, 0), this);
     }
+
+    public void dispose() {
+        gigaGal.dispose();
+    }
 }

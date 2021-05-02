@@ -45,8 +45,14 @@ configure(subprojects - project(':android')) {
 		exclude "MainScene.dt"
 	}
 
+	task copyParicles(type: Copy){
+		from "$rootDir/core/rawAssets/particles"
+		into "$rootDir/assets/particles"
+	}
+
 	project.tasks.compileJava.dependsOn packTextures
 	project.tasks.compileJava.dependsOn copyLevels
+	project.tasks.compileJava.dependsOn copyParicles
 }
 
 subprojects {

@@ -103,6 +103,7 @@ public class GameplayScreen extends ScreenAdapter {
         hud.dispose();
         pauseOverlay.dispose();
         victoryOverlay.dispose();
+        level.dispose();
     }
 
     @Override
