@@ -287,7 +287,7 @@
 		"titleFont": "window"
 	},
 	"gigagal": {
-		"background": "platform",
+		"background": "platform_window",
 		"titleFont": "window"
 	}
 }
