@@ -16,6 +16,8 @@ import com.sixmoney.gigagal.entities.ExitPortal;
 import com.sixmoney.gigagal.entities.Explosion;
 import com.sixmoney.gigagal.entities.ExplosionBig;
 import com.sixmoney.gigagal.entities.GigaGal;
+import com.sixmoney.gigagal.entities.Particle;
+import com.sixmoney.gigagal.entities.ParticleExplosion;
 import com.sixmoney.gigagal.entities.Platform;
 import com.sixmoney.gigagal.entities.Powerup;
 import com.sixmoney.gigagal.utils.Constants;
@@ -32,6 +34,7 @@ public class Level {
     private DelayedRemovalArray<Powerup> powerups;
     private DelayedRemovalArray<Diamond> diamonds;
     private float killplane_height;
+    private Particle particleExplosion;
 
     public boolean gameOver;
     public boolean victory;
@@ -49,6 +52,7 @@ public class Level {
         powerups = new DelayedRemovalArray<>();
         diamonds = new DelayedRemovalArray<>();
         exitPortal = new ExitPortal(Constants.EXIT_PORTAL_POSITION);
+        particleExplosion = new ParticleExplosion();
 //        addDebugPlatforms();
 
         gameOver = false;
@@ -137,6 +141,7 @@ public class Level {
                     explosions.add(new ExplosionBig(enemy.position));
                     enemies.removeValue(enemy, true);
                     score += Constants.ENEMY_KILL_SCORE;
+                    particleExplosion.getNextParticleEffect(enemy.position);
                 }
             }
             enemies.end();
@@ -156,8 +161,9 @@ public class Level {
                     bullets.removeValue(bullet, true);
                 }
             }
-
             bullets.end();
+
+            particleExplosion.update(delta);
         }
     }
 
@@ -189,6 +195,8 @@ public class Level {
         for (Diamond diamond: diamonds) {
             diamond.render(spriteBatch);
         }
+
+        particleExplosion.draw(spriteBatch);
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {

@@ -2,8 +2,6 @@ package com.sixmoney.gigagal.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -36,10 +34,7 @@ public class GigaGal {
     private boolean canDrop;
     private SoundManager soundManager;
     private long runningEffectId;
-    public Array<ParticleEffect> particleEffects;
-    private int particleArrayPosition;
-    private int particleArraySize;
-    private long particleStartTime;
+    private Particle particleDust;
 
     public Vector2 position;
     public int ammmoBasic;
@@ -57,15 +52,7 @@ public class GigaGal {
         soundManager = SoundManager.get_instance();
         runningEffectId = soundManager.playSound(Constants.RUNNING_SOUND_PATH, true);
         soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
-        particleEffects = new Array<>(10);
-        for (int i = 0; i < 10; i++) {
-            ParticleEffect temp_particle = new ParticleEffect();
-            temp_particle.load(Gdx.files.internal("particles/pixel_dust"), Assets.instance.getAtlas());
-            particleEffects.add(temp_particle);
-        }
-        particleArrayPosition = 0;
-        particleArraySize = particleEffects.size;
-        particleStartTime = 0;
+        particleDust = new ParticleDust();
         init();
     }
 
@@ -75,7 +62,6 @@ public class GigaGal {
         ammmoBig = 0;
         ammmoRapid = 0;
         lives = Constants.GIGAGAL_INIT_LIVES;
-        particleStartTime = TimeUtils.nanoTime();
     }
 
     public void respawn() {
@@ -247,9 +233,7 @@ public class GigaGal {
             shoot();
         }
 
-        for (ParticleEffect particleEffect: particleEffects) {
-            particleEffect.update(delta);
-        }
+        particleDust.update(delta);
     }
 
     public void shoot() {
@@ -337,7 +321,10 @@ public class GigaGal {
         walkState = WalkState.WALKING;
         facing = Direction.LEFT;
         position.x -= delta * Constants.GIGAGAL_MOVEMENT_SPEED;
-        spawnParticle();
+        Vector2 foot_pos = new Vector2(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
+        if (particleDust.nextParticleReady() && jumpState == JumpState.GROUNDED) {
+            particleDust.getNextParticleEffect(foot_pos);
+        }
     }
 
     private void moveRight(float delta) {
@@ -348,7 +335,10 @@ public class GigaGal {
         walkState = WalkState.WALKING;
         facing = Direction.RIGHT;
         position.x += delta * Constants.GIGAGAL_MOVEMENT_SPEED;
-        spawnParticle();
+        Vector2 foot_pos = new Vector2(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
+        if (particleDust.nextParticleReady() && jumpState == JumpState.GROUNDED) {
+            particleDust.getNextParticleEffect(foot_pos);
+        }
     }
 
     private void moveDown(float delta) {
@@ -394,21 +384,6 @@ public class GigaGal {
     private void endJump() {
         if (jumpState == JumpState.JUMPING) {
             jumpState = JumpState.FALLING;
-        }
-    }
-
-    private void spawnParticle() {
-        if (Utils.secondsSince(particleStartTime) > Constants.GIGAGAL_PARTICLE_DELAY && jumpState == JumpState.GROUNDED) {
-            particleStartTime = TimeUtils.nanoTime();
-            ParticleEffect particleEffect = particleEffects.get(particleArrayPosition);
-            if (particleEffect.isComplete()) {
-                particleEffect.getEmitters().first().setPosition(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
-                particleEffect.start();
-            }
-            particleArrayPosition++;
-            if (particleArrayPosition == particleArraySize) {
-                particleArrayPosition = 0;
-            }
         }
     }
 
@@ -458,9 +433,7 @@ public class GigaGal {
                 position.x - Constants.GIGAGAL_EYE_POS.x,
                 position.y - Constants.GIGAGAL_EYE_POS.y);
 
-        for (ParticleEffect particleEffect: particleEffects) {
-            particleEffect.draw(spriteBatch);
-        }
+        particleDust.draw(spriteBatch);
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {
@@ -473,8 +446,6 @@ public class GigaGal {
     }
 
     public void dispose() {
-        for (ParticleEffect particleEffect: particleEffects) {
-            particleEffect.dispose();
-        }
+        particleDust.dispose();
     }
 }

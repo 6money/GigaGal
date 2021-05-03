@@ -69,7 +69,7 @@ button-shoot
   index: -1
 diamond
   rotate: false
-  xy: 453, 44
+  xy: 991, 110
   size: 20, 15
   orig: 20, 15
   offset: 0, 0
@@ -174,7 +174,7 @@ explosion-small
   index: -1
 jumping-left
   rotate: false
-  xy: 901, 90
+  xy: 426, 24
   size: 29, 35
   orig: 29, 35
   offset: 0, 0
@@ -189,6 +189,13 @@ jumping-right
 particle
   rotate: false
   xy: 392, 27
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+particle_pixel
+  rotate: false
+  xy: 901, 93
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -216,28 +223,28 @@ platform-medium
   index: -1
 powerup
   rotate: false
-  xy: 453, 25
+  xy: 991, 91
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup2
   rotate: false
-  xy: 475, 42
+  xy: 517, 42
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup3
   rotate: false
-  xy: 492, 42
+  xy: 517, 23
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 standing-left
   rotate: false
-  xy: 932, 90
+  xy: 457, 24
   size: 28, 35
   orig: 28, 35
   offset: 0, 0
@@ -251,7 +258,7 @@ standing-right
   index: -1
 walk-1-left
   rotate: false
-  xy: 992, 90
+  xy: 935, 90
   size: 27, 35
   orig: 27, 35
   offset: 0, 0
@@ -265,7 +272,7 @@ walk-1-right
   index: -1
 walk-2-left
   rotate: false
-  xy: 426, 24
+  xy: 964, 90
   size: 25, 35
   orig: 25, 35
   offset: 0, 0
@@ -279,7 +286,7 @@ walk-2-right
   index: -1
 walk-3-left
   rotate: false
-  xy: 962, 90
+  xy: 487, 24
   size: 28, 35
   orig: 28, 35
   offset: 0, 0
