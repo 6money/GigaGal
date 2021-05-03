@@ -239,5 +239,6 @@ public class Level {
 
     public void dispose() {
         gigaGal.dispose();
+        particleExplosion.dispose();
     }
 }

@@ -35,6 +35,7 @@ public class GigaGal {
     private SoundManager soundManager;
     private long runningEffectId;
     private Particle particleDust;
+    private Particle particleDustJump;
 
     public Vector2 position;
     public int ammmoBasic;
@@ -53,6 +54,7 @@ public class GigaGal {
         runningEffectId = soundManager.playSound(Constants.RUNNING_SOUND_PATH, true);
         soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
         particleDust = new ParticleDust();
+        particleDustJump = new ParticleDustJump();
         init();
     }
 
@@ -234,6 +236,7 @@ public class GigaGal {
         }
 
         particleDust.update(delta);
+        particleDustJump.update(delta);
     }
 
     public void shoot() {
@@ -353,6 +356,8 @@ public class GigaGal {
         soundManager.playSound(Constants.JUMP_SOUND_PATH);
         jumpState = JumpState.JUMPING;
         jumpStartTime = TimeUtils.nanoTime();
+        Vector2 foot_pos = new Vector2(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
+        particleDustJump.getNextParticleEffect(foot_pos);
         continueJump(gigagal_bounding_box,  platforms);
     }
 
@@ -434,6 +439,7 @@ public class GigaGal {
                 position.y - Constants.GIGAGAL_EYE_POS.y);
 
         particleDust.draw(spriteBatch);
+        particleDustJump.draw(spriteBatch);
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {
@@ -447,5 +453,6 @@ public class GigaGal {
 
     public void dispose() {
         particleDust.dispose();
+        particleDustJump.dispose();
     }
 }
