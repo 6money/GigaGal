@@ -17,10 +17,13 @@ import com.sixmoney.gigagal.entities.Explosion;
 import com.sixmoney.gigagal.entities.ExplosionBig;
 import com.sixmoney.gigagal.entities.GigaGal;
 import com.sixmoney.gigagal.entities.Particle;
+import com.sixmoney.gigagal.entities.ParticleBulletTrailLeft;
+import com.sixmoney.gigagal.entities.ParticleBulletTrailRight;
 import com.sixmoney.gigagal.entities.ParticleExplosion;
 import com.sixmoney.gigagal.entities.Platform;
 import com.sixmoney.gigagal.entities.Powerup;
 import com.sixmoney.gigagal.utils.Constants;
+import com.sixmoney.gigagal.utils.Enums;
 import com.sixmoney.gigagal.utils.SoundManager;
 
 public class Level {
@@ -42,6 +45,8 @@ public class Level {
     public Viewport viewport;
     public GigaGal gigaGal;
     public boolean paused;
+    public Particle particleBulletTrailLeft;
+    public Particle particleBulletTrailRight;
 
     public Level(Viewport viewport) {
         this.viewport = viewport;
@@ -53,6 +58,8 @@ public class Level {
         diamonds = new DelayedRemovalArray<>();
         exitPortal = new ExitPortal(Constants.EXIT_PORTAL_POSITION);
         particleExplosion = new ParticleExplosion();
+        particleBulletTrailLeft = new ParticleBulletTrailLeft();
+        particleBulletTrailRight = new ParticleBulletTrailRight();
 //        addDebugPlatforms();
 
         gameOver = false;
@@ -158,6 +165,11 @@ public class Level {
             for (Bullet bullet : bullets) {
                 bullet.update(delta);
                 if (!bullet.active) {
+                    if (bullet.direction == Enums.Direction.LEFT) {
+                        particleBulletTrailLeft.stop(bullet.particleBulletTrailID);
+                    } else {
+                        particleBulletTrailRight.stop(bullet.particleBulletTrailID);
+                    }
                     bullets.removeValue(bullet, true);
                 }
             }
@@ -197,6 +209,8 @@ public class Level {
         }
 
         particleExplosion.draw(spriteBatch);
+        particleBulletTrailLeft.draw(spriteBatch);
+        particleBulletTrailRight.draw(spriteBatch);
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {
@@ -240,5 +254,7 @@ public class Level {
     public void dispose() {
         gigaGal.dispose();
         particleExplosion.dispose();
+        particleBulletTrailLeft.dispose();
+        particleBulletTrailRight.dispose();
     }
 }

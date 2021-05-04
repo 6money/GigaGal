@@ -8,8 +8,8 @@ import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.Enums;
 
 public class BulletRapid extends Bullet {
-    public BulletRapid(Level level, Vector2 position, Enums.Direction direction) {
-        super(level, position, direction);
+    public BulletRapid(Level level, Vector2 position, Enums.Direction direction, int particleID) {
+        super(level, position, direction, particleID);
         damage = 0.25f;
     }
 

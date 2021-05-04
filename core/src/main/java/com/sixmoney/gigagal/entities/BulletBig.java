@@ -8,8 +8,8 @@ import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.Enums.*;
 
 public class BulletBig extends Bullet {
-    public BulletBig(Level level, Vector2 position, Direction direction) {
-        super(level, position, direction);
+    public BulletBig(Level level, Vector2 position, Direction direction, int particleID) {
+        super(level, position, direction, particleID);
         damage = 2;
     }
 

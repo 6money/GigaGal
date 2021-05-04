@@ -4,38 +4,30 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.sixmoney.gigagal.utils.Assets;
-import com.sixmoney.gigagal.utils.Constants;
-import com.sixmoney.gigagal.utils.Utils;
 
-public class ParticleDust implements Particle {
+public class ParticleBulletTrailRight implements Particle {
     private int particleArrayPosition;
     private int particleArraySize;
     private ArrayMap<ParticleEffect, Boolean> particleEffectMap;
-    private long particleStartTime;
 
-    public ParticleDust() {
-        particleEffectMap = new ArrayMap<>(10);
-        for (int i = 0; i < 10; i++) {
+    public ParticleBulletTrailRight() {
+        particleEffectMap = new ArrayMap<>(40);
+        for (int i = 0; i < 40; i++) {
             ParticleEffect tempParticle = new ParticleEffect();
-            tempParticle.load(Gdx.files.internal("particles/pixel_dust"), Assets.instance.getAtlas());
+            tempParticle.load(Gdx.files.internal("particles/pixel_bullet_trail_right"), Assets.instance.getAtlas());
             particleEffectMap.put(tempParticle, false);
         }
         particleArrayPosition = 0;
         particleArraySize = particleEffectMap.size;
-        particleStartTime = TimeUtils.nanoTime() + 100000000;
     }
 
     @Override
     public int getNextParticleEffect(Vector2 position) {
-        particleStartTime = TimeUtils.nanoTime();
         ParticleEffect particleEffect = particleEffectMap.getKeyAt(particleArrayPosition);
-            particleEffectMap.setValue(particleArrayPosition, true);
-            particleEffect.setPosition(position.x, position.y);
-            particleEffect.start();
+        particleEffect.setPosition(position.x, position.y);
+        particleEffectMap.setValue(particleArrayPosition, true);
         int returnValue = particleArrayPosition;
         particleArrayPosition++;
         if (particleArrayPosition == particleArraySize) {
@@ -47,7 +39,7 @@ public class ParticleDust implements Particle {
 
     @Override
     public boolean nextParticleReady() {
-        return Utils.secondsSince(particleStartTime) > Constants.GIGAGAL_PARTICLE_DELAY;
+        return true;
     }
 
     @Override

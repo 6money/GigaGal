@@ -6,9 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public interface Particle {
-    public ParticleEffect getNextParticleEffect(Vector2 position);
-    public boolean nextParticleReady();
-    public void update(float delta);
-    public void draw(SpriteBatch spriteBatch);
-    public void dispose();
+    int getNextParticleEffect(Vector2 position);
+    boolean nextParticleReady();
+    void update(float delta);
+    void update(float delta, int particleID, Vector2 position);
+    void draw(SpriteBatch spriteBatch);
+    void stop(int particleID);
+    void dispose();
 }

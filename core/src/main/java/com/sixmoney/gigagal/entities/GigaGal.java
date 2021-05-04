@@ -19,6 +19,9 @@ import com.sixmoney.gigagal.utils.SoundManager;
 import com.sixmoney.gigagal.utils.Utils;
 
 public class GigaGal {
+    private static final int LEFT = 0;
+    private static final int RIGHT = 1;
+
     public final static String TAG = GigaGal.class.getName();
 
     private Vector2 spawn_position;
@@ -241,31 +244,38 @@ public class GigaGal {
 
     public void shoot() {
         Vector2 bullet_position;
+        int bulletTrailID;
 
         if (facing == Direction.RIGHT) {
             bullet_position = new Vector2(
                     position.x + Constants.GIGAGAL_BARREL_POS.x,
                     position.y + Constants.GIGAGAL_BARREL_POS.y
             );
+            bulletTrailID = level.particleBulletTrailRight.getNextParticleEffect(bullet_position);
         } else {
             bullet_position = new Vector2(
                     position.x - Constants.GIGAGAL_BARREL_POS.x,
                     position.y + Constants.GIGAGAL_BARREL_POS.y
             );
+            bulletTrailID = level.particleBulletTrailLeft.getNextParticleEffect(bullet_position);
+            Gdx.app.log(TAG, bullet_position.toString());
         }
 
         if (ammmoRapid > 0) {
             playGunshot();
             ammmoRapid--;
-            level.getBullets().add(new BulletRapid(level, bullet_position, facing));
+            Bullet bullet = new BulletRapid(level, bullet_position, facing, bulletTrailID);
+            level.getBullets().add(bullet);
         } else if (ammmoBig > 0) {
             playGunshot();
             ammmoBig--;
-            level.getBullets().add(new BulletBig(level, bullet_position, facing));
+            Bullet bullet = new BulletBig(level, bullet_position, facing, bulletTrailID);
+            level.getBullets().add(bullet);
         } else if (ammmoBasic > 0) {
             playGunshot();
             ammmoBasic--;
-            level.getBullets().add(new Bullet(level, bullet_position, facing));
+            Bullet bullet = new Bullet(level, bullet_position, facing, bulletTrailID);
+            level.getBullets().add(bullet);
         }
     }
 
@@ -440,6 +450,7 @@ public class GigaGal {
 
         particleDust.draw(spriteBatch);
         particleDustJump.draw(spriteBatch);
+
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {

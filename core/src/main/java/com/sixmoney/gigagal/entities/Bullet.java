@@ -1,5 +1,6 @@
 package com.sixmoney.gigagal.entities;
 
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -11,19 +12,21 @@ import com.sixmoney.gigagal.utils.Enums.*;
 import com.sixmoney.gigagal.utils.SoundManager;
 
 public class Bullet {
-    protected Direction direction;
     protected Vector2 position;
     protected Level level;
     protected float damage;
 
     public boolean active;
+    public Direction direction;
+    public int particleBulletTrailID;
 
-    public Bullet(Level level, Vector2 position, Direction direction) {
+    public Bullet(Level level, Vector2 position, Direction direction, int particleID) {
         this.level = level;
         this.position = position;
         this.direction = direction;
         active = true;
         damage = 1;
+        particleBulletTrailID = particleID;
     }
 
     public void update(float delta) {
@@ -51,6 +54,12 @@ public class Bullet {
 
         if (position.x < viewport_position.x - viewport_width / 2 || position.x > viewport_position.x + viewport_width / 2) {
             active = false;
+        }
+
+        if (direction == Direction.LEFT) {
+            level.particleBulletTrailLeft.update(delta, particleBulletTrailID, position);
+        } else {
+            level.particleBulletTrailRight.update(delta, particleBulletTrailID, position);
         }
     }
 
