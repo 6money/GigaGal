@@ -23,7 +23,7 @@ public class ExitPortal {
     public void render(SpriteBatch spriteBatch) {
         float time_elapsed = Utils.secondsSince(start_time);
 
-        TextureRegion exit_portal_key_frame = (TextureRegion) Assets.instance.exitPortalAssets.exit_portal_animation.getKeyFrame(time_elapsed);
+        TextureRegion exit_portal_key_frame = (TextureRegion) Assets.get_instance().exitPortalAssets.exit_portal_animation.getKeyFrame(time_elapsed);
         spriteBatch.draw(exit_portal_key_frame, position.x - Constants.EXIT_PORTAL_CENTER.x, position.y - Constants.EXIT_PORTAL_CENTER.y);
     }
 }

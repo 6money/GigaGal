@@ -22,7 +22,7 @@ public class Diamond {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(Assets.instance.diamondAssets.diamond, position.x, position.y);
+        spriteBatch.draw(Assets.get_instance().diamondAssets.diamond, position.x, position.y);
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {

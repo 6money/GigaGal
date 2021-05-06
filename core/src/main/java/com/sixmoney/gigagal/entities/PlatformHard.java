@@ -12,6 +12,6 @@ public class PlatformHard extends Platform {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        Assets.instance.platformAssets.ninePatch_platform_hard.draw(spriteBatch, left, bottom, width, height);
+        Assets.get_instance().platformAssets.ninePatch_platform_hard.draw(spriteBatch, left, bottom, width, height);
     }
 }

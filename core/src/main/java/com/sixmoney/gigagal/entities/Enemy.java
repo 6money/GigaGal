@@ -100,11 +100,11 @@ public class Enemy {
 
     public void render(SpriteBatch spriteBatch) {
         if (charging && direction == Direction.LEFT) {
-            Utils.drawTextureRegion(spriteBatch, Assets.instance.enemyAssets.enemy, position.x - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y, 30);
+            Utils.drawTextureRegion(spriteBatch, Assets.get_instance().enemyAssets.enemy, position.x - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y, 30);
         } else if (charging && direction == Direction.RIGHT) {
-            Utils.drawTextureRegion(spriteBatch, Assets.instance.enemyAssets.enemy, position.x - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y, -30);
+            Utils.drawTextureRegion(spriteBatch, Assets.get_instance().enemyAssets.enemy, position.x - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y, -30);
         } else {
-            Utils.drawTextureRegion(spriteBatch, Assets.instance.enemyAssets.enemy, position.x - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y);
+            Utils.drawTextureRegion(spriteBatch, Assets.get_instance().enemyAssets.enemy, position.x - Constants.ENEMY_CENTER_POS.x, position.y - Constants.ENEMY_CENTER_POS.y);
         }
     }
 

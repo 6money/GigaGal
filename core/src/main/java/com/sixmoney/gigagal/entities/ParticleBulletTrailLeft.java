@@ -19,7 +19,7 @@ public class ParticleBulletTrailLeft implements Particle {
         particleEffectMap = new ArrayMap<>(40);
         for (int i = 0; i < 40; i++) {
             ParticleEffect tempParticle = new ParticleEffect();
-            tempParticle.load(Gdx.files.internal("particles/pixel_bullet_trail_left"), Assets.instance.getAtlas());
+            tempParticle.load(Gdx.files.internal("particles/pixel_bullet_trail_left"), Assets.get_instance().getAtlas());
             particleEffectMap.put(tempParticle, false);
         }
         particleArrayPosition = 0;

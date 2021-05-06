@@ -20,6 +20,6 @@ public class BulletBig extends Bullet {
 
     @Override
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(Assets.instance.bulletAssets.bullet2, position.x, position.y - Constants.BULLET_CENTER.y);
+        spriteBatch.draw(Assets.get_instance().bulletAssets.bullet2, position.x, position.y - Constants.BULLET_CENTER.y);
     }
 }

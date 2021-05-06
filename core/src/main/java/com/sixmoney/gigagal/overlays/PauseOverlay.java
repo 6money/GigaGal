@@ -50,8 +50,8 @@ public class PauseOverlay extends InputAdapter {
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
 
-        Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, resume_rect.x, resume_rect.y, resume_rect.width, resume_rect.height);
-        Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, quit_rect.x, quit_rect.y, quit_rect.width, quit_rect.height);
+        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, resume_rect.x, resume_rect.y, resume_rect.width, resume_rect.height);
+        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, quit_rect.x, quit_rect.y, quit_rect.width, quit_rect.height);
 
         font.getData().setScale(1);
         font.draw(spriteBatch, Constants.PAUSED_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight / 2, 0, Align.center, false);

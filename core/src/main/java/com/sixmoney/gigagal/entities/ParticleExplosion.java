@@ -20,7 +20,7 @@ public class ParticleExplosion implements Particle {
         particleEffectMap = new ArrayMap<>(5);
         for (int i = 0; i < 5; i++) {
             ParticleEffect tempParticle = new ParticleEffect();
-            tempParticle.load(Gdx.files.internal("particles/pixel_explosion"), Assets.instance.getAtlas());
+            tempParticle.load(Gdx.files.internal("particles/pixel_explosion"), Assets.get_instance().getAtlas());
             particleEffectMap.put(tempParticle, false);
         }
         particleArrayPosition = 0;

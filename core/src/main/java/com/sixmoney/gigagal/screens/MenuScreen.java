@@ -84,10 +84,10 @@ public class MenuScreen extends InputAdapter implements Screen {
         spriteBatch.setProjectionMatrix(extendViewport.getCamera().combined);
         spriteBatch.begin();
         bitmapFont.draw(spriteBatch, "WELCOME TO GIGAGAL", extendViewport.getWorldWidth() / 2, extendViewport.getWorldHeight() / 1.2f, 0, Align.center, false);
-        Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, play_button.x, play_button.y, play_button.width, play_button.height);
-        Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, level_select_button.x, level_select_button.y, level_select_button.width, level_select_button.height);
-        Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, highScoreButton.x, highScoreButton.y, highScoreButton.width, highScoreButton.height);
-        Assets.instance.platformAssets.ninePatch_platform.draw(spriteBatch, optionsButton.x, optionsButton.y, optionsButton.width, optionsButton.height);
+        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, play_button.x, play_button.y, play_button.width, play_button.height);
+        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, level_select_button.x, level_select_button.y, level_select_button.width, level_select_button.height);
+        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, highScoreButton.x, highScoreButton.y, highScoreButton.width, highScoreButton.height);
+        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, optionsButton.x, optionsButton.y, optionsButton.width, optionsButton.height);
         bitmapFont.draw(spriteBatch, "PLAY", play_button.x + play_button.width / 2, play_button.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
         bitmapFont.draw(spriteBatch, "LEVEL SELECT", level_select_button.x + level_select_button.width / 2, level_select_button.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
         bitmapFont.draw(spriteBatch, "HIGH SCORES", highScoreButton.x + highScoreButton.width / 2, highScoreButton.y + bitmapFont.getData().lineHeight, 0, Align.center, false);

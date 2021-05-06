@@ -20,7 +20,7 @@ public class ParticleDustJump implements Particle {
         particleEffectMap = new ArrayMap<>(3);
         for (int i = 0; i < 3; i++) {
             ParticleEffect tempParticle = new ParticleEffect();
-            tempParticle.load(Gdx.files.internal("particles/pixel_dust_jump"), Assets.instance.getAtlas());
+            tempParticle.load(Gdx.files.internal("particles/pixel_dust_jump"), Assets.get_instance().getAtlas());
             particleEffectMap.put(tempParticle, false);
         }
         particleArrayPosition = 0;

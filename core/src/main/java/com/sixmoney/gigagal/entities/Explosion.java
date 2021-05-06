@@ -22,7 +22,7 @@ public class Explosion {
 
     public void render(SpriteBatch spriteBatch) {
         if (!isFinished() && !yetToStart()) {
-            TextureRegion key_frame = (TextureRegion) Assets.instance.explosionAssets.explosion_animation.getKeyFrame(Utils.secondsSince(start_time) - offset);
+            TextureRegion key_frame = (TextureRegion) Assets.get_instance().explosionAssets.explosion_animation.getKeyFrame(Utils.secondsSince(start_time) - offset);
             Utils.drawTextureRegion(spriteBatch, key_frame, position.x - Constants.EXPLOSION_CENTER.x, position.y - Constants.EXPLOSION_CENTER.y);
         }
     }
@@ -32,6 +32,6 @@ public class Explosion {
     }
 
     public boolean isFinished() {
-        return Assets.instance.explosionAssets.explosion_animation.isAnimationFinished(Utils.secondsSince(start_time) - offset);
+        return Assets.get_instance().explosionAssets.explosion_animation.isAnimationFinished(Utils.secondsSince(start_time) - offset);
     }
 }

@@ -21,7 +21,7 @@ public class ParticleDust implements Particle {
         particleEffectMap = new ArrayMap<>(10);
         for (int i = 0; i < 10; i++) {
             ParticleEffect tempParticle = new ParticleEffect();
-            tempParticle.load(Gdx.files.internal("particles/pixel_dust"), Assets.instance.getAtlas());
+            tempParticle.load(Gdx.files.internal("particles/pixel_dust"), Assets.get_instance().getAtlas());
             particleEffectMap.put(tempParticle, false);
         }
         particleArrayPosition = 0;

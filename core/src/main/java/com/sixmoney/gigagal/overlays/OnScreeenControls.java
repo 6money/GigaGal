@@ -117,35 +117,35 @@ public class OnScreeenControls extends InputAdapter {
 
         Utils.drawTextureRegion(
                 batch,
-                Assets.instance.onscreenControlsAssets.move_left,
+                Assets.get_instance().onscreenControlsAssets.move_left,
                 moveLeftCenter,
                 Constants.BUTTON_CENTER
         );
 
         Utils.drawTextureRegion(
                 batch,
-                Assets.instance.onscreenControlsAssets.move_right,
+                Assets.get_instance().onscreenControlsAssets.move_right,
                 moveRightCenter,
                 Constants.BUTTON_CENTER
         );
 
         Utils.drawTextureRegion(
                 batch,
-                Assets.instance.onscreenControlsAssets.shoot,
+                Assets.get_instance().onscreenControlsAssets.shoot,
                 shootCenter,
                 Constants.BUTTON_CENTER
         );
 
         Utils.drawTextureRegion(
                 batch,
-                Assets.instance.onscreenControlsAssets.jump,
+                Assets.get_instance().onscreenControlsAssets.jump,
                 jumpCenter,
                 Constants.BUTTON_CENTER
         );
 
         Utils.drawTextureRegion(
                 batch,
-                Assets.instance.onscreenControlsAssets.drop,
+                Assets.get_instance().onscreenControlsAssets.drop,
                 dropCenter,
                 Constants.BUTTON_CENTER
         );

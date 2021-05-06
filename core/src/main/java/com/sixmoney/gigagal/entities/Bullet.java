@@ -77,7 +77,7 @@ public class Bullet {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(Assets.instance.bulletAssets.bullet, position.x, position.y - Constants.BULLET_CENTER.y);
+        spriteBatch.draw(Assets.get_instance().bulletAssets.bullet, position.x, position.y - Constants.BULLET_CENTER.y);
     }
 
 

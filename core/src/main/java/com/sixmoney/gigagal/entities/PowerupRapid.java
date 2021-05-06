@@ -14,6 +14,6 @@ public class PowerupRapid extends Powerup {
 
     @Override
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(Assets.instance.powerupAssets.powerup3, position.x - Constants.POWERUP_CENTER.x, position.y - Constants.POWERUP_CENTER.y);
+        spriteBatch.draw(Assets.get_instance().powerupAssets.powerup3, position.x - Constants.POWERUP_CENTER.x, position.y - Constants.POWERUP_CENTER.y);
     }
 }

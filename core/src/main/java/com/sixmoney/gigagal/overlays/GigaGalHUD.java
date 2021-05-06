@@ -29,7 +29,7 @@ public class GigaGalHUD {
 
         float offset = Constants.HUD_MARGIN * 2;
         for (int i = 1; i <= lives; i++) {
-            spriteBatch.draw(Assets.instance.gigaGalAssets.standing_right, viewport.getCamera().viewportWidth - Constants.HUD_MARGIN - offset, viewport.getCamera().viewportHeight - Constants.GIGAGAL_HEIGHT - 14 - Constants.HUD_MARGIN);
+            spriteBatch.draw(Assets.get_instance().gigaGalAssets.standing_right, viewport.getCamera().viewportWidth - Constants.HUD_MARGIN - offset, viewport.getCamera().viewportHeight - Constants.GIGAGAL_HEIGHT - 14 - Constants.HUD_MARGIN);
             offset += Constants.HUD_MARGIN * 2;
         }
         spriteBatch.end();

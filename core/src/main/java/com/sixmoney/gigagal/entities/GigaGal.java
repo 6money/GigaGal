@@ -424,21 +424,21 @@ public class GigaGal {
 
         if (facing == Direction.LEFT) {
             if (jumpState != JumpState.GROUNDED) {
-                textureRegion = Assets.instance.gigaGalAssets.jumping_left;
+                textureRegion = Assets.get_instance().gigaGalAssets.jumping_left;
             } else if (walkState == WalkState.WALKING) {
                 float walking_duration = Utils.secondsSince(walkStartTime);
-                textureRegion = (TextureAtlas.AtlasRegion) Assets.instance.gigaGalAssets.walkLeftLoop.getKeyFrame(walking_duration);
+                textureRegion = (TextureAtlas.AtlasRegion) Assets.get_instance().gigaGalAssets.walkLeftLoop.getKeyFrame(walking_duration);
             } else {
-                textureRegion = Assets.instance.gigaGalAssets.standing_left;
+                textureRegion = Assets.get_instance().gigaGalAssets.standing_left;
             }
         } else {
             if (jumpState != JumpState.GROUNDED) {
-                textureRegion = Assets.instance.gigaGalAssets.jumping_right;
+                textureRegion = Assets.get_instance().gigaGalAssets.jumping_right;
             } else if (walkState == WalkState.WALKING) {
                 float walking_duration = Utils.secondsSince(walkStartTime);
-                textureRegion = (TextureAtlas.AtlasRegion) Assets.instance.gigaGalAssets.walkRightLoop.getKeyFrame(walking_duration);
+                textureRegion = (TextureAtlas.AtlasRegion) Assets.get_instance().gigaGalAssets.walkRightLoop.getKeyFrame(walking_duration);
             } else {
-                textureRegion = Assets.instance.gigaGalAssets.standing_right;
+                textureRegion = Assets.get_instance().gigaGalAssets.standing_right;
             }
         }
 

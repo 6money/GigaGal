@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class Assets implements Disposable, AssetErrorListener {
     public static final String TAG = Assets.class.getName();
-    public static final Assets instance = new Assets();
+    public static Assets instance;
 
     private AssetManager assetManager;
     private TextureAtlas atlas;
@@ -29,6 +29,15 @@ public class Assets implements Disposable, AssetErrorListener {
     public ParticleAssets particleAssets;
 
     private Assets() {
+        init();
+    }
+
+    public static Assets get_instance() {
+        if (instance == null) {
+            instance = new Assets();
+        }
+
+        return instance;
     }
 
     public void init() {

@@ -27,7 +27,7 @@ public class Powerup {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(Assets.instance.powerupAssets.powerup, position.x - Constants.POWERUP_CENTER.x, position.y - Constants.POWERUP_CENTER.y);
+        spriteBatch.draw(Assets.get_instance().powerupAssets.powerup, position.x - Constants.POWERUP_CENTER.x, position.y - Constants.POWERUP_CENTER.y);
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {
