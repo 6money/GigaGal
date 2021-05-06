@@ -1,30 +1,26 @@
 package com.sixmoney.gigagal.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.sixmoney.gigagal.GigaGalGame;
 import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 
-public class MenuScreen extends InputAdapter implements Screen {
+public class MenuScreen implements Screen {
     public static final String TAG = MenuScreen.class.getName();
-
-    private SpriteBatch spriteBatch;
-    private ExtendViewport extendViewport;
-    private BitmapFont bitmapFont;
-    private Rectangle play_button;
-    private Rectangle level_select_button;
-    private Rectangle highScoreButton;
-    private Rectangle optionsButton;
     private GigaGalGame gigaGalGame;
+    private Stage stage;
+    private Skin skin;
 
     public MenuScreen(GigaGalGame game) {
         gigaGalGame = game;
@@ -32,47 +28,80 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(this);
-        spriteBatch = new SpriteBatch();
-        extendViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-        bitmapFont = new BitmapFont(Gdx.files.internal(Constants.FONT_FILE));
-        bitmapFont.getData().setScale(0.5f);
-        play_button = new Rectangle();
-        level_select_button = new Rectangle();
-        highScoreButton = new Rectangle();
-        optionsButton = new Rectangle();
+        stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH / 2, Constants.WINDOW_HEIGHT / 2));
+        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH2));
+
+        Table tableMenu = new Table(skin);
+        tableMenu.setFillParent(true);
+        tableMenu.pad(5);
+        tableMenu.defaults().grow().space(5).padLeft(50).padRight(50);
+
+        tableMenu.row();
+        Label labelWelcome = new Label("WELCOME TO GIGAGAL", skin);
+        labelWelcome.setAlignment(Align.center);
+        tableMenu.add(labelWelcome).height(stage.getHeight() / 5);
+
+        tableMenu.row().uniform().fill();
+
+        tableMenu.row();
+        TextButton buttonPlay = new TextButton("PLAY", skin, "gigagal");
+        buttonPlay.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gigaGalGame.switchScreen("gameplay", Constants.LEVEL_1);
+                dispose();
+            }
+        });
+        tableMenu.add(buttonPlay).height(stage.getHeight() / 5);
+
+        tableMenu.row();
+        TextButton levelSelectPlay = new TextButton("LEVEL SELECT", skin, "gigagal");
+        levelSelectPlay.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gigaGalGame.switchScreen("level select");
+                dispose();
+            }
+        });
+        tableMenu.add(levelSelectPlay).height(stage.getHeight() / 5);
+
+        tableMenu.row();
+        Table tableSubmenu = new Table(skin);
+        tableSubmenu.defaults().grow();
+        tableSubmenu.row();
+        TextButton buttonHighScores = new TextButton("HIGH SCORES", skin, "gigagal");
+        buttonHighScores.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gigaGalGame.switchScreen("high_score");
+                dispose();
+            }
+        });
+        tableSubmenu.add(buttonHighScores).uniform().spaceRight(5);
+        TextButton buttonOptions = new TextButton("OPTIONS", skin, "gigagal");
+        buttonOptions.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gigaGalGame.switchScreen("options");
+                dispose();
+            }
+        });
+        tableSubmenu.add(buttonOptions).uniform().spaceLeft(5);
+        tableMenu.add(tableSubmenu).height(stage.getHeight() / 5);
+
+        stage.addActor(tableMenu);
+        Gdx.input.setInputProcessor(stage);
     }
 
 
     @Override
     public void resize(int width, int height) {
-        extendViewport.update(width, height, true);
-        play_button.x = extendViewport.getWorldWidth() / 8;
-        play_button.y = extendViewport.getWorldHeight() * 3.6f / 8;
-        play_button.width = extendViewport.getWorldWidth() * 6 / 8;
-        play_button.height = extendViewport.getWorldHeight() / 6;
-
-        level_select_button.x = extendViewport.getWorldWidth() / 8;
-        level_select_button.y = extendViewport.getWorldHeight() * 2.3f / 8;
-        level_select_button.width = extendViewport.getWorldWidth() * 6 / 8;
-        level_select_button.height = extendViewport.getWorldHeight() / 6;
-
-        highScoreButton.x = extendViewport.getWorldWidth() / 8;
-        highScoreButton.y = extendViewport.getWorldHeight() / 8;
-        highScoreButton.width = extendViewport.getWorldWidth() * 3 / 8;
-        highScoreButton.height = extendViewport.getWorldHeight() / 6;
-
-        optionsButton.x = extendViewport.getWorldWidth() / 2;
-        optionsButton.y = extendViewport.getWorldHeight() / 8;
-        optionsButton.width = extendViewport.getWorldWidth() * 3 / 8;
-        optionsButton.height = extendViewport.getWorldHeight() / 6;
+        stage.getViewport().update(width, height, true);
     }
 
 
     @Override
     public void render(float delta) {
-        extendViewport.apply(true);
-
         Gdx.gl.glClearColor(
                 Constants.BG_COLOR.r,
                 Constants.BG_COLOR.g,
@@ -81,18 +110,8 @@ public class MenuScreen extends InputAdapter implements Screen {
         );
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        spriteBatch.setProjectionMatrix(extendViewport.getCamera().combined);
-        spriteBatch.begin();
-        bitmapFont.draw(spriteBatch, "WELCOME TO GIGAGAL", extendViewport.getWorldWidth() / 2, extendViewport.getWorldHeight() / 1.2f, 0, Align.center, false);
-        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, play_button.x, play_button.y, play_button.width, play_button.height);
-        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, level_select_button.x, level_select_button.y, level_select_button.width, level_select_button.height);
-        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, highScoreButton.x, highScoreButton.y, highScoreButton.width, highScoreButton.height);
-        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, optionsButton.x, optionsButton.y, optionsButton.width, optionsButton.height);
-        bitmapFont.draw(spriteBatch, "PLAY", play_button.x + play_button.width / 2, play_button.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
-        bitmapFont.draw(spriteBatch, "LEVEL SELECT", level_select_button.x + level_select_button.width / 2, level_select_button.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
-        bitmapFont.draw(spriteBatch, "HIGH SCORES", highScoreButton.x + highScoreButton.width / 2, highScoreButton.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
-        bitmapFont.draw(spriteBatch, "OPTIONS", optionsButton.x + optionsButton.width / 2, optionsButton.y + bitmapFont.getData().lineHeight, 0, Align.center, false);
-        spriteBatch.end();
+        stage.act(delta);
+        stage.draw();
     }
 
 
@@ -110,27 +129,6 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     @Override
     public void dispose() {
-        spriteBatch.dispose();
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Gdx.app.log(TAG, "clicked");
-        Vector2 viewportPosition = extendViewport.unproject(new Vector2(screenX, screenY));
-
-        if (play_button.contains(viewportPosition)) {
-            gigaGalGame.switchScreen("gameplay", Constants.LEVEL_1);
-            dispose();
-        } else if (level_select_button.contains(viewportPosition)) {
-            gigaGalGame.switchScreen("level select");
-            dispose();
-        } else if (highScoreButton.contains(viewportPosition)) {
-            gigaGalGame.switchScreen("high_score");
-            dispose();
-        } else if (optionsButton.contains(viewportPosition)) {
-            gigaGalGame.switchScreen("options");
-            dispose();
-        }
-        return true;
+        stage.dispose();
     }
 }

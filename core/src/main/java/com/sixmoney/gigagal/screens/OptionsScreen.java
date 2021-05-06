@@ -161,7 +161,7 @@ public class OptionsScreen implements Screen {
         Gdx.gl.glClearColor(Constants.BG_COLOR.r,Constants.BG_COLOR.g,Constants.BG_COLOR.b,Constants.BG_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act(Gdx.graphics.getDeltaTime());
+        stage.act(delta);
         stage.draw();
     }
 
