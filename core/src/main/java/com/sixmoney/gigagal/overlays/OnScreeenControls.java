@@ -26,6 +26,7 @@ public class OnScreeenControls extends InputAdapter {
     private int moveRightPointer;
     private int jumpPointer;
     private int dropPointer;
+    private int shootPointer;
     private GameplayScreen gameplayScreen;
 
     public final Viewport viewport;
@@ -46,7 +47,13 @@ public class OnScreeenControls extends InputAdapter {
         Vector2 viewportPosition = viewport.unproject(new Vector2(screenX, screenY));
 
         if (viewportPosition.dst(shootCenter) < Constants.BUTTON_RADIUS) {
-            gigaGal.shoot();
+            if (gigaGal.ammmoRapid > 0) {
+                shootPointer = pointer;
+                gigaGal.shootButtonPressed = true;
+            } else {
+                gigaGal.shootButtonPressed = false;
+                gigaGal.shoot();
+            }
 
         } else if (viewportPosition.dst(jumpCenter) < Constants.BUTTON_RADIUS) {
             jumpPointer = pointer;
@@ -94,6 +101,11 @@ public class OnScreeenControls extends InputAdapter {
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
+
+        if (!Gdx.input.isTouched(shootPointer)) {
+            gigaGal.shootButtonPressed = false;
+            shootPointer = 0;
+        }
 
         if (!Gdx.input.isTouched(jumpPointer)) {
             gigaGal.jumpButtonPressed = false;
