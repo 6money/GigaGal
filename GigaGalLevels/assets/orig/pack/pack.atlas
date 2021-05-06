@@ -6,14 +6,14 @@ filter: Linear, Linear
 repeat: none
 bullet
   rotate: false
-  xy: 121, 55
+  xy: 134, 62
   size: 7, 5
   orig: 7, 5
   offset: 0, 0
   index: -1
 diamond
   rotate: false
-  xy: 434, 111
+  xy: 465, 111
   size: 20, 15
   orig: 20, 15
   offset: 0, 0
@@ -28,6 +28,13 @@ enemy
 enemy2
   rotate: false
   xy: 224, 82
+  size: 29, 44
+  orig: 29, 44
+  offset: 0, 0
+  index: -1
+enemy3
+  rotate: false
+  xy: 255, 82
   size: 29, 44
   orig: 29, 44
   offset: 0, 0
@@ -48,21 +55,21 @@ exit-portal-1
   index: -1
 explosion-large
   rotate: false
-  xy: 331, 90
+  xy: 362, 90
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 explosion-medium
   rotate: false
-  xy: 293, 90
+  xy: 324, 90
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 explosion-small
   rotate: false
-  xy: 255, 90
+  xy: 286, 90
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
@@ -96,35 +103,35 @@ platform-medium
   index: -1
 powerup
   rotate: false
-  xy: 434, 92
+  xy: 465, 92
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup2
   rotate: false
-  xy: 456, 109
+  xy: 487, 109
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup3
   rotate: false
-  xy: 473, 109
+  xy: 121, 43
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 standing-right
   rotate: false
-  xy: 369, 91
+  xy: 400, 91
   size: 31, 35
   orig: 31, 35
   offset: 0, 0
   index: -1
 walk-1-right
   rotate: false
-  xy: 402, 91
+  xy: 433, 91
   size: 30, 35
   orig: 30, 35
   offset: 0, 0

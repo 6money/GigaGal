@@ -35,9 +35,11 @@ public class Constants {
     public static final String PLATFORM_MEDIUM = "platform-medium";
     public static final String ENEMY = "enemy";
     public static final String ENEMY2 = "enemy2";
+    public static final String ENEMY3 = "enemy3";
     public static final String BULLET = "bullet";
     public static final String BULLET2 = "bullet2";
     public static final String BULLET3 = "bullet3";
+    public static final String LAZER = "lazer";
     public static final String EXPLOSION_LARGE = "explosion-large";
     public static final String EXPLOSION_LARGER = "explosion-larger";
     public static final String EXPLOSION_LARGEST = "explosion-largest";
@@ -89,6 +91,7 @@ public class Constants {
     // bullet
     public static final Vector2 BULLET_CENTER = new Vector2(3, 2);
     public static final float BULLET_SPEED = 150f;
+    public static final float LAZER_SHOOT_DELAY = 0.6f;
 
     // explosions
     public static final Vector2 EXPLOSION_CENTER = new Vector2(14, 14);
@@ -123,6 +126,7 @@ public class Constants {
     public static final String LEVEL_IDENTIFIER_KEY = "itemIdentifier";
     public static final String LEVEL_ENEMY_TAG = "Enemy";
     public static final String LEVEL_ENEMY_BIG_TAG = "BigEnemy";
+    public static final String LEVEL_ENEMY_RANGED_TAG = "RangedEnemy";
     public static final String LEVEL_KILLPLANE_TAG = "Killplane";
     public static final int LEVEL_1 = 1;
     public static final int LEVEL_2 = 2;

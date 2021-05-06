@@ -160,10 +160,12 @@ public class Assets implements Disposable, AssetErrorListener {
     public class EnemyAssets {
         public TextureAtlas.AtlasRegion enemy;
         public TextureAtlas.AtlasRegion enemy2;
+        public TextureAtlas.AtlasRegion enemy3;
 
         public EnemyAssets(TextureAtlas atlas) {
             enemy = atlas.findRegion(Constants.ENEMY);
             enemy2 = atlas.findRegion(Constants.ENEMY2);
+            enemy3 = atlas.findRegion(Constants.ENEMY3);
         }
     }
 
@@ -172,11 +174,13 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion bullet;
         public TextureAtlas.AtlasRegion bullet2;
         public TextureAtlas.AtlasRegion bullet3;
+        public TextureAtlas.AtlasRegion lazer;
 
         public BulletAssets(TextureAtlas atlas) {
             bullet = atlas.findRegion(Constants.BULLET);
             bullet2 = atlas.findRegion(Constants.BULLET2);
             bullet3 = atlas.findRegion(Constants.BULLET3);
+            lazer = atlas.findRegion(Constants.LAZER);
         }
     }
 

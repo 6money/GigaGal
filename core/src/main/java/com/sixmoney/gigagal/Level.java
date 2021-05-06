@@ -173,7 +173,9 @@ public class Level {
             for (Bullet bullet : bullets) {
                 bullet.update(delta);
                 if (!bullet.active) {
-                    pepBulletTrail.free(bullet.particleBulletTrail);
+                    if (bullet.particleBulletTrail != null) {
+                        pepBulletTrail.free(bullet.particleBulletTrail);
+                    }
                     bullets.removeValue(bullet, true);
 
 
@@ -264,7 +266,7 @@ public class Level {
         platforms.add(new Platform(-70, 280, 280, 10));
         platforms.add(new Platform(210, 210, 10, 10));
 
-        enemies.add(new Enemy(platforms.get(1)));
+        enemies.add(new Enemy(platforms.get(1), this));
 
         powerups.add(new Powerup(new Vector2(25, 180)));
 

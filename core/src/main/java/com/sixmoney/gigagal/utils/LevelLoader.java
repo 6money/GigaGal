@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sixmoney.gigagal.Level;
 import com.sixmoney.gigagal.entities.EnemyBig;
+import com.sixmoney.gigagal.entities.EnemyRanged;
 import com.sixmoney.gigagal.entities.PowerupBig;
 import com.sixmoney.gigagal.entities.Diamond;
 import com.sixmoney.gigagal.entities.Enemy;
@@ -79,9 +80,11 @@ public class LevelLoader {
             String platform_identifier = platformObject.getString(Constants.LEVEL_IDENTIFIER_KEY, null);
 
             if (platform_identifier != null && platform_identifier.equals(Constants.LEVEL_ENEMY_TAG)) {
-                level.getEnemies().add(new Enemy(platform));
+                level.getEnemies().add(new Enemy(platform, level));
             } else if (platform_identifier != null && platform_identifier.equals(Constants.LEVEL_ENEMY_BIG_TAG)) {
-                level.getEnemies().add(new EnemyBig(platform));
+                level.getEnemies().add(new EnemyBig(platform, level));
+            } else if (platform_identifier != null && platform_identifier.equals(Constants.LEVEL_ENEMY_RANGED_TAG)) {
+                level.getEnemies().add(new EnemyRanged(platform, level));
             }
         }
 

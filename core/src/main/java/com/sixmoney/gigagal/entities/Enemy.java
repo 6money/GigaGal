@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.sixmoney.gigagal.Level;
 import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.Enums.*;
@@ -24,12 +25,16 @@ public class Enemy {
     protected float speed;
     protected float speedCharge;
     protected boolean charging;
+    protected boolean ranged;
+    protected Level level;
+    protected long shootStartTime;
 
     public Vector2 position;
     public Rectangle enemy_bounding_box;
 
-    public Enemy(Platform platform) {
+    public Enemy(Platform platform, Level level) {
         this.platform = platform;
+        this.level = level;
         position = new Vector2(MathUtils.random(platform.left, platform.left + platform.width), platform.top + Constants.ENEMY_CENTER_POS.y);
         if (MathUtils.randomBoolean()) {
             direction = Direction.LEFT;
@@ -38,10 +43,12 @@ public class Enemy {
         }
         start_time = TimeUtils.nanoTime();
         this.health = Constants.ENEMY_HEALTH;
+        ranged = false;
         random_phase = MathUtils.random();
         charging = false;
         speed = MathUtils.random(Constants.ENEMY_SPEED, Constants.ENEMY_SPEED * 1.5f);
         speedCharge = Constants.ENEMY_SPEED_CHARGE;
+        shootStartTime = TimeUtils.nanoTime();
         enemy_bounding_box = new Rectangle(
                 position.x - Constants.ENEMY_COLLISION_RADIUS,
                 position.y - Constants.ENEMY_COLLISION_RADIUS,
@@ -60,17 +67,24 @@ public class Enemy {
 
     public void update(float delta) {
         if (platform.hasPlayer) {
-            charging = true;
-            float move_distance = delta * speedCharge;
-            if (platform.playerPosition < position.x - platform.left) {
-                direction = Direction.LEFT;
+            if (ranged) {
+                if (Utils.secondsSince(shootStartTime) > Constants.LAZER_SHOOT_DELAY) {
+                    shootStartTime = TimeUtils.nanoTime();
+                    shoot();
+                }
             } else {
-                direction = Direction.RIGHT;
-            }
-            if (direction == Direction.LEFT) {
-                position.x -= move_distance;
-            } else {
-                position.x += move_distance;
+                charging = true;
+                float move_distance = delta * speedCharge;
+                if (platform.playerPosition < position.x - platform.left) {
+                    direction = Direction.LEFT;
+                } else {
+                    direction = Direction.RIGHT;
+                }
+                if (direction == Direction.LEFT) {
+                    position.x -= move_distance;
+                } else {
+                    position.x += move_distance;
+                }
             }
         } else {
             charging = false;
@@ -115,5 +129,8 @@ public class Enemy {
                 enemy_bounding_box.width,
                 enemy_bounding_box.height
         );
+    }
+
+    public void shoot() {
     }
 }

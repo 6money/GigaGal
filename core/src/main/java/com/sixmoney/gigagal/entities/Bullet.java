@@ -90,6 +90,4 @@ public class Bullet {
         spriteBatch.draw(Assets.get_instance().bulletAssets.bullet, position.x, position.y - Constants.BULLET_CENTER.y);
         particleBulletTrail.draw(spriteBatch);
     }
-
-
 }

@@ -110,12 +110,7 @@ public class GigaGal {
         );
 
         if (position.y < level.getKillplane_height()) {
-            lives -= 1;
-            if (lives <= 0) {
-                return;
-            }
-            soundManager.playSound(Constants.DEATH_SOUND_PATH);
-            respawn();
+            kill();
         }
 
         for (Platform platform: platforms) {
@@ -452,6 +447,15 @@ public class GigaGal {
 
     public void stopRunningEffect() {
         soundManager.stopSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+    }
+
+    public void kill() {
+        lives -= 1;
+        if (lives <= 0) {
+            return;
+        }
+        soundManager.playSound(Constants.DEATH_SOUND_PATH);
+        respawn();
     }
 
     public void render(SpriteBatch spriteBatch) {
