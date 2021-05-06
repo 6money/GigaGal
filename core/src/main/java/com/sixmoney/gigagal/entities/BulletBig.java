@@ -8,8 +8,8 @@ import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.Enums.*;
 
 public class BulletBig extends Bullet {
-    public BulletBig(Level level, Vector2 position, Direction direction, int particleID) {
-        super(level, position, direction, particleID);
+    public BulletBig(Level level, Vector2 position, Direction direction) {
+        super(level, position, direction);
         damage = 2;
     }
 
@@ -21,5 +21,6 @@ public class BulletBig extends Bullet {
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.draw(Assets.get_instance().bulletAssets.bullet2, position.x, position.y - Constants.BULLET_CENTER.y);
+        particleBulletTrail.draw(spriteBatch);
     }
 }

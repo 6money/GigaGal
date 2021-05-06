@@ -2,6 +2,9 @@ package com.sixmoney.gigagal;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -16,14 +19,10 @@ import com.sixmoney.gigagal.entities.ExitPortal;
 import com.sixmoney.gigagal.entities.Explosion;
 import com.sixmoney.gigagal.entities.ExplosionBig;
 import com.sixmoney.gigagal.entities.GigaGal;
-import com.sixmoney.gigagal.entities.Particle;
-import com.sixmoney.gigagal.entities.ParticleBulletTrailLeft;
-import com.sixmoney.gigagal.entities.ParticleBulletTrailRight;
-import com.sixmoney.gigagal.entities.ParticleExplosion;
 import com.sixmoney.gigagal.entities.Platform;
 import com.sixmoney.gigagal.entities.Powerup;
+import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
-import com.sixmoney.gigagal.utils.Enums;
 import com.sixmoney.gigagal.utils.SoundManager;
 
 public class Level {
@@ -37,7 +36,9 @@ public class Level {
     private DelayedRemovalArray<Powerup> powerups;
     private DelayedRemovalArray<Diamond> diamonds;
     private float killplane_height;
-    private Particle particleExplosion;
+    private ParticleEffectPool pepExplosion;
+    private ParticleEffectPool pepBulletTrail;
+    private DelayedRemovalArray<PooledEffect> explosionParticles;
 
     public boolean gameOver;
     public boolean victory;
@@ -45,8 +46,6 @@ public class Level {
     public Viewport viewport;
     public GigaGal gigaGal;
     public boolean paused;
-    public Particle particleBulletTrailLeft;
-    public Particle particleBulletTrailRight;
 
     public Level(Viewport viewport) {
         this.viewport = viewport;
@@ -57,10 +56,16 @@ public class Level {
         powerups = new DelayedRemovalArray<>();
         diamonds = new DelayedRemovalArray<>();
         exitPortal = new ExitPortal(Constants.EXIT_PORTAL_POSITION);
-        particleExplosion = new ParticleExplosion();
-        particleBulletTrailLeft = new ParticleBulletTrailLeft();
-        particleBulletTrailRight = new ParticleBulletTrailRight();
 //        addDebugPlatforms();
+
+        ParticleEffect explosionParticle = new ParticleEffect();
+        explosionParticle.load(Gdx.files.internal("particles/pixel_explosion"), Assets.get_instance().getAtlas());
+        pepExplosion = new ParticleEffectPool(explosionParticle, 5, 5);
+        explosionParticles = new DelayedRemovalArray<>();
+
+        ParticleEffect bullerTrailParticle = new ParticleEffect();
+        bullerTrailParticle.load(Gdx.files.internal("particles/pixel_bullet_trail"), Assets.get_instance().getAtlas());
+        pepBulletTrail = new ParticleEffectPool(bullerTrailParticle, 5, 5);
 
         gameOver = false;
         victory = false;
@@ -148,7 +153,10 @@ public class Level {
                     explosions.add(new ExplosionBig(enemy.position));
                     enemies.removeValue(enemy, true);
                     score += Constants.ENEMY_KILL_SCORE;
-                    particleExplosion.getNextParticleEffect(enemy.position);
+
+                    PooledEffect particleExplosion = pepExplosion.obtain();
+                    particleExplosion.setPosition(enemy.position.x, enemy.position.y);
+                    explosionParticles.add(particleExplosion);
                 }
             }
             enemies.end();
@@ -165,18 +173,30 @@ public class Level {
             for (Bullet bullet : bullets) {
                 bullet.update(delta);
                 if (!bullet.active) {
-                    if (bullet.direction == Enums.Direction.LEFT) {
-                        particleBulletTrailLeft.stop(bullet.particleBulletTrailID);
-                    } else {
-                        particleBulletTrailRight.stop(bullet.particleBulletTrailID);
-                    }
+                    pepBulletTrail.free(bullet.particleBulletTrail);
                     bullets.removeValue(bullet, true);
+
+
                 }
             }
             bullets.end();
 
-            particleExplosion.update(delta);
+            explosionParticles.begin();
+            for (PooledEffect explosionParticle: explosionParticles) {
+                explosionParticle.update(delta);
+                if (explosionParticle.isComplete()) {
+                    explosionParticle.free();
+                    explosionParticles.removeValue(explosionParticle, true);
+                }
+            }
+            explosionParticles.end();
         }
+    }
+
+    public void addBullet(Bullet bullet) {
+        PooledEffect bulletTrailParticle = pepBulletTrail.obtain();
+        bullet.setParticleBulletTrail(bulletTrailParticle);
+        bullets.add(bullet);
     }
 
     public void render(SpriteBatch spriteBatch) {
@@ -208,9 +228,9 @@ public class Level {
             diamond.render(spriteBatch);
         }
 
-        particleExplosion.draw(spriteBatch);
-        particleBulletTrailLeft.draw(spriteBatch);
-        particleBulletTrailRight.draw(spriteBatch);
+        for (PooledEffect particleExplosion: explosionParticles) {
+            particleExplosion.draw(spriteBatch);
+        }
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {
@@ -253,8 +273,7 @@ public class Level {
 
     public void dispose() {
         gigaGal.dispose();
-        particleExplosion.dispose();
-        particleBulletTrailLeft.dispose();
-        particleBulletTrailRight.dispose();
+        pepExplosion.clear();
+        pepBulletTrail.clear();
     }
 }

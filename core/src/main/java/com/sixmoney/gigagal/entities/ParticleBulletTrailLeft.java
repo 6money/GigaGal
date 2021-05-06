@@ -2,6 +2,7 @@ package com.sixmoney.gigagal.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ArrayMap;
@@ -50,6 +51,7 @@ public class ParticleBulletTrailLeft implements Particle {
         for (int i = 0; i < particleEffectMap.size; i++) {
             if (particleEffectMap.getValueAt(i)) {
                 particleEffectMap.getKeyAt(i).update(delta);
+                particleEffectMap.getKeyAt(i).start();
             }
         }
     }
@@ -59,6 +61,7 @@ public class ParticleBulletTrailLeft implements Particle {
         ParticleEffect particleEffect = particleEffectMap.getKeyAt(particleID);
         particleEffect.setPosition(position.x, position.y);
         particleEffect.update(delta);
+        particleEffect.start();
     }
 
     @Override

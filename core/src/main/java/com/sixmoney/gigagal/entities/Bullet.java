@@ -1,6 +1,6 @@
 package com.sixmoney.gigagal.entities;
 
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -18,15 +18,24 @@ public class Bullet {
 
     public boolean active;
     public Direction direction;
-    public int particleBulletTrailID;
+    public ParticleEffectPool.PooledEffect particleBulletTrail;
 
-    public Bullet(Level level, Vector2 position, Direction direction, int particleID) {
+    public Bullet(Level level, Vector2 position, Direction direction) {
         this.level = level;
         this.position = position;
         this.direction = direction;
         active = true;
         damage = 1;
-        particleBulletTrailID = particleID;
+    }
+
+    public void setParticleBulletTrail(ParticleEffectPool.PooledEffect particleBulletTrail) {
+        this.particleBulletTrail = particleBulletTrail;
+        if (direction == Direction.LEFT) {
+            this.particleBulletTrail.setPosition(position.x + Assets.get_instance().bulletAssets.bullet.originalWidth, position.y);
+        } else {
+            this.particleBulletTrail.setPosition(position.x, position.y);
+            this.particleBulletTrail.scaleEffect(-1);
+        }
     }
 
     public void update(float delta) {
@@ -57,10 +66,11 @@ public class Bullet {
         }
 
         if (direction == Direction.LEFT) {
-            level.particleBulletTrailLeft.update(delta, particleBulletTrailID, position);
+            particleBulletTrail.setPosition(position.x + Assets.get_instance().bulletAssets.bullet.originalWidth, position.y);
         } else {
-            level.particleBulletTrailRight.update(delta, particleBulletTrailID, position);
+            particleBulletTrail.setPosition(position.x, position.y);
         }
+        particleBulletTrail.update(delta);
     }
 
     public void playExplosion() {
@@ -78,6 +88,7 @@ public class Bullet {
 
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.draw(Assets.get_instance().bulletAssets.bullet, position.x, position.y - Constants.BULLET_CENTER.y);
+        particleBulletTrail.draw(spriteBatch);
     }
 
 

@@ -27,6 +27,7 @@ public class ParticleBulletTrailRight implements Particle {
     public int getNextParticleEffect(Vector2 position) {
         ParticleEffect particleEffect = particleEffectMap.getKeyAt(particleArrayPosition);
         particleEffect.setPosition(position.x, position.y);
+        particleEffect.start();
         particleEffectMap.setValue(particleArrayPosition, true);
         int returnValue = particleArrayPosition;
         particleArrayPosition++;

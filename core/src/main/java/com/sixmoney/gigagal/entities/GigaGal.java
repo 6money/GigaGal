@@ -2,6 +2,9 @@ package com.sixmoney.gigagal.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,6 +13,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.sixmoney.gigagal.Level;
 import com.sixmoney.gigagal.utils.Assets;
@@ -19,8 +23,6 @@ import com.sixmoney.gigagal.utils.SoundManager;
 import com.sixmoney.gigagal.utils.Utils;
 
 public class GigaGal {
-    private static final int LEFT = 0;
-    private static final int RIGHT = 1;
 
     public final static String TAG = GigaGal.class.getName();
 
@@ -37,8 +39,12 @@ public class GigaGal {
     private boolean canDrop;
     private SoundManager soundManager;
     private long runningEffectId;
-    private Particle particleDust;
-    private Particle particleDustJump;
+    private ParticleEffectPool pepDust;
+    private ParticleEffectPool pepDustJump;
+    private DelayedRemovalArray<PooledEffect> dustParticles;
+    private DelayedRemovalArray<PooledEffect> dustJumpParticles;
+    private long dustParticleStartTime;
+
 
     public Vector2 position;
     public int ammmoBasic;
@@ -56,9 +62,18 @@ public class GigaGal {
         soundManager = SoundManager.get_instance();
         runningEffectId = soundManager.playSound(Constants.RUNNING_SOUND_PATH, true);
         soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
-        particleDust = new ParticleDust();
-        particleDustJump = new ParticleDustJump();
         init();
+
+        ParticleEffect dustParticle = new ParticleEffect();
+        dustParticle.load(Gdx.files.internal("particles/pixel_dust"), Assets.get_instance().getAtlas());
+        pepDust = new ParticleEffectPool(dustParticle, 10, 10);
+        dustParticles = new DelayedRemovalArray<>();
+        dustParticleStartTime = TimeUtils.nanoTime() + 100000000;
+
+        ParticleEffect dustJuspParticle = new ParticleEffect();
+        dustJuspParticle.load(Gdx.files.internal("particles/pixel_dust_jump"), Assets.get_instance().getAtlas());
+        pepDustJump = new ParticleEffectPool(dustJuspParticle, 4, 4);
+        dustJumpParticles = new DelayedRemovalArray<>();
     }
 
     public void init(){
@@ -238,44 +253,57 @@ public class GigaGal {
             shoot();
         }
 
-        particleDust.update(delta);
-        particleDustJump.update(delta);
+
+        dustJumpParticles.begin();
+        for (PooledEffect dustJumpParticle: dustJumpParticles) {
+            dustJumpParticle.update(delta);
+            if (dustJumpParticle.isComplete()) {
+                dustJumpParticle.free();
+                dustJumpParticles.removeValue(dustJumpParticle, true);
+            }
+        }
+        dustJumpParticles.end();
+        dustParticles.begin();
+        for (PooledEffect dustParticle: dustParticles) {
+            dustParticle.update(delta);
+            if (dustParticle.isComplete()) {
+                dustParticle.free();
+                dustParticles.removeValue(dustParticle, true);
+            }
+        }
+        dustParticles.end();
     }
 
     public void shoot() {
         Vector2 bullet_position;
-        int bulletTrailID;
 
         if (facing == Direction.RIGHT) {
             bullet_position = new Vector2(
                     position.x + Constants.GIGAGAL_BARREL_POS.x,
                     position.y + Constants.GIGAGAL_BARREL_POS.y
             );
-            bulletTrailID = level.particleBulletTrailRight.getNextParticleEffect(bullet_position);
         } else {
             bullet_position = new Vector2(
                     position.x - Constants.GIGAGAL_BARREL_POS.x,
                     position.y + Constants.GIGAGAL_BARREL_POS.y
             );
-            bulletTrailID = level.particleBulletTrailLeft.getNextParticleEffect(bullet_position);
-            Gdx.app.log(TAG, bullet_position.toString());
         }
 
         if (ammmoRapid > 0) {
             playGunshot();
             ammmoRapid--;
-            Bullet bullet = new BulletRapid(level, bullet_position, facing, bulletTrailID);
-            level.getBullets().add(bullet);
+            Bullet bullet = new BulletRapid(level, bullet_position, facing);
+            level.addBullet(bullet);
         } else if (ammmoBig > 0) {
             playGunshot();
             ammmoBig--;
-            Bullet bullet = new BulletBig(level, bullet_position, facing, bulletTrailID);
-            level.getBullets().add(bullet);
+            Bullet bullet = new BulletBig(level, bullet_position, facing);
+            level.addBullet(bullet);
         } else if (ammmoBasic > 0) {
             playGunshot();
             ammmoBasic--;
-            Bullet bullet = new Bullet(level, bullet_position, facing, bulletTrailID);
-            level.getBullets().add(bullet);
+            Bullet bullet = new Bullet(level, bullet_position, facing);
+            level.addBullet(bullet);
         }
     }
 
@@ -334,9 +362,12 @@ public class GigaGal {
         walkState = WalkState.WALKING;
         facing = Direction.LEFT;
         position.x -= delta * Constants.GIGAGAL_MOVEMENT_SPEED;
-        Vector2 foot_pos = new Vector2(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
-        if (particleDust.nextParticleReady() && jumpState == JumpState.GROUNDED) {
-            particleDust.getNextParticleEffect(foot_pos);
+
+        if (Utils.secondsSince(dustParticleStartTime) > Constants.GIGAGAL_PARTICLE_DELAY && jumpState == JumpState.GROUNDED) {
+            dustParticleStartTime = TimeUtils.nanoTime();
+            PooledEffect particleDust = pepDust.obtain();
+            particleDust.setPosition(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
+            dustParticles.add(particleDust);
         }
     }
 
@@ -348,9 +379,12 @@ public class GigaGal {
         walkState = WalkState.WALKING;
         facing = Direction.RIGHT;
         position.x += delta * Constants.GIGAGAL_MOVEMENT_SPEED;
-        Vector2 foot_pos = new Vector2(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
-        if (particleDust.nextParticleReady() && jumpState == JumpState.GROUNDED) {
-            particleDust.getNextParticleEffect(foot_pos);
+
+        if (Utils.secondsSince(dustParticleStartTime) > Constants.GIGAGAL_PARTICLE_DELAY && jumpState == JumpState.GROUNDED) {
+            dustParticleStartTime = TimeUtils.nanoTime();
+            PooledEffect particleDust = pepDust.obtain();
+            particleDust.setPosition(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
+            dustParticles.add(particleDust);
         }
     }
 
@@ -366,8 +400,9 @@ public class GigaGal {
         soundManager.playSound(Constants.JUMP_SOUND_PATH);
         jumpState = JumpState.JUMPING;
         jumpStartTime = TimeUtils.nanoTime();
-        Vector2 foot_pos = new Vector2(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
-        particleDustJump.getNextParticleEffect(foot_pos);
+        PooledEffect particleDustJump = pepDustJump.obtain();
+        particleDustJump.setPosition(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
+        dustJumpParticles.add(particleDustJump);
         continueJump(gigagal_bounding_box,  platforms);
     }
 
@@ -448,8 +483,13 @@ public class GigaGal {
                 position.x - Constants.GIGAGAL_EYE_POS.x,
                 position.y - Constants.GIGAGAL_EYE_POS.y);
 
-        particleDust.draw(spriteBatch);
-        particleDustJump.draw(spriteBatch);
+
+        for (PooledEffect particleDustJump: dustJumpParticles) {
+            particleDustJump.draw(spriteBatch);
+        }
+        for (PooledEffect particleDust: dustParticles) {
+            particleDust.draw(spriteBatch);
+        }
 
     }
 
@@ -463,7 +503,7 @@ public class GigaGal {
     }
 
     public void dispose() {
-        particleDust.dispose();
-        particleDustJump.dispose();
+        pepDust.clear();
+        pepDustJump.clear();
     }
 }
