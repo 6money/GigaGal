@@ -42,17 +42,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
-//        Gdx.input.setInputProcessor(this);
-//        spriteBatch = new SpriteBatch();
-//        extendViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-//        bitmapFont = new BitmapFont(Gdx.files.internal(Constants.FONT_FILE));
-//        level1_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() * 4 / 8, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 6);
-//        level2_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() / 8, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 6);
-//        level3_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() / 12, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 6);
-//        level4_button = new Rectangle(extendViewport.getWorldWidth() / 8, extendViewport.getWorldHeight() / 12, extendViewport.getWorldWidth() * 6 / 8, extendViewport.getWorldHeight() / 6);
-//        back_button = new Rectangle(0, extendViewport.getWorldHeight() / 12 * 10, extendViewport.getWorldWidth() / 10, extendViewport.getWorldHeight() / 12);
-
-        stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH / 2, Constants.WINDOW_HEIGHT / 2));
+        stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WINDOW_HEIGHT));
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH2));
 
         Table tableMenu = new Table(skin);
@@ -132,39 +122,12 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
 
     @Override
     public void resize(int width, int height) {
-//        extendViewport.update(width, height, true);
-//        level1_button.x = extendViewport.getWorldWidth() / 8;
-//        level1_button.y = extendViewport.getWorldHeight() * 3 / 6;
-//        level1_button.width = extendViewport.getWorldWidth() * 6 / 8;
-//        level1_button.height = extendViewport.getWorldHeight() / 6;
-//
-//        level2_button.x = extendViewport.getWorldWidth() / 8;
-//        level2_button.y = extendViewport.getWorldHeight() * 2 / 6;
-//        level2_button.width = extendViewport.getWorldWidth() * 6 / 8;
-//        level2_button.height = extendViewport.getWorldHeight() / 6;
-//
-//        level3_button.x = extendViewport.getWorldWidth() / 8;
-//        level3_button.y = extendViewport.getWorldHeight() / 6;
-//        level3_button.width = extendViewport.getWorldWidth() * 6 / 8;
-//        level3_button.height = extendViewport.getWorldHeight() / 6;
-//
-//        level4_button.x = extendViewport.getWorldWidth() / 8;
-//        level4_button.y = extendViewport.getWorldHeight() / 16;
-//        level4_button.width = extendViewport.getWorldWidth() * 6 / 8;
-//        level4_button.height = extendViewport.getWorldHeight() / 10;
-//
-//        back_button.y = extendViewport.getWorldHeight() / 10 * 9;
-//        back_button.width = extendViewport.getWorldWidth() / 4;
-//        back_button.height = extendViewport.getWorldHeight() / 10;
-
         stage.getViewport().update(width, height, true);
     }
 
 
     @Override
     public void render(float delta) {
-//        extendViewport.apply(true);
-
         Gdx.gl.glClearColor(
                 Constants.BG_COLOR.r,
                 Constants.BG_COLOR.g,
@@ -172,23 +135,6 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 Constants.BG_COLOR.a
         );
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-//        spriteBatch.setProjectionMatrix(extendViewport.getCamera().combined);
-//        spriteBatch.begin();
-//        bitmapFont.getData().setScale(0.5f);
-//        bitmapFont.draw(spriteBatch, "SELECT A LEVEL", extendViewport.getWorldWidth() / 2, extendViewport.getWorldHeight() / 1.2f, 0, Align.center, false);
-//        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, level1_button.x, level1_button.y, level1_button.width, level1_button.height);
-//        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, level2_button.x, level2_button.y, level2_button.width, level2_button.height);
-//        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, level3_button.x, level3_button.y, level3_button.width, level3_button.height);
-//        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, level4_button.x, level4_button.y, level4_button.width, level4_button.height);
-//        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, back_button.x, back_button.y, back_button.width, back_button.height);
-//        bitmapFont.draw(spriteBatch, "LEVEL 1", level1_button.x + level1_button.width / 2, level1_button.y + level1_button.height / 1.3f, 0, Align.center, false);
-//        bitmapFont.draw(spriteBatch, "LEVEL 2", level2_button.x + level2_button.width / 2, level2_button.y + level2_button.height / 1.3f, 0, Align.center, false);
-//        bitmapFont.draw(spriteBatch, "LEVEL 3", level3_button.x + level3_button.width / 2, level3_button.y + level3_button.height / 1.3f, 0, Align.center, false);
-//        bitmapFont.draw(spriteBatch, "LEVEL 4", level4_button.x + level4_button.width / 2, level4_button.y + level4_button.height / 1.3f, 0, Align.center, false);
-//        bitmapFont.getData().setScale(0.3f);
-//        bitmapFont.draw(spriteBatch, "BACK", back_button.x + back_button.width / 2, back_button.y + back_button.height / 1.5f, 0, Align.center, false);
-//        spriteBatch.end();
 
         stage.act(delta);
         stage.draw();
@@ -209,26 +155,6 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
 
     @Override
     public void dispose() {
-//        spriteBatch.dispose();
         stage.dispose();
     }
-
-//    @Override
-//    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-//        Vector2 viewportPosition = extendViewport.unproject(new Vector2(screenX, screenY));
-//
-//        if (level1_button.contains(viewportPosition)) {
-//            gigaGalGame.switchScreen("gameplay", Constants.LEVEL_1);
-//        } else if (level2_button.contains(viewportPosition)) {
-//            gigaGalGame.switchScreen("gameplay", Constants.LEVEL_2);
-//        } else if (level3_button.contains(viewportPosition)) {
-//            gigaGalGame.switchScreen("gameplay", Constants.LEVEL_3);
-//        } else if (level4_button.contains(viewportPosition)) {
-//            gigaGalGame.switchScreen("gameplay", Constants.LEVEL_4);
-//        } else if(back_button.contains(viewportPosition)) {
-//            gigaGalGame.switchScreen("menu");
-//            dispose();
-//        }
-//        return super.touchDown(screenX, screenY, pointer, button);
-//    }
 }

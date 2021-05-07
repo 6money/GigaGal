@@ -45,10 +45,7 @@ public class OptionsScreen implements Screen {
     public void show() {
         stage = new Stage(new ExtendViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH2));
-//        skin.getFont("font").getData().setScale(2);
-//        skin.getFont("list").getData().setScale(2);
-//        skin.getFont("subtitle").getData().setScale(2);
-//        skin.getFont("window").getData().setScale(2);
+        skin.getFont("font").getData().setScale(0.5f);
 
         buttonBack = new TextButton("Back", skin, "gigagal");
         buttonBack.setWidth(stage.getWidth() / 8);

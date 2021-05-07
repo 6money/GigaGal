@@ -27,6 +27,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public OnscreenControlsAssets onscreenControlsAssets;
     public DiamondAssets diamondAssets;
     public ParticleAssets particleAssets;
+    public BackgroundAssets backgroundAssets;
 
     private Assets() {
         init();
@@ -57,6 +58,7 @@ public class Assets implements Disposable, AssetErrorListener {
         onscreenControlsAssets = new OnscreenControlsAssets(atlas);
         diamondAssets = new DiamondAssets(atlas);
         particleAssets = new ParticleAssets(atlas);
+        backgroundAssets = new BackgroundAssets(atlas);
     }
 
     public TextureAtlas getAtlas() {
@@ -290,6 +292,14 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public ParticleAssets(TextureAtlas atlas) {
             particle = atlas.findRegion(Constants.PARTICLE);
+        }
+    }
+
+    public class BackgroundAssets {
+        public TextureAtlas.AtlasRegion clouds;
+
+        public BackgroundAssets(TextureAtlas atlas) {
+            clouds = atlas.findRegion(Constants.CLOUDS);
         }
     }
 }

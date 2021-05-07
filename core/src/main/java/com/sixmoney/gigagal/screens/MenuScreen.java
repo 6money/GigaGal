@@ -28,7 +28,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH / 2, Constants.WINDOW_HEIGHT / 2));
+        stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WINDOW_HEIGHT));
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH2));
 
         Table tableMenu = new Table(skin);

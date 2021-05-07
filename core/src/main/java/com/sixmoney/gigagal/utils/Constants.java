@@ -56,6 +56,7 @@ public class Constants {
     public static final String EXIT_PORTAL_SPRITE_6 = "exit-portal-6";
     public static final String DIAMOND = "diamond";
     public static final String PARTICLE = "particle";
+    public static final String CLOUDS = "clouds";
 
 
     // gigagal

@@ -1,7 +1,7 @@
 {
 "com.badlogic.gdx.graphics.g2d.BitmapFont": {
 	"font": {
-		"file": "font.fnt"
+		"file": "dialog2.fnt"
 	},
 	"list": {
 		"file": "font-list.fnt"
