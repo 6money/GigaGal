@@ -28,8 +28,8 @@ public class PauseOverlay extends InputAdapter {
         this.gameplayScreen = gameplayScreen;
         this.viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         resume_rect = new Rectangle(viewport.getWorldWidth() / 4, viewport.getWorldHeight() / 7, viewport.getWorldWidth() * 3 / 4, viewport.getWorldHeight() / 7);
-        quit_rect = new Rectangle(viewport.getWorldWidth() / 4, 0, viewport.getWorldWidth() * 3 / 4, viewport.getWorldHeight() / 7);
         restart_rect = new Rectangle(viewport.getWorldWidth() / 4, 0, viewport.getWorldWidth() * 3 / 4, viewport.getWorldHeight() / 7);
+        quit_rect = new Rectangle(viewport.getWorldWidth() / 4, 0, viewport.getWorldWidth() * 3 / 4, viewport.getWorldHeight() / 7);
 
         font = new BitmapFont(Gdx.files.internal(Constants.FONT_FILE));
     }
@@ -64,8 +64,8 @@ public class PauseOverlay extends InputAdapter {
         font.getData().setScale(1);
         font.draw(spriteBatch, Constants.PAUSED_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight * 3 / 4, 0, Align.center, false);
         font.getData().setScale(0.5f);
-        font.draw(spriteBatch, Constants.RESTART_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight * 1.7f / 7, 0, Align.center, false);
         font.draw(spriteBatch, Constants.RESUME_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight * 2.75f / 7, 0, Align.center, false);
+        font.draw(spriteBatch, Constants.RESTART_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight * 1.7f / 7, 0, Align.center, false);
         font.draw(spriteBatch, Constants.QUIT_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight / 10, 0, Align.center, false);
 
         spriteBatch.end();

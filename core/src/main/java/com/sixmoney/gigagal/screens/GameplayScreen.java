@@ -39,7 +39,6 @@ public class GameplayScreen extends ScreenAdapter {
     private GigaGalHUD hud;
     private VictoryOverlay victoryOverlay;
     private GameOverOverlay gameOverOverlay;
-    private long levelEndOverlayStartTime;
     private GigaGalGame gigaGalGame;
     private int level_num;
     private String level_name;
@@ -50,6 +49,7 @@ public class GameplayScreen extends ScreenAdapter {
     private float difficultly;
 
     public Level level;
+    public long levelEndOverlayStartTime;
     public OnScreeenControls onScreeenControls;
     public PauseOverlay pauseOverlay;
     public boolean debug;
@@ -78,8 +78,8 @@ public class GameplayScreen extends ScreenAdapter {
         level = LevelLoader.load(level_name, difficultly, extendViewport, parallaxCamera);
         chaseCam = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         hud = new GigaGalHUD();
-        victoryOverlay = new VictoryOverlay();
-        gameOverOverlay = new GameOverOverlay();
+        victoryOverlay = new VictoryOverlay(this);
+        gameOverOverlay = new GameOverOverlay(this);
         pauseOverlay = new PauseOverlay(this);
         onScreeenControls = new OnScreeenControls(this);
         onScreeenControls.gigaGal = level.gigaGal;
@@ -100,7 +100,9 @@ public class GameplayScreen extends ScreenAdapter {
         extendViewport.update(width, height, true);
         hud.viewport.update(width, height, true);
         victoryOverlay.viewport.update(width, height, true);
+        victoryOverlay.update_rect();
         gameOverOverlay.viewport.update(width, height, true);
+        gameOverOverlay.update_rect();
         pauseOverlay.viewport.update(width, height, true);
         pauseOverlay.update_rect();
         onScreeenControls.viewport.update(width, height, true);
@@ -174,6 +176,7 @@ public class GameplayScreen extends ScreenAdapter {
     private void renderLevelEndOverlays(SpriteBatch spriteBatch) {
 
         if (level.victory) {
+            Gdx.input.setInputProcessor(victoryOverlay);
             if (levelEndOverlayStartTime == 0) {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
 
@@ -188,47 +191,26 @@ public class GameplayScreen extends ScreenAdapter {
                 preferenceManager.addScore(level_name, level.score);
                 victoryOverlay.init(highScore);
             }
-
             victoryOverlay.render(spriteBatch, level.score);
-
-            if (Utils.secondsSince(levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION) {
-                if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-                    levelComplete();
-                }
-
-                if (Gdx.input.isTouched()) {
-                    levelComplete();
-                }
-            }
         } else if (level.gameOver) {
+            Gdx.input.setInputProcessor(gameOverOverlay);
             if (levelEndOverlayStartTime == 0) {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
-
                 SoundManager.get_instance().playSound(Constants.LOSE_EFFECT_PATH);
             }
 
             gameOverOverlay.render(spriteBatch);
-
-            if (Utils.secondsSince(levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION) {
-                if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-                    levelComplete(true, false);
-                }
-
-                if (Gdx.input.isTouched()) {
-                    levelComplete(true, false);
-                }
-            }
         }
     }
 
     private void startNewLevel() {
-
         setLevel_name();
         level = LevelLoader.load(level_name, difficultly, extendViewport, parallaxCamera);
         chaseCam.chase_cam = level.viewport.getCamera();
         chaseCam.gigaGal = level.gigaGal;
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         onScreeenControls.gigaGal = level.gigaGal;
+        levelEndOverlayStartTime = 0;
     }
 
     public void levelComplete() {
@@ -236,12 +218,11 @@ public class GameplayScreen extends ScreenAdapter {
     }
 
     public void levelComplete(boolean quit, boolean restart) {
-        levelEndOverlayStartTime = 0;
         if (!restart) {
             level_num++;
         }
 
-        if (level_num <= Constants.MAX_LEVEL && !level.gameOver && !quit) {
+        if (level_num <= Constants.MAX_LEVEL && !quit) {
             startNewLevel();
         } else {
             // This is here because we'd get crashes when the SpriteBatch was disposed

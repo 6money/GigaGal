@@ -155,7 +155,7 @@ public class Constants {
     public static final int DIAMOND_SCORE = 1000;
 
     // Victory/Game Over/Pause screens
-    public static final float LEVEL_END_DURATION = 2;
+    public static final float LEVEL_END_DURATION = 1;
     public static final String VICTORY_MESSAGE = "You are the Winner!";
     public static final String VICTORY_SCORE = "Score: ";
     public static final String GAME_OVER_MESSAGE = "Game Over, Gal";
@@ -164,6 +164,7 @@ public class Constants {
     public static final String RESUME_MESSAGE = "RESUME";
     public static final String QUIT_MESSAGE = "QUIT";
     public static final String RESTART_MESSAGE = "RESTART";
+    public static final String NEXT_LEVEL_MESSAGE = "NEXT LEVEL";
 
     // Onscreen Controls
     public static final float ONSCREEN_CONTROLS_VIEWPORT_SIZE = 200;
