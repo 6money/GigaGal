@@ -211,6 +211,9 @@ public class GameplayScreen extends ScreenAdapter {
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         onScreeenControls.gigaGal = level.gigaGal;
         levelEndOverlayStartTime = 0;
+        if (onMobile() || debugMobile) {
+            Gdx.input.setInputProcessor(onScreeenControls);
+        }
     }
 
     public void levelComplete() {
