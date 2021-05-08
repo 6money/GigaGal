@@ -3,7 +3,9 @@ package com.sixmoney.gigagal.desktop;
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.math.MathUtils;
 import com.sixmoney.gigagal.GigaGalGame;
+import com.sixmoney.gigagal.utils.Constants;
 
 /** Launches the desktop (LWJGL) application. */
 public class DesktopLauncher {
@@ -18,8 +20,8 @@ public class DesktopLauncher {
 	private static LwjglApplicationConfiguration getDefaultConfiguration() {
 		LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
 		configuration.title = "GigaGal";
-		configuration.width = 640;
-		configuration.height = 480;
+		configuration.width = MathUtils.round(Constants.WINDOW_WIDTH);
+		configuration.height = MathUtils.round(Constants.WINDOW_HEIGHT);
 		//// This prevents a confusing error that would appear after exiting normally.
 		configuration.forceExit = false;
 		

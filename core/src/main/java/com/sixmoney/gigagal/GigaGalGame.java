@@ -38,6 +38,7 @@ public class GigaGalGame extends Game {
 		if (args != null) {
 			for (String arg : args) {
 				if (arg.equals("debug")) {
+					Gdx.app.setLogLevel(Application.LOG_DEBUG);
 					debug = true;
 				}
 				if (arg.equals("debug_mobile")) {
