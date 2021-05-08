@@ -104,7 +104,7 @@ public class PreferenceManager {
     }
 
     public float getDifficulty() {
-        return preferences.getFloat("difficulty", 1);
+        return preferences.getFloat("difficulty", 0);
     }
 
     public void setDifficulty(float value) {

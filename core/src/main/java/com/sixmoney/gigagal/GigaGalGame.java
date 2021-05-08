@@ -1,5 +1,6 @@
 package com.sixmoney.gigagal;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.sixmoney.gigagal.screens.GameplayScreen;

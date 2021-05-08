@@ -82,9 +82,9 @@ public class GigaGal {
         ammmoBasic = Constants.GIGAGAL_INIT_AMMO;
         ammmoBig = 0;
         ammmoRapid = 0;
-        if (level.difficultly == 0) {
+        if (level.difficultly == 0f) {
             lives = Constants.GIGAGAL_INIT_LIVES;
-        } else if (level.difficultly == 50) {
+        } else if (level.difficultly == 50f) {
             lives = Constants.GIGAGAL_INIT_LIVES - 1;
         } else {
             lives = Constants.GIGAGAL_INIT_LIVES - 2;

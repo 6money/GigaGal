@@ -44,7 +44,7 @@ public class GameOverOverlay extends InputAdapter {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        if (Utils.secondsSince(gameplayScreen.levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION) {
+        if (Utils.secondsSince(gameplayScreen.levelEndOverlayStartTime) > Constants.LEVEL_END_BLOCK) {
             if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
                 gameplayScreen.levelComplete(false, true);
             }

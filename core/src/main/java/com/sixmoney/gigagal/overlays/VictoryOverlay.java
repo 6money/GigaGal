@@ -63,7 +63,7 @@ public class VictoryOverlay extends InputAdapter {
     }
 
     public void render(SpriteBatch spriteBatch, int score) {
-        if (Utils.secondsSince(gameplayScreen.levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION) {
+        if (Utils.secondsSince(gameplayScreen.levelEndOverlayStartTime) > Constants.LEVEL_END_BLOCK) {
             if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
                 gameplayScreen.levelComplete();
             }
@@ -72,10 +72,14 @@ public class VictoryOverlay extends InputAdapter {
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
-        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, continue_rect.x, continue_rect.y, continue_rect.width, continue_rect.height);
+        if (gameplayScreen.level_num < Constants.MAX_LEVEL) {
+            Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, continue_rect.x, continue_rect.y, continue_rect.width, continue_rect.height);
+        }
         Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, quit_rect.x, quit_rect.y, quit_rect.width, quit_rect.height);
         font.getData().setScale(0.5f);
-        font.draw(spriteBatch, Constants.NEXT_LEVEL_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight * 1.7f / 7, 0, Align.center, false);
+        if (gameplayScreen.level_num < Constants.MAX_LEVEL) {
+            font.draw(spriteBatch, Constants.NEXT_LEVEL_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight * 1.7f / 7, 0, Align.center, false);
+        }
         font.draw(spriteBatch, Constants.QUIT_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight / 10, 0, Align.center, false);
         font.getData().setScale(0.8f);
 

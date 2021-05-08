@@ -155,7 +155,8 @@ public class Constants {
     public static final int DIAMOND_SCORE = 1000;
 
     // Victory/Game Over/Pause screens
-    public static final float LEVEL_END_DURATION = 1;
+    public static final float LEVEL_END_DURATION = 2;
+    public static final float LEVEL_END_BLOCK = 1;
     public static final String VICTORY_MESSAGE = "You are the Winner!";
     public static final String VICTORY_SCORE = "Score: ";
     public static final String GAME_OVER_MESSAGE = "Game Over, Gal";
@@ -182,6 +183,7 @@ public class Constants {
     public static final String GUNSHOT2_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_002_62524.mp3";
     public static final String GUNSHOT3_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_003_62525.mp3";
     public static final String GUNSHOT4_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_004_62526.mp3";
+    public static final String LAZER_PATH = "sounds/science_fiction_laser_002.mp3";
     public static final String EXPLOSION1_PATH = "sounds/zapsplat_explosions_large_explosion_003_63093.mp3";
     public static final String EXPLOSION2_PATH = "sounds/zapsplat_explosions_large_explosion_005_63095.mp3";
     public static final String DEATH_SOUND_PATH = "sounds/esm_8bit_splat_explosion_bomb_boom_blast_cannon_retro_old_school_classic_cartoon.mp3";

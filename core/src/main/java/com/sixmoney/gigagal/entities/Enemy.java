@@ -47,11 +47,11 @@ public class Enemy {
         ranged = false;
         random_phase = MathUtils.random();
         charging = false;
-        if (level.difficultly == 0) {
+        if (level.difficultly == 0f) {
             shootDelayTime = Constants.LAZER_SHOOT_DELAY;
             speed = Constants.ENEMY_SPEED;
             speedCharge = Constants.ENEMY_SPEED_CHARGE;
-        } else if (level.difficultly == 50) {
+        } else if (level.difficultly == 50f) {
             shootDelayTime = Constants.LAZER_SHOOT_DELAY * 0.8f;
             speed = Constants.ENEMY_SPEED * 1.3f;
             speedCharge = Constants.ENEMY_SPEED_CHARGE * 1.3f;

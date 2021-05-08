@@ -44,6 +44,7 @@ public class SoundManager implements Disposable, AssetErrorListener {
         assetManager.load(Constants.GUNSHOT2_PATH, Sound.class);
         assetManager.load(Constants.GUNSHOT3_PATH, Sound.class);
         assetManager.load(Constants.GUNSHOT4_PATH, Sound.class);
+        assetManager.load(Constants.LAZER_PATH, Sound.class);
         assetManager.load(Constants.EXPLOSION1_PATH, Sound.class);
         assetManager.load(Constants.EXPLOSION2_PATH, Sound.class);
         assetManager.load(Constants.DEATH_SOUND_PATH, Sound.class);

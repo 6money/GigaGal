@@ -40,7 +40,6 @@ public class GameplayScreen extends ScreenAdapter {
     private VictoryOverlay victoryOverlay;
     private GameOverOverlay gameOverOverlay;
     private GigaGalGame gigaGalGame;
-    private int level_num;
     private String level_name;
     private boolean old_paused;
     private ShapeRenderer shapeRenderer;
@@ -49,6 +48,7 @@ public class GameplayScreen extends ScreenAdapter {
     private float difficultly;
 
     public Level level;
+    public int level_num;
     public long levelEndOverlayStartTime;
     public OnScreeenControls onScreeenControls;
     public PauseOverlay pauseOverlay;

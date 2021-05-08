@@ -6,6 +6,7 @@ import com.sixmoney.gigagal.Level;
 import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.Enums;
+import com.sixmoney.gigagal.utils.SoundManager;
 import com.sixmoney.gigagal.utils.Utils;
 
 public class EnemyRanged extends Enemy {
@@ -26,6 +27,7 @@ public class EnemyRanged extends Enemy {
 
     @Override
     public void shoot() {
+        SoundManager.get_instance().playSound(Constants.LAZER_PATH);
         Enums.Direction shootDirection;
         if (platform.playerPosition < position.x - platform.left) {
              shootDirection = Enums.Direction.LEFT;

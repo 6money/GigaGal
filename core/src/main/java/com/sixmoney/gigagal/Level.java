@@ -62,9 +62,9 @@ public class Level {
         this.viewport = viewport;
         this.parallaxCamera = parallaxCamera;
         this.difficultly = difficultly;
-        if (difficultly == 0) {
+        if (difficultly == 0f) {
             scoreMultiplier = 1f;
-        } else if (difficultly == 50) {
+        } else if (difficultly == 50f) {
             scoreMultiplier = 1.5f;
         } else {
             scoreMultiplier = 2f;
