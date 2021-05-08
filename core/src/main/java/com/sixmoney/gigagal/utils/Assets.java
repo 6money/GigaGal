@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class Assets implements Disposable, AssetErrorListener {
     public static final String TAG = Assets.class.getName();
@@ -45,11 +46,12 @@ public class Assets implements Disposable, AssetErrorListener {
     private void init() {
         this.assetManager = new AssetManager();
         assetManager.setErrorListener(this);
+        long startLoad = TimeUtils.nanoTime();
         assetManager.load(Constants.CLOUDS2, Texture.class);
         assetManager.load(Constants.CLOUDS3, Texture.class);
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.finishLoading();
-
+        Gdx.app.log(TAG, "Sprites Loaded in " + Utils.secondsSince(startLoad) + " seconds");
         Gdx.app.log(TAG, assetManager.getAssetNames().toString());
 
         atlas = assetManager.get(Constants.TEXTURE_ATLAS);

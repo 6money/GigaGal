@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class SoundManager implements Disposable, AssetErrorListener {
     private final static String TAG = SoundManager.class.getName();
@@ -21,8 +22,6 @@ public class SoundManager implements Disposable, AssetErrorListener {
 
 
     private SoundManager() {
-        assetManager = new AssetManager();
-        assetManager.setErrorListener(this);
         init();
         updateSoundPreferences();
     }
@@ -38,6 +37,9 @@ public class SoundManager implements Disposable, AssetErrorListener {
 
 
     private void init() {
+        assetManager = new AssetManager();
+        assetManager.setErrorListener(this);
+        long startLoad = TimeUtils.nanoTime();
         assetManager.load(Constants.GUNSHOT1_PATH, Sound.class);
         assetManager.load(Constants.GUNSHOT2_PATH, Sound.class);
         assetManager.load(Constants.GUNSHOT3_PATH, Sound.class);
@@ -53,6 +55,8 @@ public class SoundManager implements Disposable, AssetErrorListener {
         assetManager.load(Constants.LOSE_EFFECT_PATH, Sound.class);
         assetManager.load(Constants.MUSIC_PATH, Music.class);
         assetManager.finishLoading();
+        Gdx.app.log(TAG, "Sound assets Loaded in " + Utils.secondsSince(startLoad) + " seconds");
+        Gdx.app.log(TAG, assetManager.getAssetNames().toString());
 
         backgroundMusic = assetManager.get(Constants.MUSIC_PATH);
     }
