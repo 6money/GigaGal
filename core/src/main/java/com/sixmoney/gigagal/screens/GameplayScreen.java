@@ -211,11 +211,11 @@ public class GameplayScreen extends ScreenAdapter {
 
             if (Utils.secondsSince(levelEndOverlayStartTime) > Constants.LEVEL_END_DURATION) {
                 if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-                    levelComplete(true);
+                    levelComplete(true, false);
                 }
 
                 if (Gdx.input.isTouched()) {
-                    levelComplete(true);
+                    levelComplete(true, false);
                 }
             }
         }
@@ -232,12 +232,14 @@ public class GameplayScreen extends ScreenAdapter {
     }
 
     public void levelComplete() {
-        levelComplete(false);
+        levelComplete(false, false);
     }
 
-    public void levelComplete(boolean quit) {
+    public void levelComplete(boolean quit, boolean restart) {
         levelEndOverlayStartTime = 0;
-        level_num++;
+        if (!restart) {
+            level_num++;
+        }
 
         if (level_num <= Constants.MAX_LEVEL && !level.gameOver && !quit) {
             startNewLevel();

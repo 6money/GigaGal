@@ -163,6 +163,7 @@ public class Constants {
     public static final String PAUSED_MESSAGE = "PAUSED";
     public static final String RESUME_MESSAGE = "RESUME";
     public static final String QUIT_MESSAGE = "QUIT";
+    public static final String RESTART_MESSAGE = "RESTART";
 
     // Onscreen Controls
     public static final float ONSCREEN_CONTROLS_VIEWPORT_SIZE = 200;
