@@ -50,9 +50,15 @@ configure(subprojects - project(':android')) {
 		into "$rootDir/assets/particles"
 	}
 
+	task copyBackgroundSprites(type: Copy){
+		from "$rootDir/core/rawAssets/backgroundSprites"
+		into "$rootDir/assets/images/backgroundSprites"
+	}
+
 	project.tasks.compileJava.dependsOn packTextures
 	project.tasks.compileJava.dependsOn copyLevels
 	project.tasks.compileJava.dependsOn copyParicles
+	project.tasks.compileJava.dependsOn copyBackgroundSprites
 }
 
 subprojects {

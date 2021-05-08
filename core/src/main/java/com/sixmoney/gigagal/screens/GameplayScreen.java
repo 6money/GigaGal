@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
@@ -20,6 +21,7 @@ import com.sixmoney.gigagal.overlays.GigaGalHUD;
 import com.sixmoney.gigagal.overlays.OnScreeenControls;
 import com.sixmoney.gigagal.overlays.PauseOverlay;
 import com.sixmoney.gigagal.overlays.VictoryOverlay;
+import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.ChaseCam;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.LevelLoader;
@@ -30,11 +32,6 @@ import com.sixmoney.gigagal.utils.Utils;
 
 public class GameplayScreen extends ScreenAdapter {
     public static final String TAG = GameplayScreen.class.getName();
-
-    public OnScreeenControls onScreeenControls;
-    public PauseOverlay pauseOverlay;
-    public boolean debug;
-    public boolean debugMobile;
 
     private SpriteBatch spriteBatch;
     private ExtendViewport extendViewport;
@@ -48,10 +45,13 @@ public class GameplayScreen extends ScreenAdapter {
     private String level_name;
     private boolean old_paused;
     private ShapeRenderer shapeRenderer;
-
     private ParallaxCamera parallaxCamera;
 
     public Level level;
+    public OnScreeenControls onScreeenControls;
+    public PauseOverlay pauseOverlay;
+    public boolean debug;
+    public boolean debugMobile;
 
     public GameplayScreen(GigaGalGame game, int level_num) {
         gigaGalGame = game;
@@ -80,6 +80,7 @@ public class GameplayScreen extends ScreenAdapter {
         onScreeenControls = new OnScreeenControls(this);
         onScreeenControls.gigaGal = level.gigaGal;
         levelEndOverlayStartTime = 0;
+
 
         if (onMobile() || debugMobile) {
             Gdx.input.setInputProcessor(onScreeenControls);

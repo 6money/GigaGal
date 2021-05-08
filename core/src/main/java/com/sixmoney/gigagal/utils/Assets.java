@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -41,11 +42,15 @@ public class Assets implements Disposable, AssetErrorListener {
         return instance;
     }
 
-    public void init() {
+    private void init() {
         this.assetManager = new AssetManager();
         assetManager.setErrorListener(this);
+        assetManager.load(Constants.CLOUDS2, Texture.class);
+        assetManager.load(Constants.CLOUDS3, Texture.class);
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.finishLoading();
+
+        Gdx.app.log(TAG, assetManager.getAssetNames().toString());
 
         atlas = assetManager.get(Constants.TEXTURE_ATLAS);
         gigaGalAssets = new GigaGalAssets(atlas);
@@ -58,7 +63,7 @@ public class Assets implements Disposable, AssetErrorListener {
         onscreenControlsAssets = new OnscreenControlsAssets(atlas);
         diamondAssets = new DiamondAssets(atlas);
         particleAssets = new ParticleAssets(atlas);
-        backgroundAssets = new BackgroundAssets(atlas);
+        backgroundAssets = new BackgroundAssets(assetManager);
     }
 
     public TextureAtlas getAtlas() {
@@ -296,10 +301,12 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
     public class BackgroundAssets {
-        public TextureAtlas.AtlasRegion clouds;
+        public Texture clouds2;
+        public Texture clouds3;
 
-        public BackgroundAssets(TextureAtlas atlas) {
-            clouds = atlas.findRegion(Constants.CLOUDS);
+        public BackgroundAssets(AssetManager assetManager) {
+            clouds2 = assetManager.get(Constants.CLOUDS2);
+            clouds3 = assetManager.get(Constants.CLOUDS3);
         }
     }
 }

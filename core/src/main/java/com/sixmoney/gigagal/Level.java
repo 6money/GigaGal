@@ -2,10 +2,12 @@ package com.sixmoney.gigagal;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -40,7 +42,12 @@ public class Level {
     private final ParticleEffectPool pepExplosion;
     private final ParticleEffectPool pepBulletTrail;
     private final DelayedRemovalArray<PooledEffect> explosionParticles;
-    private ParallaxCamera parallaxCamera;
+    private final ParallaxCamera parallaxCamera;
+    private Texture background;
+    private Texture background2;
+    private TextureRegion backgroundR;
+    private TextureRegion backgroundR2;
+
 
     public boolean gameOver;
     public boolean victory;
@@ -60,6 +67,16 @@ public class Level {
         diamonds = new DelayedRemovalArray<>();
         exitPortal = new ExitPortal(Constants.EXIT_PORTAL_POSITION);
 //        addDebugPlatforms();
+
+        background = Assets.get_instance().backgroundAssets.clouds3;
+        background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        backgroundR = new TextureRegion(background);
+        backgroundR.setRegion(0, 0, background.getWidth() * 4, background.getHeight() * 8);
+
+        background2 = Assets.get_instance().backgroundAssets.clouds2;
+        background2.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        backgroundR2 = new TextureRegion(background);
+        backgroundR2.setRegion(0, 0, background.getWidth() * 4, background.getHeight() * 8);
 
         ParticleEffect explosionParticle = new ParticleEffect();
         explosionParticle.load(Gdx.files.internal("particles/pixel_explosion"), Assets.get_instance().getAtlas());
@@ -205,9 +222,14 @@ public class Level {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.5f, 1));
+        spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.25f, 0.25f));
         spriteBatch.begin();
-        spriteBatch.draw(Assets.get_instance().backgroundAssets.clouds, 0, 0);
+        spriteBatch.draw(backgroundR, -400, -400, backgroundR.getRegionWidth() * 2, backgroundR.getRegionHeight() * 2);
+        spriteBatch.end();
+
+        spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.5f, 0.5f));
+        spriteBatch.begin();
+        spriteBatch.draw(backgroundR2, -400, -400);
         spriteBatch.end();
 
         spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(1f, 1));
