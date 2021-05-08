@@ -5,8 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -20,6 +23,7 @@ import com.sixmoney.gigagal.overlays.VictoryOverlay;
 import com.sixmoney.gigagal.utils.ChaseCam;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.LevelLoader;
+import com.sixmoney.gigagal.utils.ParallaxCamera;
 import com.sixmoney.gigagal.utils.PreferenceManager;
 import com.sixmoney.gigagal.utils.SoundManager;
 import com.sixmoney.gigagal.utils.Utils;
@@ -31,6 +35,7 @@ public class GameplayScreen extends ScreenAdapter {
     public PauseOverlay pauseOverlay;
     public boolean debug;
     public boolean debugMobile;
+
     private SpriteBatch spriteBatch;
     private ExtendViewport extendViewport;
     private ChaseCam chaseCam;
@@ -43,6 +48,8 @@ public class GameplayScreen extends ScreenAdapter {
     private String level_name;
     private boolean old_paused;
     private ShapeRenderer shapeRenderer;
+
+    private ParallaxCamera parallaxCamera;
 
     public Level level;
 
@@ -62,8 +69,9 @@ public class GameplayScreen extends ScreenAdapter {
         setLevel_name();
         spriteBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
-        extendViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-        level = LevelLoader.load(level_name, extendViewport);
+        parallaxCamera = new ParallaxCamera(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+        extendViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, parallaxCamera);
+        level = LevelLoader.load(level_name, extendViewport, parallaxCamera);
         chaseCam = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         hud = new GigaGalHUD();
         victoryOverlay = new VictoryOverlay();
@@ -136,9 +144,7 @@ public class GameplayScreen extends ScreenAdapter {
         spriteBatch.setProjectionMatrix(extendViewport.getCamera().combined);
         shapeRenderer.setProjectionMatrix(extendViewport.getCamera().combined);
 
-        spriteBatch.begin();
         level.render(spriteBatch);
-        spriteBatch.end();
 
         if (onMobile() || debugMobile) {
             onScreeenControls.render(spriteBatch);
@@ -216,7 +222,7 @@ public class GameplayScreen extends ScreenAdapter {
     private void startNewLevel() {
 
         setLevel_name();
-        level = LevelLoader.load(level_name, extendViewport);
+        level = LevelLoader.load(level_name, extendViewport, parallaxCamera);
         chaseCam.chase_cam = level.viewport.getCamera();
         chaseCam.gigaGal = level.gigaGal;
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

@@ -24,14 +24,6 @@ import com.sixmoney.gigagal.utils.Constants;
 public class LevelSelectScreen extends InputAdapter implements Screen {
     public static final String TAG = MenuScreen.class.getName();
 
-    private SpriteBatch spriteBatch;
-    private ExtendViewport extendViewport;
-    private BitmapFont bitmapFont;
-    private Rectangle level1_button;
-    private Rectangle level2_button;
-    private Rectangle level3_button;
-    private Rectangle level4_button;
-    private Rectangle back_button;
     private GigaGalGame gigaGalGame;
     private Stage stage;
     private Skin skin;

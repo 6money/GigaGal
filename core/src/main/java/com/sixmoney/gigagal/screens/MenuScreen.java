@@ -18,6 +18,7 @@ import com.sixmoney.gigagal.utils.Constants;
 
 public class MenuScreen implements Screen {
     public static final String TAG = MenuScreen.class.getName();
+
     private GigaGalGame gigaGalGame;
     private Stage stage;
     private Skin skin;

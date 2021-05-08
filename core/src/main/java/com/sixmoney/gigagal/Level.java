@@ -23,6 +23,7 @@ import com.sixmoney.gigagal.entities.Platform;
 import com.sixmoney.gigagal.entities.Powerup;
 import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
+import com.sixmoney.gigagal.utils.ParallaxCamera;
 import com.sixmoney.gigagal.utils.SoundManager;
 
 public class Level {
@@ -30,15 +31,16 @@ public class Level {
 
     private ExitPortal exitPortal;
     private Array<Platform> platforms;
-    private DelayedRemovalArray<Enemy> enemies;
-    private DelayedRemovalArray<Bullet> bullets;
-    private DelayedRemovalArray<Explosion> explosions;
-    private DelayedRemovalArray<Powerup> powerups;
-    private DelayedRemovalArray<Diamond> diamonds;
+    private final DelayedRemovalArray<Enemy> enemies;
+    private final DelayedRemovalArray<Bullet> bullets;
+    private final DelayedRemovalArray<Explosion> explosions;
+    private final DelayedRemovalArray<Powerup> powerups;
+    private final DelayedRemovalArray<Diamond> diamonds;
     private float killplane_height;
-    private ParticleEffectPool pepExplosion;
-    private ParticleEffectPool pepBulletTrail;
-    private DelayedRemovalArray<PooledEffect> explosionParticles;
+    private final ParticleEffectPool pepExplosion;
+    private final ParticleEffectPool pepBulletTrail;
+    private final DelayedRemovalArray<PooledEffect> explosionParticles;
+    private ParallaxCamera parallaxCamera;
 
     public boolean gameOver;
     public boolean victory;
@@ -47,8 +49,9 @@ public class Level {
     public GigaGal gigaGal;
     public boolean paused;
 
-    public Level(Viewport viewport) {
+    public Level(Viewport viewport, ParallaxCamera parallaxCamera) {
         this.viewport = viewport;
+        this.parallaxCamera = parallaxCamera;
         platforms = new Array<>();
         enemies = new DelayedRemovalArray<>();
         bullets = new DelayedRemovalArray<>();
@@ -202,6 +205,13 @@ public class Level {
     }
 
     public void render(SpriteBatch spriteBatch) {
+        spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.5f, 1));
+        spriteBatch.begin();
+        spriteBatch.draw(Assets.get_instance().backgroundAssets.clouds, 0, 0);
+        spriteBatch.end();
+
+        spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(1f, 1));
+        spriteBatch.begin();
         for (Platform platform: platforms) {
             platform.render(spriteBatch);
         }
@@ -233,6 +243,7 @@ public class Level {
         for (PooledEffect particleExplosion: explosionParticles) {
             particleExplosion.draw(spriteBatch);
         }
+        spriteBatch.end();
     }
 
     public void debugRender(ShapeRenderer shapeRenderer) {
