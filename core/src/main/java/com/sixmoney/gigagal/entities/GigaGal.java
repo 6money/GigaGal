@@ -82,7 +82,13 @@ public class GigaGal {
         ammmoBasic = Constants.GIGAGAL_INIT_AMMO;
         ammmoBig = 0;
         ammmoRapid = 0;
-        lives = Constants.GIGAGAL_INIT_LIVES;
+        if (level.difficultly == 0) {
+            lives = Constants.GIGAGAL_INIT_LIVES;
+        } else if (level.difficultly == 50) {
+            lives = Constants.GIGAGAL_INIT_LIVES - 1;
+        } else {
+            lives = Constants.GIGAGAL_INIT_LIVES - 2;
+        }
     }
 
     public void respawn() {
@@ -225,7 +231,7 @@ public class GigaGal {
                         break;
                 }
                 level.getPowerups().removeValue(powerup, true);
-                level.score += Constants.POWERUP_SCORE;
+                level.score += Constants.POWERUP_SCORE * level.scoreMultiplier;
             }
         }
         level.getPowerups().end();
@@ -238,7 +244,7 @@ public class GigaGal {
             if (hit_diamond) {
                 soundManager.playSound(Constants.COLLECT_DIAMOND_PATH);
                 level.getDiamonds().removeValue(diamond, true);
-                level.score += Constants.DIAMOND_SCORE;
+                level.score += Constants.DIAMOND_SCORE * level.scoreMultiplier;
             }
         }
         level.getDiamonds().end();

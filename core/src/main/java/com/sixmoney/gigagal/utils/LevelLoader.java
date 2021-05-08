@@ -27,9 +27,9 @@ public class LevelLoader {
     public static final String TAG = LevelLoader.class.toString();
 
 
-    public static Level load(String levelName, Viewport viewport, ParallaxCamera parallaxCamera) {
+    public static Level load(String levelName, float difficultly, Viewport viewport, ParallaxCamera parallaxCamera) {
 
-        Level level = new Level(viewport, parallaxCamera);
+        Level level = new Level(viewport, difficultly, parallaxCamera);
         String path = Constants.LEVEL_DIR + File.separator + levelName + Constants.LEVEL_FILE_EXTENSION;
 
 

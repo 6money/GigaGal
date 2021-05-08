@@ -28,6 +28,7 @@ public class Enemy {
     protected boolean ranged;
     protected Level level;
     protected long shootStartTime;
+    protected float shootDelayTime;
 
     public Vector2 position;
     public Rectangle enemy_bounding_box;
@@ -46,8 +47,21 @@ public class Enemy {
         ranged = false;
         random_phase = MathUtils.random();
         charging = false;
-        speed = MathUtils.random(Constants.ENEMY_SPEED, Constants.ENEMY_SPEED * 1.5f);
-        speedCharge = Constants.ENEMY_SPEED_CHARGE;
+        if (level.difficultly == 0) {
+            shootDelayTime = Constants.LAZER_SHOOT_DELAY;
+            speed = Constants.ENEMY_SPEED;
+            speedCharge = Constants.ENEMY_SPEED_CHARGE;
+        } else if (level.difficultly == 50) {
+            shootDelayTime = Constants.LAZER_SHOOT_DELAY * 0.8f;
+            speed = Constants.ENEMY_SPEED * 1.3f;
+            speedCharge = Constants.ENEMY_SPEED_CHARGE * 1.3f;
+        } else {
+            shootDelayTime = Constants.LAZER_SHOOT_DELAY * 0.5f;
+            speed = Constants.ENEMY_SPEED * 2f;
+            speedCharge = Constants.ENEMY_SPEED_CHARGE * 2f;
+        }
+        speed = MathUtils.random(speed, speed * 1.5f);
+
         shootStartTime = TimeUtils.nanoTime();
         enemy_bounding_box = new Rectangle(
                 position.x - Constants.ENEMY_COLLISION_RADIUS,

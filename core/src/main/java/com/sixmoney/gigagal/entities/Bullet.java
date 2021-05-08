@@ -54,7 +54,7 @@ public class Bullet {
                 add_explosion(bullet_center);
                 active = false;
                 enemy.setHealth(enemy.getHealth() - damage);
-                level.score += Constants.ENEMY_HIT_SCORE;
+                level.score += Constants.ENEMY_HIT_SCORE * level.scoreMultiplier;
             }
         }
 

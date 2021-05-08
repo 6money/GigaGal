@@ -48,17 +48,27 @@ public class Level {
     private TextureRegion backgroundR;
     private TextureRegion backgroundR2;
 
-
     public boolean gameOver;
     public boolean victory;
     public int score;
+    public float scoreMultiplier;
     public Viewport viewport;
     public GigaGal gigaGal;
     public boolean paused;
+    public float difficultly;
 
-    public Level(Viewport viewport, ParallaxCamera parallaxCamera) {
+
+    public Level(Viewport viewport, float difficultly, ParallaxCamera parallaxCamera) {
         this.viewport = viewport;
         this.parallaxCamera = parallaxCamera;
+        this.difficultly = difficultly;
+        if (difficultly == 0) {
+            scoreMultiplier = 1f;
+        } else if (difficultly == 50) {
+            scoreMultiplier = 1.5f;
+        } else {
+            scoreMultiplier = 2f;
+        }
         platforms = new Array<>();
         enemies = new DelayedRemovalArray<>();
         bullets = new DelayedRemovalArray<>();
@@ -154,9 +164,9 @@ public class Level {
                     Constants.GIGAGAL_HEIGHT
             );
             if (gigagal_bounding_box.contains(exitPortal.position)) {
-                score += gigaGal.ammmoBasic * Constants.AMMO_SCORE;
-                score += gigaGal.ammmoBig * Constants.AMMO_SPECIAL_SCORE;
-                score += gigaGal.ammmoRapid * Constants.AMMO_RAPID_SCORE;
+                score += (gigaGal.ammmoBasic * Constants.AMMO_SCORE) * scoreMultiplier;
+                score += (gigaGal.ammmoBig * Constants.AMMO_SPECIAL_SCORE) * scoreMultiplier;
+                score += (gigaGal.ammmoRapid * Constants.AMMO_RAPID_SCORE) * scoreMultiplier;
                 victory = true;
             }
             if (gigaGal.lives <= 0) {
@@ -172,7 +182,7 @@ public class Level {
                     SoundManager.get_instance().playSound(Constants.DEATH_SOUND_PATH);
                     explosions.add(new ExplosionBig(enemy.position));
                     enemies.removeValue(enemy, true);
-                    score += Constants.ENEMY_KILL_SCORE;
+                    score += Constants.ENEMY_KILL_SCORE * scoreMultiplier;
 
                     PooledEffect particleExplosion = pepExplosion.obtain();
                     particleExplosion.setPosition(enemy.position.x, enemy.position.y);

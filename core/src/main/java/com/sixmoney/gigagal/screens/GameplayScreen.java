@@ -46,6 +46,8 @@ public class GameplayScreen extends ScreenAdapter {
     private boolean old_paused;
     private ShapeRenderer shapeRenderer;
     private ParallaxCamera parallaxCamera;
+    private PreferenceManager preferenceManager;
+    private float difficultly;
 
     public Level level;
     public OnScreeenControls onScreeenControls;
@@ -71,7 +73,9 @@ public class GameplayScreen extends ScreenAdapter {
         shapeRenderer = new ShapeRenderer();
         parallaxCamera = new ParallaxCamera(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         extendViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, parallaxCamera);
-        level = LevelLoader.load(level_name, extendViewport, parallaxCamera);
+        preferenceManager = PreferenceManager.get_instance();
+        difficultly = preferenceManager.getDifficulty();
+        level = LevelLoader.load(level_name, difficultly, extendViewport, parallaxCamera);
         chaseCam = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         hud = new GigaGalHUD();
         victoryOverlay = new VictoryOverlay();
@@ -80,7 +84,6 @@ public class GameplayScreen extends ScreenAdapter {
         onScreeenControls = new OnScreeenControls(this);
         onScreeenControls.gigaGal = level.gigaGal;
         levelEndOverlayStartTime = 0;
-
 
         if (onMobile() || debugMobile) {
             Gdx.input.setInputProcessor(onScreeenControls);
@@ -175,8 +178,6 @@ public class GameplayScreen extends ScreenAdapter {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
 
                 SoundManager.get_instance().playSound(Constants.WIN_EFFECT_PATH);
-
-                PreferenceManager preferenceManager = PreferenceManager.get_instance();
                 Array<Integer> levelScores = preferenceManager.getScores(level_name);
                 boolean highScore = false;
 
@@ -223,7 +224,7 @@ public class GameplayScreen extends ScreenAdapter {
     private void startNewLevel() {
 
         setLevel_name();
-        level = LevelLoader.load(level_name, extendViewport, parallaxCamera);
+        level = LevelLoader.load(level_name, difficultly, extendViewport, parallaxCamera);
         chaseCam.chase_cam = level.viewport.getCamera();
         chaseCam.gigaGal = level.gigaGal;
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
