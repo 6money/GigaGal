@@ -103,11 +103,21 @@ public class PreferenceManager {
         preferences.flush();
     }
 
+    public float getDifficulty() {
+        return preferences.getFloat("difficulty", 1);
+    }
+
+    public void setDifficulty(float value) {
+        preferences.putFloat("difficulty", value);
+        preferences.flush();
+    }
+
     public void removeData() {
         preferences.remove("musicEnabled");
         preferences.remove("musicVolume");
         preferences.remove("soundEnabled");
         preferences.remove("soundVolume");
+        preferences.remove("difficulty");
         preferences.remove("Level1");
         preferences.remove("Level2");
         preferences.remove("Level3");

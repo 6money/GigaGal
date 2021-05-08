@@ -35,6 +35,7 @@ public class OptionsScreen implements Screen {
     private CheckBox checkboxSounds;
     private Slider sliderMusic;
     private Slider sliderSounds;
+    private Slider sliderDifficulty;
     private PreferenceManager preferenceManager;
 
     public OptionsScreen(GigaGalGame gigaGalGame) {
@@ -64,7 +65,7 @@ public class OptionsScreen implements Screen {
         tableOptions.defaults().grow().pad(5);
 
         window = new Window("Options", skin, "gigagal");
-        window.setSize(stage.getWidth() / 2, stage.getHeight() / 2);
+        window.setSize(stage.getWidth() / 2, stage.getHeight() * 2 / 3);
         window.setPosition(stage.getWidth() / 2 - window.getWidth() / 2, stage.getHeight() / 2 - window.getHeight() / 2);
         window.defaults().grow();
 
@@ -117,6 +118,17 @@ public class OptionsScreen implements Screen {
         });
 
         tableOptions.row();
+        tableOptions.add(new Label("Difficulty", skin));
+        sliderDifficulty = new Slider(0, 100, 50, false, skin);
+        tableOptions.add(sliderDifficulty);
+        sliderDifficulty.addListener(new DragListener() {
+            @Override
+            public void dragStop(InputEvent event, float x, float y, int pointer) {
+                preferenceManager.setDifficulty(sliderDifficulty.getValue());
+            }
+        });
+
+        tableOptions.row();
         TextButton buttonResetData = new TextButton("Reset all data", skin, "gigagal");
         tableOptions.add(buttonResetData);
         buttonResetData.addListener(new ClickListener() {
@@ -144,11 +156,13 @@ public class OptionsScreen implements Screen {
         boolean soundEnabled = preferenceManager.getSound();
         float musicVolume = preferenceManager.getMusicVolume();
         float soundVolume = preferenceManager.getSoundVolume();
+        float difficulty = preferenceManager.getDifficulty();
 
         checkboxMusic.setChecked(musicEnabled);
         sliderMusic.setValue(musicVolume);
         checkboxSounds.setChecked(soundEnabled);
         sliderSounds.setValue(soundVolume);
+        sliderDifficulty.setValue(difficulty);
 
         SoundManager.get_instance().updateSoundPreferences();
     }
