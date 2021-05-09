@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -60,6 +61,11 @@ public class OptionsScreen implements Screen {
                 dispose();
             }
         });
+
+        Label labelVersion = new Label(Constants.VERSION, skin);
+        labelVersion.setFontScale(0.5f);
+        labelVersion.setAlignment(Align.left);
+        labelVersion.setPosition(stage.getWidth() * 0.01f, stage.getHeight() * 0.01f);
 
         tableOptions = new Table(skin);
         tableOptions.pad(5);
@@ -156,6 +162,7 @@ public class OptionsScreen implements Screen {
 
         stage.addActor(window);
         stage.addActor(buttonBack);
+        stage.addActor(labelVersion);
 
         preferenceManager = PreferenceManager.get_instance();
         init_saved_settings();
