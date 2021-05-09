@@ -112,6 +112,15 @@ public class PreferenceManager {
         preferences.flush();
     }
 
+    public boolean getShowFPS() {
+        return preferences.getBoolean("showFPS", false);
+    }
+
+    public void setShowFPS(boolean value) {
+        preferences.putBoolean("showFPS", value);
+        preferences.flush();
+    }
+
     public void removeData() {
         preferences.remove("musicEnabled");
         preferences.remove("musicVolume");

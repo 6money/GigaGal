@@ -33,6 +33,7 @@ public class OptionsScreen implements Screen {
     private Window window;
     private CheckBox checkboxMusic;
     private CheckBox checkboxSounds;
+    private CheckBox checkboxFPS;
     private Slider sliderMusic;
     private Slider sliderSounds;
     private Slider sliderDifficulty;
@@ -129,6 +130,17 @@ public class OptionsScreen implements Screen {
         });
 
         tableOptions.row();
+        tableOptions.add(new Label("Show FPS", skin));
+        checkboxFPS = new CheckBox(null, skin);
+        tableOptions.add(checkboxFPS);
+        checkboxFPS.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                preferenceManager.setShowFPS(checkboxFPS.isChecked());
+            }
+        });
+
+        tableOptions.row();
         TextButton buttonResetData = new TextButton("Reset all data", skin, "gigagal");
         tableOptions.add(buttonResetData);
         buttonResetData.addListener(new ClickListener() {
@@ -157,12 +169,14 @@ public class OptionsScreen implements Screen {
         float musicVolume = preferenceManager.getMusicVolume();
         float soundVolume = preferenceManager.getSoundVolume();
         float difficulty = preferenceManager.getDifficulty();
+        boolean showFPS = preferenceManager.getShowFPS();
 
         checkboxMusic.setChecked(musicEnabled);
         sliderMusic.setValue(musicVolume);
         checkboxSounds.setChecked(soundEnabled);
         sliderSounds.setValue(soundVolume);
         sliderDifficulty.setValue(difficulty);
+        checkboxFPS.setChecked(showFPS);
 
         SoundManager.get_instance().updateSoundPreferences();
     }
