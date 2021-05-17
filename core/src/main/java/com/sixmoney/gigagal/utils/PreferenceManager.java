@@ -136,9 +136,13 @@ public class PreferenceManager {
         preferences.remove("soundEnabled");
         preferences.remove("soundVolume");
         preferences.remove("difficulty");
+        preferences.remove("showFPS");
+        preferences.remove("showMobile");
         preferences.remove("Level1");
         preferences.remove("Level2");
         preferences.remove("Level3");
+        preferences.remove("Level4");
+        preferences.remove("Level5");
         preferences.flush();
     }
 }
