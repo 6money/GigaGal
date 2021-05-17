@@ -72,6 +72,7 @@ public class GigaGalGame extends Game {
 
 		switch (screen_name) {
 			case "gameplay":
+				Gdx.app.log(TAG, "starting level" + level);
 				setScreen(new GameplayScreen(this, level));
 				break;
 			case "level select":

@@ -8,9 +8,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -47,9 +50,11 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
         labelWelcome.setAlignment(Align.center);
         tableMenu.add(labelWelcome).height(stage.getHeight() / 6);
 
-        tableMenu.row().uniform().fill();
+        Table tableLevels = new Table(skin);
+        tableLevels.pad(5);
+        tableLevels.defaults().grow().space(5);
 
-        tableMenu.row();
+        tableLevels.row();
         TextButton buttonLvl1 = new TextButton("LEVEL 1", skin, "gigagal");
         buttonLvl1.addListener(new ClickListener() {
             @Override
@@ -58,9 +63,9 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableMenu.add(buttonLvl1).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl1).height(stage.getHeight() / 6);
 
-        tableMenu.row();
+        tableLevels.row();
         TextButton buttonLvl2 = new TextButton("LEVEL 2", skin, "gigagal");
         buttonLvl2.addListener(new ClickListener() {
             @Override
@@ -69,9 +74,9 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableMenu.add(buttonLvl2).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl2).height(stage.getHeight() / 6);
 
-        tableMenu.row();
+        tableLevels.row();
         TextButton buttonLvl3 = new TextButton("LEVEL 3", skin, "gigagal");
         buttonLvl3.addListener(new ClickListener() {
             @Override
@@ -80,9 +85,9 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableMenu.add(buttonLvl3).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl3).height(stage.getHeight() / 6);
 
-        tableMenu.row();
+        tableLevels.row();
         TextButton buttonLvl4 = new TextButton("LEVEL 4", skin, "gigagal");
         buttonLvl4.addListener(new ClickListener() {
             @Override
@@ -91,7 +96,37 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableMenu.add(buttonLvl4).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl4).height(stage.getHeight() / 6);
+
+        tableLevels.row();
+        TextButton buttonLvl5 = new TextButton("LEVEL 5", skin, "gigagal");
+        buttonLvl5.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log(TAG, "here");
+                gigaGalGame.switchScreen("gameplay", Constants.LEVEL_5);
+                dispose();
+            }
+        });
+        tableLevels.add(buttonLvl5).height(stage.getHeight() / 6);
+
+        ScrollPane scrollPane = new ScrollPane(tableLevels, skin);
+        scrollPane.setFadeScrollBars(false);
+        scrollPane.setFlickScroll(false);
+        scrollPane.addListener(new InputListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                stage.setScrollFocus(scrollPane);
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+               stage.setScrollFocus(null);
+            }
+        });
+
+        tableMenu.row();
+        tableMenu.add(scrollPane);
 
         stage.addActor(tableMenu);
 
