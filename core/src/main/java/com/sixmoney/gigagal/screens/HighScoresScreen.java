@@ -28,6 +28,7 @@ public class HighScoresScreen implements Screen {
     private List<Integer> listLevel2;
     private List<Integer> listLevel3;
     private List<Integer> listLevel4;
+    private List<Integer> listLevel5;
     private Label labelHighScore;
     private Button buttonBack;
     private Table table;
@@ -49,6 +50,7 @@ public class HighScoresScreen implements Screen {
         Array<Integer> scoresLevel2 = preferenceManager.getScores("Level2");
         Array<Integer> scoresLevel3 = preferenceManager.getScores("Level3");
         Array<Integer> scoresLevel4 = preferenceManager.getScores("Level4");
+        Array<Integer> scoresLevel5 = preferenceManager.getScores("Level5");
 
         listLevel1 = new List<>(skin, "gigagal");
         listLevel1.setItems(scoresLevel1);
@@ -58,6 +60,8 @@ public class HighScoresScreen implements Screen {
         listLevel3.setItems(scoresLevel3);
         listLevel4 = new List<>(skin, "gigagal");
         listLevel4.setItems(scoresLevel4);
+        listLevel5 = new List<>(skin, "gigagal");
+        listLevel5.setItems(scoresLevel5);
 
         labelHighScore = new Label("HIGH SCORES", skin);
         labelHighScore.setPosition(stage.getWidth() / 2 - labelHighScore.getWidth() / 2, stage.getHeight() * 3 / 4);
@@ -87,12 +91,14 @@ public class HighScoresScreen implements Screen {
         table.add(new Label("Level 2", skin));
         table.add(new Label("Level 3", skin));
         table.add(new Label("Level 4", skin));
+        table.add(new Label("Level 5", skin));
 
         table.row();
         table.add(listLevel1);
         table.add(listLevel2);
         table.add(listLevel3);
         table.add(listLevel4);
+        table.add(listLevel5);
 
         stage.addActor(table);
         stage.addActor(labelHighScore);
