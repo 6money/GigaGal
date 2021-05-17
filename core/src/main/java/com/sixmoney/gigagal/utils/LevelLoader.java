@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sixmoney.gigagal.Level;
 import com.sixmoney.gigagal.entities.EnemyBig;
 import com.sixmoney.gigagal.entities.EnemyRanged;
+import com.sixmoney.gigagal.entities.PlatformBounce;
 import com.sixmoney.gigagal.entities.PowerupBig;
 import com.sixmoney.gigagal.entities.Diamond;
 import com.sixmoney.gigagal.entities.Enemy;
@@ -71,6 +72,8 @@ public class LevelLoader {
                 platform = new PlatformHard(x, y + height, width, height);
             } else if (platformObject.getString(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.PLATFORM_MEDIUM)) {
                 platform = new PlatformMedium(x, y + height, width, height);
+            } else if (platformObject.getString(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.PLATFORM_BOUNCE)) {
+                platform = new PlatformBounce(x, y + height, width, height);
             } else {
                 platform = new Platform(x, y + height, width, height);
             }

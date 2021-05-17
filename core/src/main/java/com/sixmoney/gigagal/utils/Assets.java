@@ -132,15 +132,18 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion platform;
         public TextureAtlas.AtlasRegion platform_hard;
         public TextureAtlas.AtlasRegion platform_medium;
+        public TextureAtlas.AtlasRegion platform_bounce;
         public NinePatch ninePatch_platform;
         public NinePatch ninePatch_platform_hard;
         public NinePatch ninePatch_platform_medium;
+        public NinePatch ninePatch_platform_bounce;
 
 
         public PlatformAssets(TextureAtlas atlas) {
             platform = atlas.findRegion(Constants.PLATFORM);
             platform_hard = atlas.findRegion(Constants.PLATFORM_HARD);
             platform_medium = atlas.findRegion(Constants.PLATFORM_MEDIUM);
+            platform_bounce = atlas.findRegion(Constants.PLATFORM_BOUNCE);
             ninePatch_platform = new NinePatch(
                     platform,
                     Constants.PLATFORM_EDGE_LENGTH,
@@ -157,6 +160,13 @@ public class Assets implements Disposable, AssetErrorListener {
             );
             ninePatch_platform_medium = new NinePatch(
                     platform_medium,
+                    Constants.PLATFORM_EDGE_LENGTH,
+                    Constants.PLATFORM_EDGE_LENGTH,
+                    Constants.PLATFORM_EDGE_LENGTH,
+                    Constants.PLATFORM_EDGE_LENGTH
+            );
+            ninePatch_platform_bounce = new NinePatch(
+                    platform_bounce,
                     Constants.PLATFORM_EDGE_LENGTH,
                     Constants.PLATFORM_EDGE_LENGTH,
                     Constants.PLATFORM_EDGE_LENGTH,

@@ -37,6 +37,7 @@ public class GigaGal {
     private Level level;
     private boolean hit_solid;
     private boolean canDrop;
+    private boolean bounce;
     private SoundManager soundManager;
     private long runningEffectId;
     private ParticleEffectPool pepDust;
@@ -160,6 +161,11 @@ public class GigaGal {
                     break;
                 }
             }
+
+            if (bounce) {
+                bounce = false;
+                startJump(gigagal_bounding_box, platforms, true);
+            }
         }
 
         for (Enemy enemy : level.getEnemies()) {
@@ -177,9 +183,9 @@ public class GigaGal {
         if (Gdx.input.isKeyPressed(Input.Keys.Z ) || jumpButtonPressed) {
             switch (jumpState) {
                 case GROUNDED:
-                    startJump(gigagal_bounding_box,  platforms);
+                    startJump(gigagal_bounding_box,  platforms, false);
                 case JUMPING:
-                    continueJump(gigagal_bounding_box,  platforms);
+                    continueJump(gigagal_bounding_box, platforms, false);
                 case FALLING:
                     break;
             }
@@ -335,6 +341,7 @@ public class GigaGal {
     boolean landedOnPlatform(Platform platform) {
         boolean landed = false;
         canDrop = true;
+        bounce = false;
 
         if ((position_last_frame.y - Constants.GIGAGAL_EYE_HEIGHT >= platform.top &&
                 position.y - Constants.GIGAGAL_EYE_HEIGHT <= platform.top) ||
@@ -354,6 +361,7 @@ public class GigaGal {
 
         if (landed) {
             canDrop = platform.droppable;
+            bounce = platform.bounce;
             platform.hasPlayer = true;
             platform.playerPosition = position.x - platform.left;
         }
@@ -403,17 +411,17 @@ public class GigaGal {
         }
     }
 
-    private void startJump(Rectangle gigagal_bounding_box, Array<Platform> platforms) {
+    private void startJump(Rectangle gigagal_bounding_box, Array<Platform> platforms, boolean bounceJump) {
         soundManager.playSound(Constants.JUMP_SOUND_PATH);
         jumpState = JumpState.JUMPING;
         jumpStartTime = TimeUtils.nanoTime();
         PooledEffect particleDustJump = pepDustJump.obtain();
         particleDustJump.setPosition(position.x, position.y - Constants.GIGAGAL_EYE_HEIGHT);
         dustJumpParticles.add(particleDustJump);
-        continueJump(gigagal_bounding_box,  platforms);
+        continueJump(gigagal_bounding_box,  platforms, bounceJump);
     }
 
-    private void continueJump(Rectangle gigagal_bounding_box, Array<Platform> platforms) {
+    private void continueJump(Rectangle gigagal_bounding_box, Array<Platform> platforms, boolean bounceJump) {
         boolean hit_solid = false;
 
         if (jumpState != JumpState.JUMPING) {
@@ -431,8 +439,17 @@ public class GigaGal {
             }
         }
 
-        if (jumpDuration < Constants.GIGAGAL_JUMP_DURATION && !hit_solid) {
-            velocity.y = Constants.GIGAGAL_JUMP_SPEED;
+        float maxJumpDuration = Constants.GIGAGAL_JUMP_DURATION;
+        if (bounceJump) {
+            maxJumpDuration = Constants.GIGAGAL_BOUNCE_JUMP_DURATION;
+        }
+        float jumpSpeed = Constants.GIGAGAL_JUMP_SPEED;
+        if (bounceJump) {
+            jumpSpeed = Constants.GIGAGAL_BOUNCE_JUMP_SPEED;
+        }
+
+        if (jumpDuration < maxJumpDuration && !hit_solid) {
+            velocity.y = jumpSpeed;
         } else {
             endJump();
         }

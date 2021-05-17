@@ -34,6 +34,7 @@ public class Constants {
     public static final String PLATFORM = "platform";
     public static final String PLATFORM_HARD = "platform-hard";
     public static final String PLATFORM_MEDIUM = "platform-medium";
+    public static final String PLATFORM_BOUNCE = "platform-bounce";
     public static final String ENEMY = "enemy";
     public static final String ENEMY2 = "enemy2";
     public static final String ENEMY3 = "enemy3";
@@ -68,8 +69,10 @@ public class Constants {
     public static final float GIGAGAL_HEIGHT = 23f;
     public static final float GIGAGAL_MOVEMENT_SPEED = 100f;
     public static final float GIGAGAL_JUMP_SPEED = 250f;
+    public static final float GIGAGAL_BOUNCE_JUMP_SPEED = 500f;
     public static final Vector2 GIGAGAL_KNOCKBACK_SPEED = new Vector2(250, 250);
     public static final float GIGAGAL_JUMP_DURATION = 0.15f;
+    public static final float GIGAGAL_BOUNCE_JUMP_DURATION = 0.30f;
     public static final float GIGAGAL_STANCE_WIDTH = 8f;
     public static final float WALK_DURATION = 0.15f;
     public static final Vector2 GIGAGAL_BARREL_POS = new Vector2(12, -7);

@@ -12,6 +12,7 @@ public class Platform implements Comparable<Platform> {
     public float height;
     public boolean solid;
     public boolean droppable;
+    public boolean bounce;
     public boolean hasPlayer;
     public float playerPosition;
 
@@ -24,6 +25,7 @@ public class Platform implements Comparable<Platform> {
         this.height = height;
         solid = false;
         droppable = true;
+        bounce = false;
         hasPlayer = false;
         playerPosition = 0;
     }
