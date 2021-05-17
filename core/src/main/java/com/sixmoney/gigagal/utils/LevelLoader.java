@@ -79,12 +79,30 @@ public class LevelLoader {
 
             String platform_identifier = platformObject.getString(Constants.LEVEL_IDENTIFIER_KEY, null);
 
-            if (platform_identifier != null && platform_identifier.equals(Constants.LEVEL_ENEMY_TAG)) {
-                level.getEnemies().add(new Enemy(platform, level));
-            } else if (platform_identifier != null && platform_identifier.equals(Constants.LEVEL_ENEMY_BIG_TAG)) {
-                level.getEnemies().add(new EnemyBig(platform, level));
-            } else if (platform_identifier != null && platform_identifier.equals(Constants.LEVEL_ENEMY_RANGED_TAG)) {
-                level.getEnemies().add(new EnemyRanged(platform, level));
+            if (platform_identifier != null) {
+                String[] platform_identifier_array = platform_identifier.split("#");
+                platform_identifier = platform_identifier_array[0];
+                int numEnemies = 1;
+                if (platform_identifier_array.length == 2) {
+                    numEnemies = Integer.parseInt(platform_identifier_array[1]);
+                }
+                switch (platform_identifier) {
+                    case Constants.LEVEL_ENEMY_TAG:
+                        for (int i = 0; i < numEnemies; i++ ) {
+                            level.getEnemies().add(new Enemy(platform, level));
+                        }
+                        break;
+                    case Constants.LEVEL_ENEMY_BIG_TAG:
+                        for (int i = 0; i < numEnemies; i++ ) {
+                            level.getEnemies().add(new EnemyBig(platform, level));
+                        }
+                        break;
+                    case Constants.LEVEL_ENEMY_RANGED_TAG:
+                        for (int i = 0; i < numEnemies; i++ ) {
+                            level.getEnemies().add(new EnemyRanged(platform, level));
+                        }
+                        break;
+                }
             }
         }
 
