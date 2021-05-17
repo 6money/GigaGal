@@ -56,6 +56,7 @@ public class GigaGal {
     public boolean leftButtonPressed;
     public boolean rightButtonPressed;
     public boolean dropButtonPressed;
+    public long bulletFireStartTime;
 
     public GigaGal(Vector2 spawn_position, Level level) {
         this.spawn_position = spawn_position;
@@ -101,6 +102,7 @@ public class GigaGal {
         jumpState = JumpState.FALLING;
         walkState = WalkState.STANDING;
         hit_solid = false;
+        bulletFireStartTime = TimeUtils.nanoTime();
     }
 
     public void update(float delta, Array<Platform> platforms) {
@@ -250,7 +252,10 @@ public class GigaGal {
         level.getDiamonds().end();
 
         if ((Gdx.input.isKeyPressed(Input.Keys.X) || shootButtonPressed) && ammmoRapid > 0) {
-            shoot();
+            if (Utils.secondsSince(bulletFireStartTime) >= Constants.BULLET_RAPID_FIRE_DELAY) {
+                bulletFireStartTime = TimeUtils.nanoTime();
+                shoot();
+            }
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.X) && (ammmoBasic > 0 || ammmoBig > 0)) {
             shoot();
         }

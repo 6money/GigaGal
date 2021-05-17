@@ -10,7 +10,7 @@ import com.sixmoney.gigagal.utils.Enums;
 public class BulletRapid extends Bullet {
     public BulletRapid(Level level, Vector2 position, Enums.Direction direction) {
         super(level, position, direction);
-        damage = 0.25f;
+        damage = 0.50f;
     }
 
     @Override

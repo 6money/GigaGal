@@ -95,6 +95,7 @@ public class Constants {
     // bullet
     public static final Vector2 BULLET_CENTER = new Vector2(3, 2);
     public static final float BULLET_SPEED = 150f;
+    public static final float BULLET_RAPID_FIRE_DELAY = 0.025f;
     public static final float LAZER_SHOOT_DELAY = 0.6f;
 
     // explosions
