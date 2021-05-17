@@ -85,7 +85,7 @@ public class GameplayScreen extends ScreenAdapter {
         onScreeenControls.gigaGal = level.gigaGal;
         levelEndOverlayStartTime = 0;
 
-        if (onMobile() || debugMobile) {
+        if (onMobile() || debugMobile || preferenceManager.getMobile()) {
             Gdx.input.setInputProcessor(onScreeenControls);
         }
 
@@ -126,7 +126,7 @@ public class GameplayScreen extends ScreenAdapter {
         level.update(delta);
 
         if (old_paused != level.paused && !level.paused) {
-            if (onMobile() || debugMobile) {
+            if (onMobile() || debugMobile || preferenceManager.getMobile()) {
                 Gdx.input.setInputProcessor(onScreeenControls);
             } else {
                 Gdx.input.setInputProcessor(null);
@@ -152,7 +152,7 @@ public class GameplayScreen extends ScreenAdapter {
 
         level.render(spriteBatch);
 
-        if (onMobile() || debugMobile) {
+        if (onMobile() || debugMobile || preferenceManager.getMobile()) {
             onScreeenControls.render(spriteBatch);
         }
 
@@ -166,7 +166,7 @@ public class GameplayScreen extends ScreenAdapter {
         if (debug) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             level.debugRender(shapeRenderer);
-            if (onMobile() || debugMobile) {
+            if (onMobile() || debugMobile || preferenceManager.getMobile()) {
                 onScreeenControls.debugRender(shapeRenderer);
             }
             shapeRenderer.end();
@@ -211,7 +211,7 @@ public class GameplayScreen extends ScreenAdapter {
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         onScreeenControls.gigaGal = level.gigaGal;
         levelEndOverlayStartTime = 0;
-        if (onMobile() || debugMobile) {
+        if (onMobile() || debugMobile || preferenceManager.getMobile()) {
             Gdx.input.setInputProcessor(onScreeenControls);
         }
     }

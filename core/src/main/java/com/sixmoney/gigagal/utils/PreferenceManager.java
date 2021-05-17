@@ -121,6 +121,15 @@ public class PreferenceManager {
         preferences.flush();
     }
 
+    public boolean getMobile() {
+        return preferences.getBoolean("showMobile", false);
+    }
+
+    public void setMobile(boolean value) {
+        preferences.putBoolean("showMobile", value);
+        preferences.flush();
+    }
+
     public void removeData() {
         preferences.remove("musicEnabled");
         preferences.remove("musicVolume");

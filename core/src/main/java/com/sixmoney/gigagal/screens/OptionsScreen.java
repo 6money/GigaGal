@@ -35,6 +35,7 @@ public class OptionsScreen implements Screen {
     private CheckBox checkboxMusic;
     private CheckBox checkboxSounds;
     private CheckBox checkboxFPS;
+    private CheckBox checkboxMobile;
     private Slider sliderMusic;
     private Slider sliderSounds;
     private Slider sliderDifficulty;
@@ -147,6 +148,17 @@ public class OptionsScreen implements Screen {
         });
 
         tableOptions.row();
+        tableOptions.add(new Label("Enable Mobile Controls", skin));
+        checkboxMobile = new CheckBox(null, skin);
+        tableOptions.add(checkboxMobile);
+        checkboxMobile.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                preferenceManager.setMobile(checkboxMobile.isChecked());
+            }
+        });
+
+        tableOptions.row();
         TextButton buttonResetData = new TextButton("Reset all data", skin, "gigagal");
         tableOptions.add(buttonResetData);
         buttonResetData.addListener(new ClickListener() {
@@ -177,6 +189,7 @@ public class OptionsScreen implements Screen {
         float soundVolume = preferenceManager.getSoundVolume();
         float difficulty = preferenceManager.getDifficulty();
         boolean showFPS = preferenceManager.getShowFPS();
+        boolean showMobile = preferenceManager.getMobile();
 
         checkboxMusic.setChecked(musicEnabled);
         sliderMusic.setValue(musicVolume);
@@ -184,6 +197,7 @@ public class OptionsScreen implements Screen {
         sliderSounds.setValue(soundVolume);
         sliderDifficulty.setValue(difficulty);
         checkboxFPS.setChecked(showFPS);
+        checkboxMobile.setChecked(showMobile);
 
         SoundManager.get_instance().updateSoundPreferences();
     }
