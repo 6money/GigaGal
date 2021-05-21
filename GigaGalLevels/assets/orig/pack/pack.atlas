@@ -1,146 +1,109 @@
 
 pack.png
-size: 512, 128
+size: 256, 128
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
 bullet
   rotate: false
-  xy: 134, 62
+  xy: 68, 61
   size: 7, 5
   orig: 7, 5
   offset: 0, 0
   index: -1
 diamond
   rotate: false
-  xy: 121, 8
+  xy: 187, 51
   size: 20, 15
   orig: 20, 15
   offset: 0, 0
   index: -1
 enemy
   rotate: false
-  xy: 252, 82
+  xy: 61, 15
   size: 29, 44
   orig: 29, 44
   offset: 0, 0
   index: -1
 enemy2
   rotate: false
-  xy: 283, 82
+  xy: 92, 22
   size: 29, 44
   orig: 29, 44
   offset: 0, 0
   index: -1
 enemy3
   rotate: false
-  xy: 314, 82
+  xy: 123, 22
   size: 29, 44
   orig: 29, 44
   offset: 0, 0
   index: -1
-exit-portal
-  rotate: false
-  xy: 68, 62
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
 exit-portal-1
   rotate: false
-  xy: 2, 62
+  xy: 2, 61
   size: 64, 64
   orig: 64, 64
-  offset: 0, 0
-  index: -1
-explosion-large
-  rotate: false
-  xy: 421, 90
-  size: 36, 36
-  orig: 36, 36
-  offset: 0, 0
-  index: -1
-explosion-medium
-  rotate: false
-  xy: 383, 90
-  size: 36, 36
-  orig: 36, 36
-  offset: 0, 0
-  index: -1
-explosion-small
-  rotate: false
-  xy: 345, 90
-  size: 36, 36
-  orig: 36, 36
   offset: 0, 0
   index: -1
 platform
   rotate: false
   xy: 2, 2
-  size: 58, 58
-  split: 15, 12, 11, 11
-  pad: 0, 0, 0, 0
-  orig: 58, 58
+  size: 57, 57
+  split: 8, 8, 8, 8
+  orig: 57, 57
   offset: 0, 0
   index: -1
 platform-bounce
   rotate: false
-  xy: 62, 3
+  xy: 186, 68
   size: 57, 57
-  split: 10, 10, 8, 9
+  split: 8, 9, 8, 9
+  pad: 0, 0, 0, 0
   orig: 57, 57
   offset: 0, 0
   index: -1
 platform-hard
   rotate: false
-  xy: 193, 69
+  xy: 127, 68
   size: 57, 57
-  split: 9, 9, 8, 9
-  pad: 0, 0, 0, 0
+  split: 8, 9, 8, 8
   orig: 57, 57
   offset: 0, 0
   index: -1
 platform-medium
   rotate: false
-  xy: 134, 69
+  xy: 68, 68
   size: 57, 57
-  split: 10, 10, 8, 9
-  pad: 0, 0, 0, 0
+  split: 8, 9, 8, 8
   orig: 57, 57
   offset: 0, 0
   index: -1
 powerup
   rotate: false
-  xy: 492, 109
+  xy: 187, 32
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup2
   rotate: false
-  xy: 492, 90
+  xy: 209, 49
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup3
   rotate: false
-  xy: 252, 63
+  xy: 226, 49
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 standing-right
   rotate: false
-  xy: 459, 91
+  xy: 154, 31
   size: 31, 35
   orig: 31, 35
-  offset: 0, 0
-  index: -1
-walk-1-right
-  rotate: false
-  xy: 121, 25
-  size: 30, 35
-  orig: 30, 35
   offset: 0, 0
   index: -1

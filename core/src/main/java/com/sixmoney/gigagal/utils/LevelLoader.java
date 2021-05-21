@@ -63,21 +63,21 @@ public class LevelLoader {
             final float y = platformObject.getFloat(Constants.LEVEL_Y_KEY, 0);
             final float width = platformObject.getFloat(Constants.LEVEL_WIDTH_KEY, 0);
             final float height = platformObject.getFloat(Constants.LEVEL_HEIGHT_KEY, 0);
-
-            Gdx.app.log(TAG, "Location: x:" + x + " y: " + y + " width: " + width + " height: " + height);
+            final int zIndex = platformObject.getInt(Constants.LEVEL_ZINDEX, 0);
 
             Platform platform;
 
             if (platformObject.getString(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.PLATFORM_HARD)) {
-                platform = new PlatformHard(x, y + height, width, height);
+                platform = new PlatformHard(x, y + height, width, height, zIndex);
             } else if (platformObject.getString(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.PLATFORM_MEDIUM)) {
-                platform = new PlatformMedium(x, y + height, width, height);
+                platform = new PlatformMedium(x, y + height, width, height, zIndex);
             } else if (platformObject.getString(Constants.LEVEL_IMAGENAME_KEY).equals(Constants.PLATFORM_BOUNCE)) {
-                platform = new PlatformBounce(x, y + height, width, height);
+                platform = new PlatformBounce(x, y + height, width, height, zIndex);
             } else {
-                platform = new Platform(x, y + height, width, height);
+                platform = new Platform(x, y + height, width, height, zIndex);
             }
 
+            Gdx.app.log(TAG, platform.toString());
             platformArray.add(platform);
 
             String platform_identifier = platformObject.getString(Constants.LEVEL_IDENTIFIER_KEY, null);

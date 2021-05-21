@@ -10,6 +10,7 @@ public class Platform implements Comparable<Platform> {
     public float right;
     public float width;
     public float height;
+    public int zIndex;
     public boolean solid;
     public boolean droppable;
     public boolean bounce;
@@ -17,12 +18,17 @@ public class Platform implements Comparable<Platform> {
     public float playerPosition;
 
     public Platform(float left, float top, float width, float height) {
+        new Platform(left, top, width, height, 0);
+    }
+
+    public Platform(float left, float top, float width, float height, int zIndex) {
         this.top = top;
         this.bottom = top - height;
         this.left = left;
         this.right = left + width;
         this.width = width;
         this.height = height;
+        this.zIndex = zIndex;
         solid = false;
         droppable = true;
         bounce = false;
@@ -36,11 +42,11 @@ public class Platform implements Comparable<Platform> {
 
     @Override
     public int compareTo(Platform platform) {
-        return Float.compare(this.top, platform.top);
+        return Float.compare(platform.zIndex, this.zIndex);
     }
 
     @Override
     public String toString() {
-        return "Location: x:" + left + " y: " + bottom + " width: " + width + " height: " + height;
+        return "Location: x:" + left + " y: " + bottom + " width: " + width + " height: " + height + " zIndex: " + zIndex;
     }
 }

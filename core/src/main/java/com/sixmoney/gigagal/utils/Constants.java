@@ -125,6 +125,7 @@ public class Constants {
     public static final String LEVEL_COMPOSITE = "composite";
     public static final String LEVEL_9PATCHES = "sImage9patchs";
     public static final String LEVEL_IMAGES = "sImages";
+    public static final String LEVEL_ZINDEX = "zIndex";
     public static final String LEVEL_ERROR_MESSAGE = "There was a problem loading the level.";
     public static final String LEVEL_IMAGENAME_KEY = "imageName";
     public static final String LEVEL_X_KEY = "x";

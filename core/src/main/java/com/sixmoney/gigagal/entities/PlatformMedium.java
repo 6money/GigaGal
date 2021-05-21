@@ -4,8 +4,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sixmoney.gigagal.utils.Assets;
 
 public class PlatformMedium extends Platform {
+
     public PlatformMedium(float left, float top, float width, float height) {
         super(left, top, width, height);
+        droppable = false;
+    }
+
+    public PlatformMedium(float left, float top, float width, float height, int zIndex) {
+        super(left, top, width, height, zIndex);
         droppable = false;
     }
 
