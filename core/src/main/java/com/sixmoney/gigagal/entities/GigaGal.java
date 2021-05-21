@@ -126,7 +126,10 @@ public class GigaGal {
         for (Platform platform: platforms) {
             // First check if we are on platform to update all platform states
             platform.hasPlayer = false;
-            landedOnPlatform(platform);
+            if (landedOnPlatform(platform)) {
+                platform.hasPlayer = true;
+                platform.playerPosition = position.x - platform.left;
+            }
 
             // Then checks for move through platforms
             if (platform.solid && gigagal_bounding_box.overlaps(new Rectangle(platform.left, platform.bottom, platform.width, platform.height - 1))) {
@@ -151,14 +154,27 @@ public class GigaGal {
                 jumpState = JumpState.FALLING;
             }
 
+            boolean landed_flag = false;
             for (Platform platform: platforms) {
                 platform.hasPlayer = false;
                 if (landedOnPlatform(platform)) {
-                    jumpState = JumpState.GROUNDED;
-                    velocity.y = 0;
-                    velocity.x = 0;
-                    position.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
-                    break;
+                    platform.hasPlayer = true;
+                    platform.playerPosition = position.x - platform.left;
+                    if (!landed_flag) {
+                        canDrop = platform.droppable;
+                        bounce = platform.bounce;
+                        jumpState = JumpState.GROUNDED;
+                        velocity.y = 0;
+                        velocity.x = 0;
+                        position.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
+                        landed_flag = true;
+                    }
+                    if (canDrop && !platform.droppable) {
+                        canDrop = platform.droppable;
+                    }
+                    if (!bounce && platform.bounce) {
+                        bounce = platform.bounce;
+                    }
                 }
             }
 
@@ -340,8 +356,6 @@ public class GigaGal {
 
     boolean landedOnPlatform(Platform platform) {
         boolean landed = false;
-        canDrop = true;
-        bounce = false;
 
         if ((position_last_frame.y - Constants.GIGAGAL_EYE_HEIGHT >= platform.top &&
                 position.y - Constants.GIGAGAL_EYE_HEIGHT <= platform.top) ||
@@ -357,13 +371,6 @@ public class GigaGal {
             } else if (left_toe < platform.left && right_toe > platform.right) {
                 landed = true;
             }
-        }
-
-        if (landed) {
-            canDrop = platform.droppable;
-            bounce = platform.bounce;
-            platform.hasPlayer = true;
-            platform.playerPosition = position.x - platform.left;
         }
 
         return landed;
