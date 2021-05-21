@@ -133,6 +133,7 @@ public class Constants {
     public static final String LEVEL_WIDTH_KEY = "width";
     public static final String LEVEL_HEIGHT_KEY = "height";
     public static final String LEVEL_IDENTIFIER_KEY = "itemIdentifier";
+    public static final String LEVEL_CUSTOM_VARS = "customVars";
     public static final String LEVEL_ENEMY_TAG = "Enemy";
     public static final String LEVEL_ENEMY_BIG_TAG = "BigEnemy";
     public static final String LEVEL_ENEMY_RANGED_TAG = "RangedEnemy";

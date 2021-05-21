@@ -80,31 +80,34 @@ public class LevelLoader {
             Gdx.app.log(TAG, platform.toString());
             platformArray.add(platform);
 
-            String platform_identifier = platformObject.getString(Constants.LEVEL_IDENTIFIER_KEY, null);
+            String[] platform_vars = platformObject.getString(Constants.LEVEL_CUSTOM_VARS, "").split(";");
+            for (String var: platform_vars) {
+                Gdx.app.log(TAG, var);
+            }
 
-            if (platform_identifier != null) {
-                String[] platform_identifier_array = platform_identifier.split("#");
-                platform_identifier = platform_identifier_array[0];
-                int numEnemies = 1;
-                if (platform_identifier_array.length == 2) {
-                    numEnemies = Integer.parseInt(platform_identifier_array[1]);
-                }
-                switch (platform_identifier) {
-                    case Constants.LEVEL_ENEMY_TAG:
-                        for (int i = 0; i < numEnemies; i++ ) {
-                            level.getEnemies().add(new Enemy(platform, level));
-                        }
-                        break;
-                    case Constants.LEVEL_ENEMY_BIG_TAG:
-                        for (int i = 0; i < numEnemies; i++ ) {
-                            level.getEnemies().add(new EnemyBig(platform, level));
-                        }
-                        break;
-                    case Constants.LEVEL_ENEMY_RANGED_TAG:
-                        for (int i = 0; i < numEnemies; i++ ) {
-                            level.getEnemies().add(new EnemyRanged(platform, level));
-                        }
-                        break;
+            if (!platform_vars[0].equals("")) {
+                for (String var: platform_vars) {
+                    String[] platform_var_pair = var.split(":");
+                    String platform_identifier = platform_var_pair[0];
+                    int numEnemies = Integer.parseInt(platform_var_pair[1]);
+
+                    switch (platform_identifier) {
+                        case Constants.LEVEL_ENEMY_TAG:
+                            for (int i = 0; i < numEnemies; i++) {
+                                level.getEnemies().add(new Enemy(platform, level));
+                            }
+                            break;
+                        case Constants.LEVEL_ENEMY_BIG_TAG:
+                            for (int i = 0; i < numEnemies; i++) {
+                                level.getEnemies().add(new EnemyBig(platform, level));
+                            }
+                            break;
+                        case Constants.LEVEL_ENEMY_RANGED_TAG:
+                            for (int i = 0; i < numEnemies; i++) {
+                                level.getEnemies().add(new EnemyRanged(platform, level));
+                            }
+                            break;
+                    }
                 }
             }
         }
