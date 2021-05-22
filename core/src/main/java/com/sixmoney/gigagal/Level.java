@@ -177,6 +177,12 @@ public class Level {
 
             enemies.begin();
             for (Enemy enemy : enemies) {
+                if (enemy.position.x < viewport.getCamera().position.x + (viewport.getWorldWidth() / 2f)
+                        && enemy.position.x > viewport.getCamera().position.x - (viewport.getWorldWidth() / 2f)) {
+                    enemy.onScreen = true;
+                } else {
+                    enemy.onScreen = false;
+                }
                 enemy.update(delta);
                 if (enemy.getHealth() <= 0) {
                     SoundManager.get_instance().playSound(Constants.DEATH_SOUND_PATH);

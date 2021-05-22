@@ -1,5 +1,6 @@
 package com.sixmoney.gigagal.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -32,6 +33,8 @@ public class Enemy {
 
     public Vector2 position;
     public Rectangle enemy_bounding_box;
+    public boolean onScreen;
+
 
     public Enemy(Platform platform, Level level) {
         this.platform = platform;
@@ -47,6 +50,7 @@ public class Enemy {
         ranged = false;
         random_phase = MathUtils.random();
         charging = false;
+        onScreen = false;
         if (level.difficultly == 0f) {
             shootDelayTime = Constants.LAZER_SHOOT_DELAY;
             speed = Constants.ENEMY_SPEED;
@@ -71,52 +75,32 @@ public class Enemy {
         );
     }
 
+
     public float getHealth() {
         return health;
     }
+
 
     public void setHealth(float health) {
         this.health = health;
     }
 
+
     public void update(float delta) {
         if (platform.hasPlayer) {
-            if (ranged) {
+            if (ranged && onScreen) {
+                charging = false;
                 if (Utils.secondsSince(shootStartTime) > Constants.LAZER_SHOOT_DELAY) {
                     shootStartTime = TimeUtils.nanoTime();
                     shoot();
                 }
-            } else {
+            } else if (!ranged) {
                 charging = true;
-                float move_distance = delta * speedCharge;
-                if (platform.playerPosition < position.x - platform.left) {
-                    direction = Direction.LEFT;
-                } else {
-                    direction = Direction.RIGHT;
-                }
-                if (direction == Direction.LEFT) {
-                    position.x -= move_distance;
-                } else {
-                    position.x += move_distance;
-                }
             }
         } else {
             charging = false;
-            float move_distance = delta * speed;
-            if (direction == Direction.LEFT) {
-                position.x -= move_distance;
-            } else {
-                position.x += move_distance;
-            }
-
-            if (position.x < platform.left) {
-                direction = Direction.RIGHT;
-                position.x = platform.left;
-            } else if (position.x > platform.left + platform.width) {
-                direction = Direction.LEFT;
-                position.x = platform.left + platform.width;
-            }
         }
+        move(delta);
 
         float elapsed_time = Utils.secondsSince(start_time);
         float bob_multiplier = 1 + sin(PI2 * elapsed_time / Constants.ENEMY_BOB_PERIOD) + random_phase;
@@ -125,6 +109,30 @@ public class Enemy {
         enemy_bounding_box.x = position.x - Constants.ENEMY_COLLISION_RADIUS;
         enemy_bounding_box.y = position.y - Constants.ENEMY_COLLISION_RADIUS;
     }
+
+
+    private void move(float delta) {
+        float move_distance;
+        if (charging) {
+            move_distance = delta * speedCharge;
+        } else {
+            move_distance = delta * speed;
+        }
+        if (direction == Direction.LEFT) {
+            position.x -= move_distance;
+        } else {
+            position.x += move_distance;
+        }
+
+        if (position.x < platform.left) {
+            direction = Direction.RIGHT;
+            position.x = platform.left;
+        } else if (position.x > platform.left + platform.width) {
+            direction = Direction.LEFT;
+            position.x = platform.left + platform.width;
+        }
+    }
+
 
     public void render(SpriteBatch spriteBatch) {
         if (charging && direction == Direction.LEFT) {
@@ -136,6 +144,7 @@ public class Enemy {
         }
     }
 
+
     public void debugRender(ShapeRenderer shapeRenderer) {
         shapeRenderer.rect(
                 enemy_bounding_box.x,
@@ -144,6 +153,7 @@ public class Enemy {
                 enemy_bounding_box.height
         );
     }
+
 
     public void shoot() {
     }
