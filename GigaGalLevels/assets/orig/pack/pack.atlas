@@ -48,9 +48,10 @@ exit-portal-1
   index: -1
 platform
   rotate: false
-  xy: 2, 2
+  xy: 127, 68
   size: 57, 57
   split: 8, 8, 8, 8
+  pad: 0, 0, 0, 0
   orig: 57, 57
   offset: 0, 0
   index: -1
@@ -65,17 +66,19 @@ platform-bounce
   index: -1
 platform-hard
   rotate: false
-  xy: 127, 68
+  xy: 68, 68
   size: 57, 57
   split: 8, 9, 8, 8
+  pad: 0, 0, 0, 0
   orig: 57, 57
   offset: 0, 0
   index: -1
 platform-medium
   rotate: false
-  xy: 68, 68
+  xy: 2, 2
   size: 57, 57
   split: 8, 9, 8, 8
+  pad: 0, 0, 0, 0
   orig: 57, 57
   offset: 0, 0
   index: -1

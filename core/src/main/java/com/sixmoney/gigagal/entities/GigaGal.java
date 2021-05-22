@@ -232,8 +232,8 @@ public class GigaGal {
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
                 moveDown(delta);
             }
-
-
+        } else if (jumpState == JumpState.RECOILING) {
+            soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
         }
 
         level.getPowerups().begin();
