@@ -34,10 +34,12 @@ public class GigaGal {
     private WalkState walkState;
     private long jumpStartTime;
     private long walkStartTime;
+    private long killStartTime;
     private Level level;
     private boolean hit_solid;
     private boolean canDrop;
     private boolean bounce;
+    private boolean dead;
     private SoundManager soundManager;
     private long runningEffectId;
     private ParticleEffectPool pepDust;
@@ -103,183 +105,186 @@ public class GigaGal {
         jumpState = JumpState.FALLING;
         walkState = WalkState.STANDING;
         hit_solid = false;
+        dead = false;
         bulletFireStartTime = TimeUtils.nanoTime();
     }
 
     public void update(float delta, Array<Platform> platforms) {
-        position_last_frame.set(position);
-        velocity.y -= delta * Constants.GRAVITY;
-        position.mulAdd(velocity, delta);
-        hit_solid = false;
-
-        Rectangle gigagal_bounding_box = new Rectangle(
-                position.x - Constants.GIGAGAL_STANCE_WIDTH,
-                position.y - Constants.GIGAGAL_EYE_HEIGHT,
-                Constants.GIGAGAL_STANCE_WIDTH * 2,
-                Constants.GIGAGAL_HEIGHT
-        );
-
-        if (position.y < level.getKillplane_height()) {
-            kill();
+        if (dead && Utils.secondsSince(killStartTime) > Constants.GIGAGAL_DEATH_DELAY) {
+            respawn();
         }
 
-        for (Platform platform: platforms) {
-            // First check if we are on platform to update all platform states
-            platform.hasPlayer = false;
-//            if (landedOnPlatform(platform)) {
-//                platform.hasPlayer = true;
-//                platform.playerPosition = position.x - platform.left;
-//            }
+        if (!dead) {
+            position_last_frame.set(position);
+            velocity.y -= delta * Constants.GRAVITY;
+            position.mulAdd(velocity, delta);
+            hit_solid = false;
 
-            // Then checks for move through platforms
-            if (platform.solid && gigagal_bounding_box.overlaps(new Rectangle(platform.left, platform.bottom, platform.width, platform.height - 1))) {
-                if (velocity.y > 0) {
-                    velocity.y = 0;
-                }
-                hit_solid = true;
-                velocity.x = 0;
-                position.set(position_last_frame);
-                position.mulAdd(velocity, delta);
+            Rectangle gigagal_bounding_box = new Rectangle(
+                    position.x - Constants.GIGAGAL_STANCE_WIDTH,
+                    position.y - Constants.GIGAGAL_EYE_HEIGHT,
+                    Constants.GIGAGAL_STANCE_WIDTH * 2,
+                    Constants.GIGAGAL_HEIGHT
+            );
 
-                if (position.x < platform.left) {
-                    position.x -= 0.25f;
-                } else if (position.x > platform.left + platform.width) {
-                    position.x += 0.25f;
-                }
-            }
-        }
-
-        if (jumpState != JumpState.JUMPING) {
-            if (jumpState != JumpState.RECOILING) {
-                jumpState = JumpState.FALLING;
+            if (!dead && position.y < level.getKillplane_height()) {
+                kill();
             }
 
-            boolean landed_flag = false;
-            for (Platform platform: platforms) {
+            for (Platform platform : platforms) {
+                // First check if we are on platform to update all platform states
                 platform.hasPlayer = false;
-                if (landedOnPlatform(platform)) {
-                    platform.hasPlayer = true;
-                    platform.playerPosition = position.x - platform.left;
-                    if (!landed_flag) {
-                        canDrop = platform.droppable;
-                        bounce = platform.bounce;
-                        jumpState = JumpState.GROUNDED;
+
+                // Then checks for move through platforms
+                if (platform.solid && gigagal_bounding_box.overlaps(new Rectangle(platform.left, platform.bottom, platform.width, platform.height - 1))) {
+                    if (velocity.y > 0) {
                         velocity.y = 0;
-                        velocity.x = 0;
-                        position.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
-                        landed_flag = true;
                     }
-                    if (canDrop && !platform.droppable) {
-                        canDrop = platform.droppable;
-                    }
-                    if (!bounce && platform.bounce) {
-                        bounce = platform.bounce;
+                    hit_solid = true;
+                    velocity.x = 0;
+                    position.set(position_last_frame);
+                    position.mulAdd(velocity, delta);
+
+                    if (position.x < platform.left) {
+                        position.x -= 0.25f;
+                    } else if (position.x > platform.left + platform.width) {
+                        position.x += 0.25f;
                     }
                 }
             }
 
-            if (bounce) {
-                bounce = false;
-                startJump(gigagal_bounding_box, platforms, true);
-            }
-        }
-
-        for (Enemy enemy : level.getEnemies()) {
-            Rectangle enemy_bounding_box = enemy.enemy_bounding_box;
-
-            boolean hit_enemy = gigagal_bounding_box.overlaps(enemy_bounding_box);
-            if (hit_enemy && position.x + Constants.GIGAGAL_STANCE_WIDTH < enemy.position.x + Constants.ENEMY_COLLISION_RADIUS / 2) {
-                recoilFromEnemy(Direction.LEFT);
-            } else if (hit_enemy && position.x + Constants.GIGAGAL_STANCE_WIDTH > enemy.position.x + Constants.ENEMY_COLLISION_RADIUS / 2) {
-                recoilFromEnemy(Direction.RIGHT);
-            }
-
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.Z ) || jumpButtonPressed) {
-            switch (jumpState) {
-                case GROUNDED:
-                    startJump(gigagal_bounding_box,  platforms, false);
-                case JUMPING:
-                    continueJump(gigagal_bounding_box, platforms, false);
-                case FALLING:
-                    break;
-            }
-        } else {
-            endJump();
-        }
-
-        if (jumpState != JumpState.RECOILING && !hit_solid) {
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || leftButtonPressed) {
-                if (jumpState == JumpState.GROUNDED) {
-                    soundManager.resumeSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
-                } else {
-                    soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+            if (jumpState != JumpState.JUMPING) {
+                if (jumpState != JumpState.RECOILING) {
+                    jumpState = JumpState.FALLING;
                 }
-                moveLeft(delta);
-            } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed) {
-                if (jumpState == JumpState.GROUNDED) {
-                    soundManager.resumeSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
-                } else {
-                    soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+
+                boolean landed_flag = false;
+                for (Platform platform : platforms) {
+                    platform.hasPlayer = false;
+                    if (landedOnPlatform(platform)) {
+                        platform.hasPlayer = true;
+                        platform.playerPosition = position.x - platform.left;
+                        if (!landed_flag) {
+                            canDrop = platform.droppable;
+                            bounce = platform.bounce;
+                            jumpState = JumpState.GROUNDED;
+                            velocity.y = 0;
+                            velocity.x = 0;
+                            position.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
+                            landed_flag = true;
+                        }
+                        if (canDrop && !platform.droppable) {
+                            canDrop = platform.droppable;
+                        }
+                        if (!bounce && platform.bounce) {
+                            bounce = platform.bounce;
+                        }
+                    }
                 }
-                moveRight(delta);
+
+                if (bounce) {
+                    bounce = false;
+                    startJump(gigagal_bounding_box, platforms, true);
+                }
+            }
+
+            for (Enemy enemy : level.getEnemies()) {
+                Rectangle enemy_bounding_box = enemy.enemy_bounding_box;
+
+                boolean hit_enemy = gigagal_bounding_box.overlaps(enemy_bounding_box);
+                if (hit_enemy && position.x + Constants.GIGAGAL_STANCE_WIDTH < enemy.position.x + Constants.ENEMY_COLLISION_RADIUS / 2) {
+                    recoilFromEnemy(Direction.LEFT);
+                } else if (hit_enemy && position.x + Constants.GIGAGAL_STANCE_WIDTH > enemy.position.x + Constants.ENEMY_COLLISION_RADIUS / 2) {
+                    recoilFromEnemy(Direction.RIGHT);
+                }
+
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.Z) || jumpButtonPressed) {
+                switch (jumpState) {
+                    case GROUNDED:
+                        startJump(gigagal_bounding_box, platforms, false);
+                    case JUMPING:
+                        continueJump(gigagal_bounding_box, platforms, false);
+                    case FALLING:
+                        break;
+                }
             } else {
-                walkState = WalkState.STANDING;
+                endJump();
+            }
+
+            if (jumpState != JumpState.RECOILING && !hit_solid) {
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || leftButtonPressed) {
+                    if (jumpState == JumpState.GROUNDED) {
+                        soundManager.resumeSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                    } else {
+                        soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                    }
+                    moveLeft(delta);
+                } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed) {
+                    if (jumpState == JumpState.GROUNDED) {
+                        soundManager.resumeSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                    } else {
+                        soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                    }
+                    moveRight(delta);
+                } else {
+                    walkState = WalkState.STANDING;
+                    soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                }
+
+                if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
+                    moveDown(delta);
+                }
+            } else if (jumpState == JumpState.RECOILING) {
                 soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
-                moveDown(delta);
-            }
-        } else if (jumpState == JumpState.RECOILING) {
-            soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
-        }
+            level.getPowerups().begin();
+            for (Powerup powerup : level.getPowerups()) {
+                Rectangle power_bounding_box = powerup.powerup_bounding_box;
 
-        level.getPowerups().begin();
-        for (Powerup powerup : level.getPowerups()) {
-            Rectangle power_bounding_box = powerup.powerup_bounding_box;
-
-            boolean hit_powerup = gigagal_bounding_box.overlaps(power_bounding_box);
-            if (hit_powerup) {
-                soundManager.playSound(Constants.COLLECT_POWERUP_PATH);
-                switch (powerup.ammo_type) {
-                    case "basic":
-                        ammmoBasic += powerup.ammo_amount;
-                        break;
-                    case "big":
-                        ammmoBig += powerup.ammo_amount;
-                        break;
-                    case "rapid":
-                        ammmoRapid += powerup.ammo_amount;
-                        break;
+                boolean hit_powerup = gigagal_bounding_box.overlaps(power_bounding_box);
+                if (hit_powerup) {
+                    soundManager.playSound(Constants.COLLECT_POWERUP_PATH);
+                    switch (powerup.ammo_type) {
+                        case "basic":
+                            ammmoBasic += powerup.ammo_amount;
+                            break;
+                        case "big":
+                            ammmoBig += powerup.ammo_amount;
+                            break;
+                        case "rapid":
+                            ammmoRapid += powerup.ammo_amount;
+                            break;
+                    }
+                    level.getPowerups().removeValue(powerup, true);
+                    level.score += Constants.POWERUP_SCORE * level.scoreMultiplier;
                 }
-                level.getPowerups().removeValue(powerup, true);
-                level.score += Constants.POWERUP_SCORE * level.scoreMultiplier;
             }
-        }
-        level.getPowerups().end();
+            level.getPowerups().end();
 
-        level.getDiamonds().begin();
-        for (Diamond diamond : level.getDiamonds()) {
-            Rectangle diamond_bounding_box = diamond.diamond_bounding_box;
+            level.getDiamonds().begin();
+            for (Diamond diamond : level.getDiamonds()) {
+                Rectangle diamond_bounding_box = diamond.diamond_bounding_box;
 
-            boolean hit_diamond = gigagal_bounding_box.overlaps(diamond_bounding_box);
-            if (hit_diamond) {
-                soundManager.playSound(Constants.COLLECT_DIAMOND_PATH);
-                level.getDiamonds().removeValue(diamond, true);
-                level.score += Constants.DIAMOND_SCORE * level.scoreMultiplier;
+                boolean hit_diamond = gigagal_bounding_box.overlaps(diamond_bounding_box);
+                if (hit_diamond) {
+                    soundManager.playSound(Constants.COLLECT_DIAMOND_PATH);
+                    level.getDiamonds().removeValue(diamond, true);
+                    level.score += Constants.DIAMOND_SCORE * level.scoreMultiplier;
+                }
             }
-        }
-        level.getDiamonds().end();
+            level.getDiamonds().end();
 
-        if ((Gdx.input.isKeyPressed(Input.Keys.X) || shootButtonPressed) && ammmoRapid > 0) {
-            if (Utils.secondsSince(bulletFireStartTime) >= Constants.BULLET_RAPID_FIRE_DELAY) {
-                bulletFireStartTime = TimeUtils.nanoTime();
+            if ((Gdx.input.isKeyPressed(Input.Keys.X) || shootButtonPressed) && ammmoRapid > 0) {
+                if (Utils.secondsSince(bulletFireStartTime) >= Constants.BULLET_RAPID_FIRE_DELAY) {
+                    bulletFireStartTime = TimeUtils.nanoTime();
+                    shoot();
+                }
+            } else if (Gdx.input.isKeyJustPressed(Input.Keys.X) && (ammmoBasic > 0 || ammmoBig > 0)) {
                 shoot();
             }
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.X) && (ammmoBasic > 0 || ammmoBig > 0)) {
-            shoot();
         }
 
 
@@ -486,12 +491,17 @@ public class GigaGal {
     }
 
     public void kill() {
+        if (dead) {
+            return;
+        }
+        dead = true;
+        killStartTime = TimeUtils.nanoTime();
         lives -= 1;
         if (lives <= 0) {
             return;
         }
+        killStartTime = TimeUtils.nanoTime();
         soundManager.playSound(Constants.DEATH_SOUND_PATH);
-        respawn();
     }
 
     public void render(SpriteBatch spriteBatch) {

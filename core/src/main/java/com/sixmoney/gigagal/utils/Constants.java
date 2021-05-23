@@ -79,6 +79,7 @@ public class Constants {
     public static final int GIGAGAL_INIT_AMMO = 20;
     public static final int GIGAGAL_INIT_LIVES = 3;
     public static final float GIGAGAL_PARTICLE_DELAY = 0.2f;
+    public static final float GIGAGAL_DEATH_DELAY = 0.5f;
 
 
     // ememy
