@@ -103,12 +103,22 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
         buttonLvl5.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log(TAG, "here");
                 gigaGalGame.switchScreen("gameplay", Constants.LEVEL_5);
                 dispose();
             }
         });
         tableLevels.add(buttonLvl5).height(stage.getHeight() / 6);
+
+        tableLevels.row();
+        TextButton buttonLvl6 = new TextButton("LEVEL 6", skin, "gigagal");
+        buttonLvl6.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gigaGalGame.switchScreen("gameplay", Constants.LEVEL_6);
+                dispose();
+            }
+        });
+        tableLevels.add(buttonLvl6).height(stage.getHeight() / 6);
 
         ScrollPane scrollPane = new ScrollPane(tableLevels, skin);
         scrollPane.setFadeScrollBars(false);

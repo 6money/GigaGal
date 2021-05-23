@@ -3,11 +3,14 @@ package com.sixmoney.gigagal.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -29,9 +32,10 @@ public class HighScoresScreen implements Screen {
     private List<Integer> listLevel3;
     private List<Integer> listLevel4;
     private List<Integer> listLevel5;
+    private List<Integer> listLevel6;
     private Label labelHighScore;
     private Button buttonBack;
-    private Table table;
+    private Table tableHighscores;
 
     public HighScoresScreen(GigaGalGame gigaGalGame) {
         game = gigaGalGame;
@@ -41,16 +45,13 @@ public class HighScoresScreen implements Screen {
     public void show() {
         stage = new Stage(new ExtendViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH2));
-//        skin.getFont("font").getData().setScale(2);
-//        skin.getFont("list").getData().setScale(2);
-//        skin.getFont("subtitle").getData().setScale(2);
-//        skin.getFont("window").getData().setScale(2);
         PreferenceManager preferenceManager = PreferenceManager.get_instance();
         Array<Integer> scoresLevel1 = preferenceManager.getScores("Level1");
         Array<Integer> scoresLevel2 = preferenceManager.getScores("Level2");
         Array<Integer> scoresLevel3 = preferenceManager.getScores("Level3");
         Array<Integer> scoresLevel4 = preferenceManager.getScores("Level4");
         Array<Integer> scoresLevel5 = preferenceManager.getScores("Level5");
+        Array<Integer> scoresLevel6 = preferenceManager.getScores("Level6");
 
         listLevel1 = new List<>(skin, "gigagal");
         listLevel1.setItems(scoresLevel1);
@@ -62,11 +63,19 @@ public class HighScoresScreen implements Screen {
         listLevel4.setItems(scoresLevel4);
         listLevel5 = new List<>(skin, "gigagal");
         listLevel5.setItems(scoresLevel5);
+        listLevel6 = new List<>(skin, "gigagal");
+        listLevel6.setItems(scoresLevel6);
+
+        Table tableScene = new Table(skin);
+        tableScene.setFillParent(true);
+        tableScene.pad(5);
+        tableScene.defaults().grow();
 
         labelHighScore = new Label("HIGH SCORES", skin);
         labelHighScore.setPosition(stage.getWidth() / 2 - labelHighScore.getWidth() / 2, stage.getHeight() * 3 / 4);
-        labelHighScore.setFontScale(3f);
+        labelHighScore.setFontScale(2f);
         labelHighScore.setAlignment(Align.center);
+        tableScene.add(labelHighScore).padTop(40).padBottom(20);
 
         buttonBack = new Button(skin, "gigagal");
         buttonBack.add(new Label("Back" ,skin));
@@ -81,27 +90,50 @@ public class HighScoresScreen implements Screen {
             }
         });
 
-        table = new Table(skin);
-        table.pad(5);
-        table.setPosition(0, 0);
-        table.defaults().grow();
-        table.setSize(stage.getWidth(), stage.getHeight() / 2);
+        tableHighscores = new Table(skin);
+        tableHighscores.pad(5);
+        tableHighscores.setPosition(0, 0);
+        tableHighscores.defaults().grow();
+        tableHighscores.setSize(stage.getWidth(), stage.getHeight() / 2);
 
-        table.add(new Label("Level 1", skin));
-        table.add(new Label("Level 2", skin));
-        table.add(new Label("Level 3", skin));
-        table.add(new Label("Level 4", skin));
-        table.add(new Label("Level 5", skin));
+        tableHighscores.add(new Label("Level 1", skin));
+        tableHighscores.add(new Label("Level 2", skin));
+        tableHighscores.add(new Label("Level 3", skin));
+        tableHighscores.add(new Label("Level 4", skin));
+        tableHighscores.add(new Label("Level 5", skin));
 
-        table.row();
-        table.add(listLevel1);
-        table.add(listLevel2);
-        table.add(listLevel3);
-        table.add(listLevel4);
-        table.add(listLevel5);
+        tableHighscores.row();
+        tableHighscores.add(listLevel1);
+        tableHighscores.add(listLevel2);
+        tableHighscores.add(listLevel3);
+        tableHighscores.add(listLevel4);
+        tableHighscores.add(listLevel5);
 
-        stage.addActor(table);
-        stage.addActor(labelHighScore);
+        tableHighscores.row();
+        tableHighscores.add(new Label("Level 6", skin));
+
+        tableHighscores.row();
+        tableHighscores.add(listLevel6);
+
+        ScrollPane scrollPane = new ScrollPane(tableHighscores, skin);
+        scrollPane.setFadeScrollBars(false);
+        scrollPane.setFlickScroll(false);
+        scrollPane.addListener(new InputListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                stage.setScrollFocus(scrollPane);
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                stage.setScrollFocus(null);
+            }
+        });
+
+        tableScene.row();
+        tableScene.add(scrollPane);
+
+        stage.addActor(tableScene);
         stage.addActor(buttonBack);
 
         Gdx.input.setInputProcessor(stage);
