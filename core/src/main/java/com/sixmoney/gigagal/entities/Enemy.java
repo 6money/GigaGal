@@ -96,6 +96,11 @@ public class Enemy {
                 }
             } else if (!ranged) {
                 charging = true;
+                if (platform.playerPosition < position.x - platform.left) {
+                    direction = Direction.LEFT;
+                } else {
+                    direction = Direction.RIGHT;
+                }
             }
         } else {
             charging = false;

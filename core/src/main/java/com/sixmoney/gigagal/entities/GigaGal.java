@@ -126,10 +126,10 @@ public class GigaGal {
         for (Platform platform: platforms) {
             // First check if we are on platform to update all platform states
             platform.hasPlayer = false;
-            if (landedOnPlatform(platform)) {
-                platform.hasPlayer = true;
-                platform.playerPosition = position.x - platform.left;
-            }
+//            if (landedOnPlatform(platform)) {
+//                platform.hasPlayer = true;
+//                platform.playerPosition = position.x - platform.left;
+//            }
 
             // Then checks for move through platforms
             if (platform.solid && gigagal_bounding_box.overlaps(new Rectangle(platform.left, platform.bottom, platform.width, platform.height - 1))) {
