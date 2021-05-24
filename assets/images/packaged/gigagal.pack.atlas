@@ -221,6 +221,33 @@ platform
   orig: 57, 57
   offset: 0, 0
   index: -1
+platform
+  rotate: false
+  xy: 2, 2
+  size: 57, 57
+  split: 8, 9, 8, 9
+  pad: 0, 0, 0, 0
+  orig: 57, 57
+  offset: 0, 0
+  index: -1
+platform-window
+  rotate: false
+  xy: 2, 2
+  size: 57, 57
+  split: 8, 9, 8, 9
+  pad: 11, 9, 18, 9
+  orig: 57, 57
+  offset: 0, 0
+  index: -1
+platform_window
+  rotate: false
+  xy: 2, 2
+  size: 57, 57
+  split: 8, 9, 8, 9
+  pad: 13, 9, 32, 9
+  orig: 57, 57
+  offset: 0, 0
+  index: -1
 platform-bounce
   rotate: false
   xy: 530, 68

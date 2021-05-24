@@ -68,6 +68,7 @@
 "com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable": {
 	"progress-bar-knob-t": {
 		"region": "progress-bar-knob",
+		"color": "white",
 		"minWidth": 0,
 		"minHeight": 5
 	}
@@ -90,9 +91,9 @@
 		"over": "spinner-down-over"
 	},
 	"gigagal": {
-		"up": "platform-medium",
-		"down": "platform",
-		"over": "platform-medium",
+		"up": "platform",
+		"down": "platform-medium",
+		"over": "platform",
 		"focused": "button-normal-over"
 	}
 },
@@ -238,10 +239,10 @@
 	},
 	"gigagal": {
 		"font": "font",
-		"up": "platform-medium",
-		"down": "platform",
+		"up": "platform",
+		"down": "platform-medium",
 		"over": "platform-medium",
-		"focused": "button-normal-over"
+		"focused": "platform"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle": {

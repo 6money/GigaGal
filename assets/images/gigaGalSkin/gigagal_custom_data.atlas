@@ -4,6 +4,24 @@ size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+platform
+  rotate: false
+  xy: 1, 190
+  size: 57, 57
+  split: 8, 9, 8, 9
+  pad: 0, 0, 0, 0
+  orig: 57, 57
+  offset: 0, 0
+  index: -1
+platform_window
+  rotate: false
+  xy: 1, 190
+  size: 57, 57
+  split: 8, 9, 8, 9
+  pad: 13, 9, 32, 9
+  orig: 57, 57
+  offset: 0, 0
+  index: -1
 button-normal
   rotate: false
   xy: 116, 215
@@ -94,23 +112,6 @@ list
   split: 10, 8, 9, 4
   pad: 8, 8, 4, 3
   orig: 43, 34
-  offset: 0, 0
-  index: -1
-platform
-  rotate: false
-  xy: 1, 190
-  size: 57, 57
-  split: 9, 10, 9, 10
-  orig: 57, 57
-  offset: 0, 0
-  index: -1
-platform_window
-  rotate: false
-  xy: 1, 190
-  size: 57, 57
-  split: 9, 10, 9, 10
-  pad: 15, 10, 30, 10
-  orig: 57, 57
   offset: 0, 0
   index: -1
 platform-medium
