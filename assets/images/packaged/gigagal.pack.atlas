@@ -6,21 +6,21 @@ filter: Nearest, Nearest
 repeat: none
 bullet
   rotate: false
-  xy: 530, 61
+  xy: 182, 16
   size: 7, 5
   orig: 7, 5
   offset: 0, 0
   index: -1
 bullet2
   rotate: false
-  xy: 648, 74
+  xy: 530, 61
   size: 7, 5
   orig: 7, 5
   offset: 0, 0
   index: -1
 bullet3
   rotate: false
-  xy: 679, 82
+  xy: 525, 54
   size: 7, 5
   orig: 7, 5
   offset: 0, 0
@@ -69,7 +69,7 @@ button-shoot
   index: -1
 diamond
   rotate: false
-  xy: 574, 51
+  xy: 799, 73
   size: 20, 15
   orig: 20, 15
   offset: 0, 0
@@ -181,7 +181,7 @@ explosion-small
   index: -1
 jumping-left
   rotate: false
-  xy: 457, 24
+  xy: 648, 44
   size: 29, 35
   orig: 29, 35
   offset: 0, 0
@@ -214,37 +214,31 @@ particle_pixel
   orig: 32, 32
   offset: 0, 0
   index: -1
-platform
+particle_pixel2
   rotate: false
-  xy: 2, 2
-  size: 57, 57
-  orig: 57, 57
+  xy: 457, 27
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+particle_pixel3
+  rotate: false
+  xy: 491, 27
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+particle_pixel4
+  rotate: false
+  xy: 679, 55
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 platform
   rotate: false
   xy: 2, 2
   size: 57, 57
-  split: 8, 9, 8, 9
-  pad: 0, 0, 0, 0
-  orig: 57, 57
-  offset: 0, 0
-  index: -1
-platform-window
-  rotate: false
-  xy: 2, 2
-  size: 57, 57
-  split: 8, 9, 8, 9
-  pad: 11, 9, 18, 9
-  orig: 57, 57
-  offset: 0, 0
-  index: -1
-platform_window
-  rotate: false
-  xy: 2, 2
-  size: 57, 57
-  split: 8, 9, 8, 9
-  pad: 13, 9, 32, 9
   orig: 57, 57
   offset: 0, 0
   index: -1
@@ -271,21 +265,21 @@ platform-medium
   index: -1
 powerup
   rotate: false
-  xy: 574, 32
+  xy: 799, 54
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup2
   rotate: false
-  xy: 596, 49
+  xy: 821, 71
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup3
   rotate: false
-  xy: 613, 49
+  xy: 838, 71
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
@@ -306,7 +300,7 @@ standing-right
   index: -1
 walk-1-left
   rotate: false
-  xy: 518, 24
+  xy: 743, 52
   size: 27, 35
   orig: 27, 35
   offset: 0, 0
@@ -320,7 +314,7 @@ walk-1-right
   index: -1
 walk-2-left
   rotate: false
-  xy: 547, 31
+  xy: 772, 52
   size: 25, 35
   orig: 25, 35
   offset: 0, 0
@@ -334,7 +328,7 @@ walk-2-right
   index: -1
 walk-3-left
   rotate: false
-  xy: 488, 24
+  xy: 713, 52
   size: 28, 35
   orig: 28, 35
   offset: 0, 0

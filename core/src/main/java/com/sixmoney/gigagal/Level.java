@@ -94,7 +94,7 @@ public class Level {
         explosionParticles = new DelayedRemovalArray<>();
 
         ParticleEffect bullerTrailParticle = new ParticleEffect();
-        bullerTrailParticle.load(Gdx.files.internal("particles/pixel_bullet_trail"), Assets.get_instance().getAtlas());
+        bullerTrailParticle.load(Gdx.files.internal("particles/pixel_bullet_trail_2"), Assets.get_instance().getAtlas());
         pepBulletTrail = new ParticleEffectPool(bullerTrailParticle, 5, 5);
 
         gameOver = false;
