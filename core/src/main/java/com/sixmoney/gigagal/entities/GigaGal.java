@@ -132,10 +132,7 @@ public class GigaGal {
             }
 
             for (Platform platform : platforms) {
-                // First check if we are on platform to update all platform states
-                platform.hasPlayer = false;
-
-                // Then checks for move through platforms
+                // Check for move through solid platforms
                 if (platform.solid && gigagal_bounding_box.overlaps(new Rectangle(platform.left, platform.bottom, platform.width, platform.height - 1))) {
                     if (velocity.y > 0) {
                         velocity.y = 0;
@@ -167,10 +164,12 @@ public class GigaGal {
                         if (!landed_flag) {
                             canDrop = platform.droppable;
                             bounce = platform.bounce;
-                            jumpState = JumpState.GROUNDED;
-                            velocity.y = 0;
-                            velocity.x = 0;
-                            position.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
+                            if (!platform.invisible) {
+                                jumpState = JumpState.GROUNDED;
+                                velocity.y = 0;
+                                velocity.x = 0;
+                                position.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
+                            }
                             landed_flag = true;
                         }
                         if (canDrop && !platform.droppable) {
@@ -365,7 +364,7 @@ public class GigaGal {
         if ((position_last_frame.y - Constants.GIGAGAL_EYE_HEIGHT >= platform.top &&
                 position.y - Constants.GIGAGAL_EYE_HEIGHT <= platform.top) ||
                 (position_last_frame.y - Constants.GIGAGAL_EYE_HEIGHT == platform.top &&
-                        position.y - Constants.GIGAGAL_EYE_HEIGHT == platform.top)) {
+                position.y - Constants.GIGAGAL_EYE_HEIGHT == platform.top)) {
             float left_toe = position.x - Constants.GIGAGAL_STANCE_WIDTH;
             float right_toe = position.x + Constants.GIGAGAL_STANCE_WIDTH;
 

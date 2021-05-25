@@ -35,6 +35,7 @@ public class Constants {
     public static final String PLATFORM_HARD = "platform-hard";
     public static final String PLATFORM_MEDIUM = "platform-medium";
     public static final String PLATFORM_BOUNCE = "platform-bounce";
+    public static final String PLATFORM_LIGHT = "platform-light";
     public static final String ENEMY = "enemy";
     public static final String ENEMY2 = "enemy2";
     public static final String ENEMY3 = "enemy3";

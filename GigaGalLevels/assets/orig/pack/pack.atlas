@@ -13,28 +13,28 @@ bullet
   index: -1
 diamond
   rotate: false
-  xy: 187, 51
+  xy: 120, 5
   size: 20, 15
   orig: 20, 15
   offset: 0, 0
   index: -1
 enemy
   rotate: false
-  xy: 61, 15
+  xy: 120, 22
   size: 29, 44
   orig: 29, 44
   offset: 0, 0
   index: -1
 enemy2
   rotate: false
-  xy: 92, 22
+  xy: 151, 22
   size: 29, 44
   orig: 29, 44
   offset: 0, 0
   index: -1
 enemy3
   rotate: false
-  xy: 123, 22
+  xy: 182, 22
   size: 29, 44
   orig: 29, 44
   offset: 0, 0
@@ -48,7 +48,7 @@ exit-portal-1
   index: -1
 platform
   rotate: false
-  xy: 127, 68
+  xy: 186, 68
   size: 57, 57
   split: 8, 8, 8, 8
   pad: 0, 0, 0, 0
@@ -57,7 +57,7 @@ platform
   index: -1
 platform-bounce
   rotate: false
-  xy: 186, 68
+  xy: 61, 2
   size: 57, 57
   split: 8, 9, 8, 9
   pad: 0, 0, 0, 0
@@ -66,16 +66,24 @@ platform-bounce
   index: -1
 platform-hard
   rotate: false
-  xy: 68, 68
+  xy: 127, 68
   size: 57, 57
   split: 8, 9, 8, 8
   pad: 0, 0, 0, 0
   orig: 57, 57
   offset: 0, 0
   index: -1
-platform-medium
+platform-light
   rotate: false
   xy: 2, 2
+  size: 57, 57
+  split: 8, 8, 6, 8
+  orig: 57, 57
+  offset: 0, 0
+  index: -1
+platform-medium
+  rotate: false
+  xy: 68, 68
   size: 57, 57
   split: 8, 9, 8, 8
   pad: 0, 0, 0, 0
@@ -84,28 +92,28 @@ platform-medium
   index: -1
 powerup
   rotate: false
-  xy: 187, 32
+  xy: 142, 3
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup2
   rotate: false
-  xy: 209, 49
+  xy: 159, 3
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup3
   rotate: false
-  xy: 226, 49
+  xy: 176, 3
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 standing-right
   rotate: false
-  xy: 154, 31
+  xy: 213, 31
   size: 31, 35
   orig: 31, 35
   offset: 0, 0
