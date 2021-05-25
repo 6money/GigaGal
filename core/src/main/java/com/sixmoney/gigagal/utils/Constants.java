@@ -146,7 +146,8 @@ public class Constants {
     public static final int LEVEL_4 = 4;
     public static final int LEVEL_5 = 5;
     public static final int LEVEL_6 = 6;
-    public static final int MAX_LEVEL = 6;
+    public static final int LEVEL_7 = 7;
+    public static final int MAX_LEVEL = 7;
 
     //HUD
     public static final float HUD_VIEWPORT_SIZE = 480;
