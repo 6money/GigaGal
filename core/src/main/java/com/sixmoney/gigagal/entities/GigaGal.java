@@ -161,15 +161,13 @@ public class GigaGal {
                     if (landedOnPlatform(platform)) {
                         platform.hasPlayer = true;
                         platform.playerPosition = position.x - platform.left;
-                        if (!landed_flag) {
+                        if (!landed_flag && !platform.invisible) {
                             canDrop = platform.droppable;
                             bounce = platform.bounce;
-                            if (!platform.invisible) {
-                                jumpState = JumpState.GROUNDED;
-                                velocity.y = 0;
-                                velocity.x = 0;
-                                position.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
-                            }
+                            jumpState = JumpState.GROUNDED;
+                            velocity.y = 0;
+                            velocity.x = 0;
+                            position.y = platform.top + Constants.GIGAGAL_EYE_HEIGHT;
                             landed_flag = true;
                         }
                         if (canDrop && !platform.droppable) {
