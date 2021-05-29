@@ -92,7 +92,7 @@ public class GameplayScreen extends ScreenAdapter {
     }
 
     public boolean onMobile() {
-        return Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS;
+        return gigaGalGame.onMobile();
     }
 
     @Override

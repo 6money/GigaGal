@@ -1,5 +1,6 @@
 package com.sixmoney.gigagal.screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
@@ -133,7 +134,12 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
 
         ScrollPane scrollPane = new ScrollPane(tableLevels, skin);
         scrollPane.setFadeScrollBars(false);
-        scrollPane.setFlickScroll(false);
+        if (gigaGalGame.onMobile() || gigaGalGame.debugMobile) {
+            scrollPane.setFlickScroll(true);
+        } else {
+            scrollPane.setFlickScroll(false);
+        }
+
         scrollPane.addListener(new InputListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {

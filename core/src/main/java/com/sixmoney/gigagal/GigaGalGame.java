@@ -89,4 +89,8 @@ public class GigaGalGame extends Game {
 				break;
 		}
 	}
+
+	public boolean onMobile() {
+		return Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS;
+	}
 }
