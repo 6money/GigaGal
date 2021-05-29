@@ -143,6 +143,8 @@ public class PreferenceManager {
         preferences.remove("Level3");
         preferences.remove("Level4");
         preferences.remove("Level5");
+        preferences.remove("Level6");
+        preferences.remove("Level7");
         preferences.flush();
     }
 }
