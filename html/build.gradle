@@ -109,7 +109,7 @@ task distZip(type: Zip, dependsOn: dist){
 	}
 	archiveBaseName.set("${appName}-dist")
 	//// The result will be in html/build/ with a name containing "dist".
-	destinationDir(file("build"))
+	destinationDirectory = file("build")
 }
 
 tasks.compileGwt.dependsOn(addSource)
