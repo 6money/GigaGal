@@ -34,6 +34,7 @@ public class HighScoresScreen implements Screen {
     private List<Integer> listLevel5;
     private List<Integer> listLevel6;
     private List<Integer> listLevel7;
+    private List<Integer> listLevel8;
     private Label labelHighScore;
     private Button buttonBack;
     private Table tableHighscores;
@@ -54,6 +55,7 @@ public class HighScoresScreen implements Screen {
         Array<Integer> scoresLevel5 = preferenceManager.getScores("Level5");
         Array<Integer> scoresLevel6 = preferenceManager.getScores("Level6");
         Array<Integer> scoresLevel7 = preferenceManager.getScores("Level7");
+        Array<Integer> scoresLevel8 = preferenceManager.getScores("Level8");
 
         listLevel1 = new List<>(skin, "gigagal");
         listLevel1.setItems(scoresLevel1);
@@ -69,6 +71,8 @@ public class HighScoresScreen implements Screen {
         listLevel6.setItems(scoresLevel6);
         listLevel7 = new List<>(skin, "gigagal");
         listLevel7.setItems(scoresLevel7);
+        listLevel8 = new List<>(skin, "gigagal");
+        listLevel8.setItems(scoresLevel8);
 
         Table tableScene = new Table(skin);
         tableScene.setFillParent(true);
@@ -115,7 +119,7 @@ public class HighScoresScreen implements Screen {
         tableHighscores.add(listLevel5);
 
         tableHighscores.row();
-        for (int i = 6; i != Constants.MAX_LEVEL; i++) {
+        for (int i = 6; i <= Constants.MAX_LEVEL; i++) {
             Label tempLabel = new Label("Level " + i, skin);
             tempLabel.setFontScale(0.5f);
             tableHighscores.add(tempLabel);
@@ -124,6 +128,7 @@ public class HighScoresScreen implements Screen {
         tableHighscores.row();
         tableHighscores.add(listLevel6);
         tableHighscores.add(listLevel7);
+        tableHighscores.add(listLevel8);
 
         ScrollPane scrollPane = new ScrollPane(tableHighscores, skin);
         scrollPane.setFadeScrollBars(false);

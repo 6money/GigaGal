@@ -132,6 +132,17 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
         });
         tableLevels.add(buttonLvl7).height(stage.getHeight() / 6);
 
+        tableLevels.row();
+        TextButton buttonLvl8 = new TextButton("LEVEL 8", skin, "gigagal");
+        buttonLvl8.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gigaGalGame.switchScreen("gameplay", Constants.LEVEL_8);
+                dispose();
+            }
+        });
+        tableLevels.add(buttonLvl8).height(stage.getHeight() / 6);
+
         ScrollPane scrollPane = new ScrollPane(tableLevels, skin);
         scrollPane.setFadeScrollBars(false);
         if (gigaGalGame.onMobile() || gigaGalGame.debugMobile) {
