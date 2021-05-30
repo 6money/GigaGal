@@ -11,6 +11,7 @@ import com.sixmoney.gigagal.utils.Utils;
 public class Explosion {
     protected Vector2 position;
     protected long start_time;
+    protected float scale;
 
     public float offset;
 
@@ -18,6 +19,7 @@ public class Explosion {
         this.position = position;
         start_time = TimeUtils.nanoTime();
         this.offset = 0;
+        scale = 1;
     }
 
     public void render(SpriteBatch spriteBatch) {
@@ -25,6 +27,10 @@ public class Explosion {
             TextureRegion key_frame = (TextureRegion) Assets.get_instance().explosionAssets.explosion_animation.getKeyFrame(Utils.secondsSince(start_time) - offset);
             Utils.drawTextureRegion(spriteBatch, key_frame, position.x - Constants.EXPLOSION_CENTER.x, position.y - Constants.EXPLOSION_CENTER.y);
         }
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
     }
 
     public boolean yetToStart(){

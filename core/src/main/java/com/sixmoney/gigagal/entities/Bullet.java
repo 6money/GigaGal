@@ -1,5 +1,6 @@
 package com.sixmoney.gigagal.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -19,6 +20,7 @@ public class Bullet {
     public boolean active;
     public Direction direction;
     public ParticleEffectPool.PooledEffect particleBulletTrail;
+    public boolean travelPastScreen;
 
     public Bullet(Level level, Vector2 position, Direction direction) {
         this.level = level;
@@ -26,6 +28,7 @@ public class Bullet {
         this.direction = direction;
         active = true;
         damage = 1;
+        travelPastScreen = false;
     }
 
     public void setParticleBulletTrail(ParticleEffectPool.PooledEffect particleBulletTrail) {
@@ -58,11 +61,28 @@ public class Bullet {
             }
         }
 
+        for (Boss boss: level.getBosses()) {
+            Vector2 bullet_center = new Vector2(position.x + Constants.BULLET_CENTER.x, position.y + Constants.BULLET_CENTER.y);
+            if (bullet_center.dst(boss.position) < Constants.BOSS_HIT_COLLISION_RADIUS) {
+                playExplosion();
+                add_explosion(bullet_center);
+                active = false;
+                boss.health = (boss.health - damage);
+                level.score += Constants.ENEMY_HIT_SCORE * level.scoreMultiplier;
+            }
+        }
+
         float viewport_width = level.getViewport().getWorldWidth();
         Vector3 viewport_position = level.getViewport().getCamera().position;
 
-        if (position.x < viewport_position.x - viewport_width / 2 || position.x > viewport_position.x + viewport_width / 2) {
-            active = false;
+        if (!travelPastScreen) {
+            if (position.x < viewport_position.x - viewport_width / 2 || position.x > viewport_position.x + viewport_width / 2) {
+                active = false;
+            }
+        } else {
+            if (position.x > 2000 || position.x < -2000) {
+                active = false;
+            }
         }
 
         if (particleBulletTrail != null && particleBulletTrail.isComplete()) {
