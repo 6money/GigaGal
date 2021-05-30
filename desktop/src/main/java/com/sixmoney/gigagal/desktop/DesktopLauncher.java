@@ -22,6 +22,8 @@ public class DesktopLauncher {
 		configuration.title = "GigaGal";
 		configuration.width = MathUtils.round(Constants.WINDOW_WIDTH);
 		configuration.height = MathUtils.round(Constants.WINDOW_HEIGHT);
+		configuration.foregroundFPS = 144;
+		configuration.backgroundFPS = 30;
 		//// This prevents a confusing error that would appear after exiting normally.
 		configuration.forceExit = false;
 		
