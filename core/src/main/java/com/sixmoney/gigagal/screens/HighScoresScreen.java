@@ -77,9 +77,9 @@ public class HighScoresScreen implements Screen {
 
         labelHighScore = new Label("HIGH SCORES", skin);
         labelHighScore.setPosition(stage.getWidth() / 2 - labelHighScore.getWidth() / 2, stage.getHeight() * 3 / 4);
-        labelHighScore.setFontScale(2f);
+//        labelHighScore.setFontScale(2f);
         labelHighScore.setAlignment(Align.center);
-        tableScene.add(labelHighScore).padTop(40).padBottom(20);
+        tableScene.add(labelHighScore).padTop(20).padBottom(10);
 
         buttonBack = new Button(skin, "gigagal");
         buttonBack.add(new Label("Back" ,skin));
@@ -100,11 +100,11 @@ public class HighScoresScreen implements Screen {
         tableHighscores.defaults().grow();
         tableHighscores.setSize(stage.getWidth(), stage.getHeight() / 2);
 
-        tableHighscores.add(new Label("Level 1", skin));
-        tableHighscores.add(new Label("Level 2", skin));
-        tableHighscores.add(new Label("Level 3", skin));
-        tableHighscores.add(new Label("Level 4", skin));
-        tableHighscores.add(new Label("Level 5", skin));
+        for (int i = 1; i != 5; i++) {
+            Label tempLabel = new Label("Level " + i, skin);
+            tempLabel.setFontScale(0.5f);
+            tableHighscores.add(tempLabel);
+        }
 
 
         tableHighscores.row();
@@ -115,8 +115,11 @@ public class HighScoresScreen implements Screen {
         tableHighscores.add(listLevel5);
 
         tableHighscores.row();
-        tableHighscores.add(new Label("Level 6", skin));
-        tableHighscores.add(new Label("Level 7", skin));
+        for (int i = 6; i != Constants.MAX_LEVEL; i++) {
+            Label tempLabel = new Label("Level " + i, skin);
+            tempLabel.setFontScale(0.5f);
+            tableHighscores.add(tempLabel);
+        }
 
         tableHighscores.row();
         tableHighscores.add(listLevel6);
