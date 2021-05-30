@@ -95,7 +95,7 @@ public class Level {
 
         ParticleEffect bullerTrailParticle = new ParticleEffect();
         bullerTrailParticle.load(Gdx.files.internal("particles/pixel_bullet_trail_2"), Assets.get_instance().getAtlas());
-        pepBulletTrail = new ParticleEffectPool(bullerTrailParticle, 5, 5);
+        pepBulletTrail = new ParticleEffectPool(bullerTrailParticle, 5, 40);
 
         gameOver = false;
         victory = false;

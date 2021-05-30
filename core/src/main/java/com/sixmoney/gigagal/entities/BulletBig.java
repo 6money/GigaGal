@@ -21,6 +21,6 @@ public class BulletBig extends Bullet {
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.draw(Assets.get_instance().bulletAssets.bullet2, position.x, position.y - Constants.BULLET_CENTER.y);
-        particleBulletTrail.draw(spriteBatch);
+        renderParticleTrail(spriteBatch);
     }
 }

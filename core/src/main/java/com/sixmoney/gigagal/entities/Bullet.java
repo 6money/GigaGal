@@ -65,12 +65,17 @@ public class Bullet {
             active = false;
         }
 
-        if (direction == Direction.LEFT) {
-            particleBulletTrail.setPosition(position.x + Assets.get_instance().bulletAssets.bullet.originalWidth, position.y);
-        } else {
-            particleBulletTrail.setPosition(position.x, position.y);
+        if (particleBulletTrail != null && particleBulletTrail.isComplete()) {
+            particleBulletTrail.free();
+            particleBulletTrail = null;
+        } else if (particleBulletTrail != null) {
+            if (direction == Direction.LEFT) {
+                particleBulletTrail.setPosition(position.x + Assets.get_instance().bulletAssets.bullet.originalWidth, position.y);
+            } else {
+                particleBulletTrail.setPosition(position.x, position.y);
+            }
+            particleBulletTrail.update(delta);
         }
-        particleBulletTrail.update(delta);
     }
 
     public void playExplosion() {
@@ -88,6 +93,12 @@ public class Bullet {
 
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.draw(Assets.get_instance().bulletAssets.bullet, position.x, position.y - Constants.BULLET_CENTER.y);
-        particleBulletTrail.draw(spriteBatch);
+        renderParticleTrail(spriteBatch);
+    }
+
+    protected void renderParticleTrail(SpriteBatch spriteBatch) {
+        if (particleBulletTrail != null) {
+            particleBulletTrail.draw(spriteBatch);
+        }
     }
 }

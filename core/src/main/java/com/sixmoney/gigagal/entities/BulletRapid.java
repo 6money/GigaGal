@@ -16,6 +16,6 @@ public class BulletRapid extends Bullet {
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.draw(Assets.get_instance().bulletAssets.bullet3, position.x, position.y - Constants.BULLET_CENTER.y);
-        particleBulletTrail.draw(spriteBatch);
+        renderParticleTrail(spriteBatch);
     }
 }
