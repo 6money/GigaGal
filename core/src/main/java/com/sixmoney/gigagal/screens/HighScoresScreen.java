@@ -35,6 +35,8 @@ public class HighScoresScreen implements Screen {
     private List<Integer> listLevel6;
     private List<Integer> listLevel7;
     private List<Integer> listLevel8;
+    private List<Integer> listLevel9;
+    private List<Integer> listLevel10;
     private Label labelHighScore;
     private Button buttonBack;
     private Table tableHighscores;
@@ -56,6 +58,8 @@ public class HighScoresScreen implements Screen {
         Array<Integer> scoresLevel6 = preferenceManager.getScores("Level6");
         Array<Integer> scoresLevel7 = preferenceManager.getScores("Level7");
         Array<Integer> scoresLevel8 = preferenceManager.getScores("Level8");
+        Array<Integer> scoresLevel9 = preferenceManager.getScores("Level8");
+        Array<Integer> scoresLevel10 = preferenceManager.getScores("Level8");
 
         listLevel1 = new List<>(skin, "gigagal");
         listLevel1.setItems(scoresLevel1);
@@ -73,6 +77,10 @@ public class HighScoresScreen implements Screen {
         listLevel7.setItems(scoresLevel7);
         listLevel8 = new List<>(skin, "gigagal");
         listLevel8.setItems(scoresLevel8);
+        listLevel9 = new List<>(skin, "gigagal");
+        listLevel9.setItems(scoresLevel9);
+        listLevel10 = new List<>(skin, "gigagal");
+        listLevel10.setItems(scoresLevel10);
 
         Table tableScene = new Table(skin);
         tableScene.setFillParent(true);
@@ -81,7 +89,6 @@ public class HighScoresScreen implements Screen {
 
         labelHighScore = new Label("HIGH SCORES", skin);
         labelHighScore.setPosition(stage.getWidth() / 2 - labelHighScore.getWidth() / 2, stage.getHeight() * 3 / 4);
-//        labelHighScore.setFontScale(2f);
         labelHighScore.setAlignment(Align.center);
         tableScene.add(labelHighScore).padTop(20).padBottom(10);
 
@@ -129,6 +136,8 @@ public class HighScoresScreen implements Screen {
         tableHighscores.add(listLevel6);
         tableHighscores.add(listLevel7);
         tableHighscores.add(listLevel8);
+        tableHighscores.add(listLevel9);
+        tableHighscores.add(listLevel10);
 
         ScrollPane scrollPane = new ScrollPane(tableHighscores, skin);
         scrollPane.setFadeScrollBars(false);
