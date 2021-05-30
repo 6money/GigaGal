@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sixmoney.gigagal.Level;
+import com.sixmoney.gigagal.entities.Boss;
 import com.sixmoney.gigagal.entities.EnemyBig;
 import com.sixmoney.gigagal.entities.EnemyRanged;
 import com.sixmoney.gigagal.entities.PlatformBounce;
@@ -21,6 +22,7 @@ import com.sixmoney.gigagal.entities.Platform;
 import com.sixmoney.gigagal.entities.PlatformHard;
 import com.sixmoney.gigagal.entities.PlatformMedium;
 import com.sixmoney.gigagal.entities.Powerup;
+import com.sixmoney.gigagal.entities.PowerupNuke;
 import com.sixmoney.gigagal.entities.PowerupRapid;
 
 import java.io.File;
@@ -110,6 +112,11 @@ public class LevelLoader {
                                 level.getEnemies().add(new EnemyRanged(platform, level));
                             }
                             break;
+                        case Constants.LEVEL_BOSS_TAG:
+                            for (int i = 0; i < numEnemies; i++) {
+                                level.getBosses().add(new Boss(platform, level));
+                            }
+                            break;
                     }
                 }
             }
@@ -168,6 +175,12 @@ public class LevelLoader {
             if (item.get(Constants.LEVEL_IMAGENAME_KEY).asString().equals(Constants.POWERUP3)) {
                 Gdx.app.log(TAG, "Loaded rapid powerup at " + lowerLeftCorner);
                 level.getPowerups().add(new PowerupRapid(lowerLeftCorner));
+                continue;
+            }
+
+            if (item.get(Constants.LEVEL_IMAGENAME_KEY).asString().equals(Constants.POWERUP4)) {
+                Gdx.app.log(TAG, "Loaded nuke powerup at " + lowerLeftCorner);
+                level.getPowerups().add(new PowerupNuke(lowerLeftCorner));
                 continue;
             }
 

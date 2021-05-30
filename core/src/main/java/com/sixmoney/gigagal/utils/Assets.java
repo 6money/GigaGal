@@ -180,11 +180,13 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion enemy;
         public TextureAtlas.AtlasRegion enemy2;
         public TextureAtlas.AtlasRegion enemy3;
+        public TextureAtlas.AtlasRegion boss;
 
         public EnemyAssets(TextureAtlas atlas) {
             enemy = atlas.findRegion(Constants.ENEMY);
             enemy2 = atlas.findRegion(Constants.ENEMY2);
             enemy3 = atlas.findRegion(Constants.ENEMY3);
+            boss = atlas.findRegion(Constants.BOSS);
         }
     }
 
@@ -193,12 +195,14 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion bullet;
         public TextureAtlas.AtlasRegion bullet2;
         public TextureAtlas.AtlasRegion bullet3;
+        public TextureAtlas.AtlasRegion bullet4;
         public TextureAtlas.AtlasRegion lazer;
 
         public BulletAssets(TextureAtlas atlas) {
             bullet = atlas.findRegion(Constants.BULLET);
             bullet2 = atlas.findRegion(Constants.BULLET2);
             bullet3 = atlas.findRegion(Constants.BULLET3);
+            bullet4 = atlas.findRegion(Constants.BULLET4);
             lazer = atlas.findRegion(Constants.LAZER);
         }
     }
@@ -243,11 +247,13 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion powerup;
         public TextureAtlas.AtlasRegion powerup2;
         public TextureAtlas.AtlasRegion powerup3;
+        public TextureAtlas.AtlasRegion powerup4;
 
         public PowerupAssets(TextureAtlas atlas) {
             powerup = atlas.findRegion(Constants.POWERUP);
             powerup2 = atlas.findRegion(Constants.POWERUP2);
             powerup3 = atlas.findRegion(Constants.POWERUP3);
+            powerup4 = atlas.findRegion(Constants.POWERUP4);
         }
 
     }

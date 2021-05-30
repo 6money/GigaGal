@@ -39,9 +39,11 @@ public class Constants {
     public static final String ENEMY = "enemy";
     public static final String ENEMY2 = "enemy2";
     public static final String ENEMY3 = "enemy3";
+    public static final String BOSS = "boss";
     public static final String BULLET = "bullet";
     public static final String BULLET2 = "bullet2";
     public static final String BULLET3 = "bullet3";
+    public static final String BULLET4 = "bullet4";
     public static final String LAZER = "lazer";
     public static final String EXPLOSION_LARGE = "explosion-large";
     public static final String EXPLOSION_LARGER = "explosion-larger";
@@ -51,6 +53,7 @@ public class Constants {
     public static final String POWERUP = "powerup";
     public static final String POWERUP2 = "powerup2";
     public static final String POWERUP3 = "powerup3";
+    public static final String POWERUP4 = "powerup4";
     public static final String EXIT_PORTAL_SPRITE_1 = "exit-portal-1";
     public static final String EXIT_PORTAL_SPRITE_2 = "exit-portal-2";
     public static final String EXIT_PORTAL_SPRITE_3 = "exit-portal-3";
@@ -84,15 +87,22 @@ public class Constants {
 
 
     // ememy
-    public  static final Vector2 ENEMY_CENTER_POS = new Vector2(14, 22);
-    public  static final float ENEMY_SPEED = 20f;
-    public  static final float ENEMY_SPEED_CHARGE = 80f;
-    public  static final float ENEMY_BOB_APLITUDE = 2f;
-    public  static final float ENEMY_BOB_PERIOD = 3f;
-    public  static final float ENEMY_COLLISION_RADIUS = 15f;
-    public  static final float ENEMY_HIT_COLLISION_RADIUS = 17f;
-    public  static final int ENEMY_HEALTH = 5;
-    public  static final int ENEMY_BIG_HEALTH = 15;
+    public static final Vector2 ENEMY_CENTER_POS = new Vector2(14, 22);
+    public static final float ENEMY_SPEED = 20f;
+    public static final float ENEMY_SPEED_CHARGE = 80f;
+    public static final float ENEMY_BOB_APLITUDE = 2f;
+    public static final float ENEMY_BOB_PERIOD = 3f;
+    public static final float ENEMY_COLLISION_RADIUS = 15f;
+    public static final float ENEMY_HIT_COLLISION_RADIUS = 17f;
+    public static final int ENEMY_HEALTH = 5;
+    public static final int ENEMY_BIG_HEALTH = 15;
+
+    // boss
+    public static final Vector2 BOSS_CENTER_POS = new Vector2(44, 44);
+    public static final float BOSS_SPEED = 15f;
+    public static final float BOSS_COLLISION_RADIUS = 28f;
+    public static final float BOSS_HIT_COLLISION_RADIUS = 28f;
+    public static final int BOSS_HEALTH = 500;
 
     // platform
     public static final int PLATFORM_EDGE_LENGTH = 8;
@@ -102,6 +112,7 @@ public class Constants {
     public static final float BULLET_SPEED = 150f;
     public static final float BULLET_RAPID_FIRE_DELAY = 0.025f;
     public static final float LAZER_SHOOT_DELAY = 0.6f;
+    public static final float LAZER_SHOOT_DELAY_BOSS = 0.1f;
 
     // explosions
     public static final Vector2 EXPLOSION_CENTER = new Vector2(14, 14);
@@ -112,6 +123,7 @@ public class Constants {
     public static final Vector2 POWERUP_CENTER = new Vector2(7, 5);
     public static final int POWERUP_AMOUNT = 10;
     public static final int POWERUP_AMOUNT_RAPID = 50;
+    public static final int POWERUP_AMOUNT_NUKE = 1;
 
     // diamond
     public static final Vector2 DIAMOND_SIZE = new Vector2(20, 15);
@@ -139,6 +151,7 @@ public class Constants {
     public static final String LEVEL_ENEMY_TAG = "Enemy";
     public static final String LEVEL_ENEMY_BIG_TAG = "BigEnemy";
     public static final String LEVEL_ENEMY_RANGED_TAG = "RangedEnemy";
+    public static final String LEVEL_BOSS_TAG = "Boss";
     public static final String LEVEL_KILLPLANE_TAG = "Killplane";
     public static final int LEVEL_1 = 1;
     public static final int LEVEL_2 = 2;
@@ -167,6 +180,7 @@ public class Constants {
     public static final int AMMO_SCORE = 25;
     public static final int AMMO_SPECIAL_SCORE = 50;
     public static final int AMMO_RAPID_SCORE = 10;
+    public static final int AMMO_NUKE_SCORE = 1000;
     public static final int DIAMOND_SCORE = 1000;
 
     // Victory/Game Over/Pause screens

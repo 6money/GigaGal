@@ -36,8 +36,14 @@ public class Lazer extends Bullet {
         float viewport_width = level.getViewport().getWorldWidth();
         Vector3 viewport_position = level.getViewport().getCamera().position;
 
-        if (position.x < viewport_position.x - viewport_width / 2 || position.x > viewport_position.x + viewport_width / 2) {
-            active = false;
+        if (!travelPastScreen) {
+            if (position.x < viewport_position.x - viewport_width / 2 || position.x > viewport_position.x + viewport_width / 2) {
+                active = false;
+            }
+        } else {
+            if (position.x > 2000 || position.x < -2000) {
+                active = false;
+            }
         }
     }
 

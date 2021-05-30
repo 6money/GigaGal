@@ -53,6 +53,7 @@ public class GigaGal {
     public int ammmoBasic;
     public int ammmoBig;
     public int ammmoRapid;
+    public int ammmoNuke;
     public int lives;
     public boolean jumpButtonPressed;
     public boolean shootButtonPressed;
@@ -86,6 +87,7 @@ public class GigaGal {
         ammmoBasic = Constants.GIGAGAL_INIT_AMMO;
         ammmoBig = 0;
         ammmoRapid = 0;
+        ammmoNuke = 0;
         if (level.difficultly == 0f) {
             lives = Constants.GIGAGAL_INIT_LIVES;
         } else if (level.difficultly == 50f) {
@@ -197,6 +199,17 @@ public class GigaGal {
 
             }
 
+            for (Boss boss : level.getBosses()) {
+                Rectangle enemy_bounding_box = boss.enemy_bounding_box;
+
+                boolean hit_enemy = gigagal_bounding_box.overlaps(enemy_bounding_box);
+                if (hit_enemy && position.x + Constants.GIGAGAL_STANCE_WIDTH < boss.position.x + Constants.ENEMY_COLLISION_RADIUS / 2) {
+                    recoilFromEnemy(Direction.LEFT);
+                } else if (hit_enemy && position.x + Constants.GIGAGAL_STANCE_WIDTH > boss.position.x + Constants.ENEMY_COLLISION_RADIUS / 2) {
+                    recoilFromEnemy(Direction.RIGHT);
+                }
+            }
+
             if (Gdx.input.isKeyPressed(Input.Keys.Z) || jumpButtonPressed) {
                 switch (jumpState) {
                     case GROUNDED:
@@ -254,6 +267,9 @@ public class GigaGal {
                         case "rapid":
                             ammmoRapid += powerup.ammo_amount;
                             break;
+                        case "nuke":
+                            ammmoNuke += powerup.ammo_amount;
+                            break;
                     }
                     level.getPowerups().removeValue(powerup, true);
                     level.score += Constants.POWERUP_SCORE * level.scoreMultiplier;
@@ -279,7 +295,7 @@ public class GigaGal {
                     bulletFireStartTime = TimeUtils.nanoTime();
                     shoot();
                 }
-            } else if (Gdx.input.isKeyJustPressed(Input.Keys.X) && (ammmoBasic > 0 || ammmoBig > 0)) {
+            } else if (Gdx.input.isKeyJustPressed(Input.Keys.X) && (ammmoBasic > 0 || ammmoBig > 0 || ammmoNuke > 0)) {
                 shoot();
             }
         }
@@ -334,6 +350,11 @@ public class GigaGal {
             playGunshot();
             ammmoBasic--;
             Bullet bullet = new Bullet(level, bullet_position, facing);
+            level.addBullet(bullet);
+        } else if (ammmoNuke > 0) {
+            playGunshot();
+            ammmoNuke--;
+            Bullet bullet = new BulletNuke(level, bullet_position, facing);
             level.addBullet(bullet);
         }
     }

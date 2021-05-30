@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.sixmoney.gigagal.entities.Boss;
 import com.sixmoney.gigagal.entities.Bullet;
 import com.sixmoney.gigagal.entities.Diamond;
 import com.sixmoney.gigagal.entities.Enemy;
@@ -34,6 +35,7 @@ public class Level {
     private ExitPortal exitPortal;
     private Array<Platform> platforms;
     private final DelayedRemovalArray<Enemy> enemies;
+    private final DelayedRemovalArray<Boss> bosses;
     private final DelayedRemovalArray<Bullet> bullets;
     private final DelayedRemovalArray<Explosion> explosions;
     private final DelayedRemovalArray<Powerup> powerups;
@@ -71,6 +73,7 @@ public class Level {
         }
         platforms = new Array<>();
         enemies = new DelayedRemovalArray<>();
+        bosses = new DelayedRemovalArray<>();
         bullets = new DelayedRemovalArray<>();
         explosions = new DelayedRemovalArray<>();
         powerups = new DelayedRemovalArray<>();
@@ -105,6 +108,10 @@ public class Level {
 
     public DelayedRemovalArray<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public DelayedRemovalArray<Boss> getBosses() {
+        return bosses;
     }
 
     public DelayedRemovalArray<Bullet> getBullets() {
@@ -167,6 +174,7 @@ public class Level {
                 score += (gigaGal.ammmoBasic * Constants.AMMO_SCORE) * scoreMultiplier;
                 score += (gigaGal.ammmoBig * Constants.AMMO_SPECIAL_SCORE) * scoreMultiplier;
                 score += (gigaGal.ammmoRapid * Constants.AMMO_RAPID_SCORE) * scoreMultiplier;
+                score += (gigaGal.ammmoNuke * Constants.AMMO_NUKE_SCORE) * scoreMultiplier;
                 victory = true;
             }
             if (gigaGal.lives <= 0) {
@@ -196,6 +204,28 @@ public class Level {
                 }
             }
             enemies.end();
+
+            bosses.begin();
+            for (Boss boss: bosses) {
+                if (boss.position.x < viewport.getCamera().position.x + (viewport.getWorldWidth() / 2f)
+                        && boss.position.x > viewport.getCamera().position.x - (viewport.getWorldWidth() / 2f)) {
+                    boss.onScreen = true;
+                } else {
+                    boss.onScreen = false;
+                }
+                boss.update(delta);
+                if (boss.health <= 0) {
+                    SoundManager.get_instance().playSound(Constants.DEATH_SOUND_PATH);
+                    explosions.add(new ExplosionBig(boss.position));
+                    bosses.removeValue(boss, true);
+                    score += Constants.ENEMY_KILL_SCORE * scoreMultiplier;
+
+                    PooledEffect particleExplosion = pepExplosion.obtain();
+                    particleExplosion.setPosition(boss.position.x, boss.position.y);
+                    explosionParticles.add(particleExplosion);
+                }
+            }
+            bosses.end();
 
             explosions.begin();
             for (Explosion explosion : explosions) {
@@ -262,6 +292,10 @@ public class Level {
             enemy.render(spriteBatch);
         }
 
+        for (Boss boss: bosses) {
+            boss.render(spriteBatch);
+        }
+
         for (Bullet bullet: bullets) {
             bullet.render(spriteBatch);
         }
@@ -287,6 +321,10 @@ public class Level {
     public void debugRender(ShapeRenderer shapeRenderer) {
         for (Enemy enemy: enemies) {
             enemy.debugRender(shapeRenderer);
+        }
+
+        for (Boss boss: bosses) {
+            boss.debugRender(shapeRenderer);
         }
 
         for (Powerup powerup: powerups) {
