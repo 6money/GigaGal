@@ -65,14 +65,6 @@
 		"color": "highlight"
 	}
 },
-"com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable": {
-	"progress-bar-knob-t": {
-		"region": "progress-bar-knob",
-		"color": "white",
-		"minWidth": 0,
-		"minHeight": 5
-	}
-},
 "com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
 	"default": {
 		"up": "button-normal",
@@ -168,16 +160,13 @@
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {
 	"default-horizontal": {
-		"background": "progress-bar-square",
-		"knobBefore": "progress-bar-square-knob"
+		"background": "progress-bar-square"
 	},
 	"default-vertical": {
-		"background": "progress-bar-square",
-		"knobBefore": "progress-bar-square-knob"
+		"background": "progress-bar-square"
 	},
 	"curved": {
-		"background": "progress-bar",
-		"knobBefore": "progress-bar-knob-t"
+		"background": "progress-bar"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle": {
