@@ -58,8 +58,8 @@ public class HighScoresScreen implements Screen {
         Array<Integer> scoresLevel6 = preferenceManager.getScores("Level6");
         Array<Integer> scoresLevel7 = preferenceManager.getScores("Level7");
         Array<Integer> scoresLevel8 = preferenceManager.getScores("Level8");
-        Array<Integer> scoresLevel9 = preferenceManager.getScores("Level8");
-        Array<Integer> scoresLevel10 = preferenceManager.getScores("Level8");
+        Array<Integer> scoresLevel9 = preferenceManager.getScores("Level9");
+        Array<Integer> scoresLevel10 = preferenceManager.getScores("Level10");
 
         listLevel1 = new List<>(skin, "gigagal");
         listLevel1.setItems(scoresLevel1);
