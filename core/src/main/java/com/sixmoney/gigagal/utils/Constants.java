@@ -99,10 +99,12 @@ public class Constants {
 
     // boss
     public static final Vector2 BOSS_CENTER_POS = new Vector2(44, 44);
-    public static final float BOSS_SPEED = 15f;
+    public static final float BOSS_SPEED = 25f;
+    public static final float BOSS_SPEED_CHARGE = 60f;
     public static final float BOSS_COLLISION_RADIUS = 28f;
     public static final float BOSS_HIT_COLLISION_RADIUS = 28f;
-    public static final int BOSS_HEALTH = 500;
+    public static final int BOSS_HEALTH = 300;
+    public static final float BOSS_PHASE_TIME_PERIOD = 4;
 
     // platform
     public static final int PLATFORM_EDGE_LENGTH = 8;

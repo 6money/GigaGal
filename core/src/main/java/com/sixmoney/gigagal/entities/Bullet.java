@@ -19,6 +19,7 @@ public class Bullet {
 
     public boolean active;
     public Direction direction;
+    public Vector2 directionVector;
     public ParticleEffectPool.PooledEffect particleBulletTrail;
     public boolean travelPastScreen;
 
@@ -26,6 +27,15 @@ public class Bullet {
         this.level = level;
         this.position = position;
         this.direction = direction;
+        active = true;
+        damage = 1;
+        travelPastScreen = false;
+    }
+
+    public Bullet(Level level, Vector2 position, Vector2 directionVector) {
+        this.level = level;
+        this.position = position;
+        this.directionVector = new Vector2(directionVector);
         active = true;
         damage = 1;
         travelPastScreen = false;

@@ -215,6 +215,7 @@ public class Level {
                 }
                 boss.update(delta);
                 if (boss.health <= 0) {
+                    exitPortal.position = boss.position;
                     SoundManager.get_instance().playSound(Constants.DEATH_SOUND_PATH);
                     explosions.add(new ExplosionBig(boss.position));
                     bosses.removeValue(boss, true);

@@ -7,6 +7,7 @@ import com.sixmoney.gigagal.Level;
 import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.Enums;
+import com.sixmoney.gigagal.utils.Utils;
 
 public class Lazer extends Bullet {
     public Lazer(Level level, Vector2 position, Enums.Direction direction) {
@@ -14,16 +15,25 @@ public class Lazer extends Bullet {
         damage = 1;
     }
 
+    public Lazer(Level level, Vector2 position, Vector2 directionVector) {
+        super(level, position, directionVector);
+        damage = 1;
+    }
+
     @Override
     public void update(float delta) {
-        float movement_amount = delta * Constants.BULLET_SPEED;
-
-        if (direction == Enums.Direction.LEFT) {
-            position.x -= movement_amount;
+        if (directionVector != null) {
+            position.x += directionVector.x * delta * Constants.BULLET_SPEED;
+            position.y += directionVector.y * delta * Constants.BULLET_SPEED;
         } else {
-            position.x += movement_amount;
-        }
+            float movement_amount = delta * Constants.BULLET_SPEED;
 
+            if (direction == Enums.Direction.LEFT) {
+                position.x -= movement_amount;
+            } else {
+                position.x += movement_amount;
+            }
+        }
 
         Vector2 bullet_center = new Vector2(position.x + Constants.BULLET_CENTER.x, position.y + Constants.BULLET_CENTER.y);
         if (bullet_center.dst(level.gigaGal.position) < Constants.GIGAGAL_STANCE_WIDTH) {
@@ -48,6 +58,10 @@ public class Lazer extends Bullet {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(Assets.get_instance().bulletAssets.lazer, position.x, position.y - Constants.BULLET_CENTER.y);
+        if (direction != null) {
+            Utils.drawTextureRegion(spriteBatch, Assets.get_instance().bulletAssets.lazer, position.x, position.y - Constants.BULLET_CENTER.y);
+        } else if (directionVector != null) {
+            Utils.drawTextureRegion(spriteBatch, Assets.get_instance().bulletAssets.lazer, position.x, position.y - Constants.BULLET_CENTER.y, directionVector.angleDeg());
+        }
     }
 }
