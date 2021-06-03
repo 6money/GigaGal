@@ -91,6 +91,7 @@ public class Boss {
         }
 
         Vector2 gigagalPos = new Vector2(level.gigaGal.position);
+        gigagalPos.y += Constants.GIGAGAL_EYE_HEIGHT;
         directionVector = gigagalPos.sub(position).nor();
         Vector2 movementVector = new Vector2(directionVector.x * move_distance, directionVector.y * move_distance);
         position.add(movementVector);
@@ -105,7 +106,7 @@ public class Boss {
 
     public void shoot() {
         SoundManager.get_instance().playSound(Constants.LAZER_PATH);
-        Lazer lazer = new Lazer(level, new Vector2(position.x, position.y - Constants.ENEMY_CENTER_POS.y / 2), directionVector);
+        Lazer lazer = new Lazer(level, new Vector2(position.x, position.y), directionVector);
         lazer.travelPastScreen = true;
         level.getBullets().add(lazer);
     }
