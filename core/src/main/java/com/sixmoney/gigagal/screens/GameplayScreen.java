@@ -250,4 +250,10 @@ public class GameplayScreen extends ScreenAdapter {
         level.paused = true;
         Gdx.input.setInputProcessor(pauseOverlay);
     }
+
+    @Override
+    public void resume() {
+        super.resume();
+        level.pauseRunningEffect();
+    }
 }

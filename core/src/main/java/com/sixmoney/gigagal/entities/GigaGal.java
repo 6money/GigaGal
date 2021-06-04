@@ -2,6 +2,7 @@ package com.sixmoney.gigagal.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
@@ -41,7 +42,7 @@ public class GigaGal {
     private boolean bounce;
     private boolean dead;
     private SoundManager soundManager;
-    private long runningEffectId;
+    private Music runningEffectId;
     private ParticleEffectPool pepDust;
     private ParticleEffectPool pepDustJump;
     private DelayedRemovalArray<PooledEffect> dustParticles;
@@ -66,8 +67,8 @@ public class GigaGal {
         this.spawn_position = spawn_position;
         this.level = level;
         soundManager = SoundManager.get_instance();
-        runningEffectId = soundManager.playSound(Constants.RUNNING_SOUND_PATH, true);
-        soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+        runningEffectId = soundManager.getMusic(Constants.RUNNING_SOUND_PATH);
+        runningEffectId.pause();
         init();
 
         ParticleEffect dustParticle = new ParticleEffect();
@@ -226,28 +227,28 @@ public class GigaGal {
             if (jumpState != JumpState.RECOILING && !hit_solid) {
                 if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || leftButtonPressed) {
                     if (jumpState == JumpState.GROUNDED) {
-                        soundManager.resumeSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                        runningEffectId.play();
                     } else {
-                        soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                        runningEffectId.pause();
                     }
                     moveLeft(delta);
                 } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed) {
                     if (jumpState == JumpState.GROUNDED) {
-                        soundManager.resumeSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                        runningEffectId.play();
                     } else {
-                        soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                        runningEffectId.pause();
                     }
                     moveRight(delta);
                 } else {
                     walkState = WalkState.STANDING;
-                    soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                    runningEffectId.pause();
                 }
 
                 if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
                     moveDown(delta);
                 }
             } else if (jumpState == JumpState.RECOILING) {
-                soundManager.pauseSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+                runningEffectId.pause();
             }
 
             level.getPowerups().begin();
@@ -505,7 +506,11 @@ public class GigaGal {
     }
 
     public void stopRunningEffect() {
-        soundManager.stopSound(Constants.RUNNING_SOUND_PATH, runningEffectId);
+        runningEffectId.stop();
+    }
+
+    public void pauseRunningEffect() {
+        runningEffectId.pause();
     }
 
     public void kill() {

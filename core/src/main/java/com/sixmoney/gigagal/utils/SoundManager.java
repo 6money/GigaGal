@@ -49,7 +49,7 @@ public class SoundManager implements Disposable, AssetErrorListener {
         assetManager.load(Constants.EXPLOSION2_PATH, Sound.class);
         assetManager.load(Constants.DEATH_SOUND_PATH, Sound.class);
         assetManager.load(Constants.JUMP_SOUND_PATH, Sound.class);
-        assetManager.load(Constants.RUNNING_SOUND_PATH, Sound.class);
+        assetManager.load(Constants.RUNNING_SOUND_PATH, Music.class);
         assetManager.load(Constants.COLLECT_DIAMOND_PATH, Sound.class);
         assetManager.load(Constants.COLLECT_POWERUP_PATH, Sound.class);
         assetManager.load(Constants.WIN_EFFECT_PATH, Sound.class);
@@ -60,6 +60,7 @@ public class SoundManager implements Disposable, AssetErrorListener {
         Gdx.app.log(TAG, assetManager.getAssetNames().toString());
 
         backgroundMusic = assetManager.get(Constants.MUSIC_PATH);
+        backgroundMusic.setLooping(true);
     }
 
 
@@ -70,11 +71,7 @@ public class SoundManager implements Disposable, AssetErrorListener {
         musicVolume = preferenceManager.getMusicVolume();
         soundVolume = preferenceManager.getSoundVolume();
 
-        if (musicEnabled) {
-            backgroundMusic.setVolume(musicVolume / 100);
-        } else {
-            backgroundMusic.setVolume(0);
-        }
+        startBackgroundMusic();
     }
 
 
@@ -128,17 +125,27 @@ public class SoundManager implements Disposable, AssetErrorListener {
     }
 
 
-    public void playMusic(String soundName) {
-        backgroundMusic = assetManager.get(soundName);
-        backgroundMusic.play();
-        backgroundMusic.setLooping(true);
-        if (musicEnabled) {
-            backgroundMusic.setVolume(musicVolume / 100);
+    public Music getMusic(String soundName) {
+        Music music = assetManager.get(soundName);
+        music.setLooping(true);
+        if (soundEnabled) {
+            music.setVolume(soundVolume / 100);
         } else {
-            backgroundMusic.setVolume(0);
+            music.setVolume(0);
         }
+        return music;
     }
 
+    public boolean startBackgroundMusic() {
+        if (musicEnabled) {
+            backgroundMusic.play();
+            backgroundMusic.setVolume(musicVolume / 100);
+            return true;
+        } else {
+            backgroundMusic.stop();
+            return false;
+        }
+    }
 
     @Override
     public void error(AssetDescriptor asset, Throwable throwable) {
@@ -148,8 +155,8 @@ public class SoundManager implements Disposable, AssetErrorListener {
 
     @Override
     public void dispose() {
-        assetManager.dispose();
         backgroundMusic.stop();
         backgroundMusic.dispose();
+        assetManager.dispose();
     }
 }

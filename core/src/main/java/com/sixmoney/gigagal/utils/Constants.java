@@ -210,18 +210,18 @@ public class Constants {
 
     // Music and sounds
     public static final String MUSIC_PATH = "music/music_zapsplat_game_music_arcade_electro_repeating_retro_arp_electro_drums_serious_012.mp3";
-    public static final String GUNSHOT1_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_001_62523.mp3";
-    public static final String GUNSHOT2_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_002_62524.mp3";
-    public static final String GUNSHOT3_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_003_62525.mp3";
-    public static final String GUNSHOT4_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_004_62526.mp3";
-    public static final String LAZER_PATH = "sounds/science_fiction_laser_002.mp3";
-    public static final String EXPLOSION1_PATH = "sounds/zapsplat_explosions_large_explosion_003_63093.mp3";
-    public static final String EXPLOSION2_PATH = "sounds/zapsplat_explosions_large_explosion_005_63095.mp3";
-    public static final String DEATH_SOUND_PATH = "sounds/esm_8bit_splat_explosion_bomb_boom_blast_cannon_retro_old_school_classic_cartoon.mp3";
-    public static final String JUMP_SOUND_PATH = "sounds/zapsplat_multimedia_game_sound_classic_jump_003_41724.mp3";
-    public static final String RUNNING_SOUND_PATH = "sounds/zapsplat_lego_person_running_001_25160.mp3";
-    public static final String COLLECT_DIAMOND_PATH = "sounds/zapsplat_multimedia_game_sound_coins_collect_several_at_once_001_40812.mp3";
-    public static final String COLLECT_POWERUP_PATH = "sounds/zapsplat_multimedia_game_sound_coin_collect_clink_002_54060.mp3";
-    public static final String WIN_EFFECT_PATH = "sounds/little_robot_sound_factory_Jingle_Win_00.mp3";
-    public static final String LOSE_EFFECT_PATH = "sounds/multimedia_game_sound_retro_lose_tone_002_52984.mp3";
+    public static final String GUNSHOT1_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_001_62523.ogg";
+    public static final String GUNSHOT2_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_002_62524.ogg";
+    public static final String GUNSHOT3_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_003_62525.ogg";
+    public static final String GUNSHOT4_PATH = "sounds/zapsplat_science_fiction_blaster_gun_single_shot_004_62526.ogg";
+    public static final String LAZER_PATH = "sounds/science_fiction_laser_002.ogg";
+    public static final String EXPLOSION1_PATH = "sounds/zapsplat_explosions_large_explosion_003_63093.ogg";
+    public static final String EXPLOSION2_PATH = "sounds/zapsplat_explosions_large_explosion_005_63095.ogg";
+    public static final String DEATH_SOUND_PATH = "sounds/esm_8bit_splat_explosion_bomb_boom_blast_cannon_retro_old_school_classic_cartoon.ogg";
+    public static final String JUMP_SOUND_PATH = "sounds/zapsplat_multimedia_game_sound_classic_jump_003_41724.ogg";
+    public static final String RUNNING_SOUND_PATH = "sounds/zapsplat_lego_person_running_001_25160.ogg";
+    public static final String COLLECT_DIAMOND_PATH = "sounds/zapsplat_multimedia_game_sound_coins_collect_several_at_once_001_40812.ogg";
+    public static final String COLLECT_POWERUP_PATH = "sounds/zapsplat_multimedia_game_sound_coin_collect_clink_002_54060.ogg";
+    public static final String WIN_EFFECT_PATH = "sounds/little_robot_sound_factory_Jingle_Win_00.ogg";
+    public static final String LOSE_EFFECT_PATH = "sounds/multimedia_game_sound_retro_lose_tone_002_52984.ogg";
 }

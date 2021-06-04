@@ -50,7 +50,7 @@ public class GigaGalGame extends Game {
 		Gdx.app.log(TAG, ("debug mobile mode: " + debugMobile));
 		assets = Assets.get_instance();
 		soundManager = SoundManager.get_instance();
-		soundManager.playMusic(Constants.MUSIC_PATH);
+		soundManager.startBackgroundMusic();
 
 		setScreen(new MenuScreen(this));
 	}

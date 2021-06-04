@@ -154,6 +154,10 @@ public class Level {
         this.killplane_height = killplane_height;
     }
 
+    public void pauseRunningEffect() {
+        gigaGal.pauseRunningEffect();
+    }
+
     public void update(float delta) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             paused = !paused;
