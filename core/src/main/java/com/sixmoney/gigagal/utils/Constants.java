@@ -18,7 +18,7 @@ public class Constants {
     public static final String SKIN_PATH = "images/ParticleParkUI.json";
     public static final String SKIN_PATH2 = "images/gigaGalSkin/gigagal_custom_data.json";
     public static final String FONT_FILE = "font/dialog.fnt";
-    public static final String VERSION = "0.1.5-alpha";
+    public static final String VERSION = "0.1.6-alpha";
 
     // sprites
     public static final String STANDING_RIGHT = "standing-right";
