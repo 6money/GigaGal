@@ -91,7 +91,6 @@ public class Boss {
         }
 
         Vector2 gigagalPos = new Vector2(level.gigaGal.position);
-        gigagalPos.y += Constants.GIGAGAL_EYE_HEIGHT;
         directionVector = gigagalPos.sub(position).nor();
         Vector2 movementVector = new Vector2(directionVector.x * move_distance, directionVector.y * move_distance);
         position.add(movementVector);

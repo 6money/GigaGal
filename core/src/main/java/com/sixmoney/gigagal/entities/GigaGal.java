@@ -42,7 +42,7 @@ public class GigaGal {
     private boolean bounce;
     private boolean dead;
     private SoundManager soundManager;
-    private Music runningEffectId;
+    private Music runningEffectMusic;
     private ParticleEffectPool pepDust;
     private ParticleEffectPool pepDustJump;
     private DelayedRemovalArray<PooledEffect> dustParticles;
@@ -67,8 +67,8 @@ public class GigaGal {
         this.spawn_position = spawn_position;
         this.level = level;
         soundManager = SoundManager.get_instance();
-        runningEffectId = soundManager.getMusic(Constants.RUNNING_SOUND_PATH);
-        runningEffectId.pause();
+        runningEffectMusic = soundManager.getMusic(Constants.RUNNING_SOUND_PATH);
+        runningEffectMusic.pause();
         init();
 
         ParticleEffect dustParticle = new ParticleEffect();
@@ -227,28 +227,28 @@ public class GigaGal {
             if (jumpState != JumpState.RECOILING && !hit_solid) {
                 if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || leftButtonPressed) {
                     if (jumpState == JumpState.GROUNDED) {
-                        runningEffectId.play();
+                        runningEffectMusic.play();
                     } else {
-                        runningEffectId.pause();
+                        runningEffectMusic.pause();
                     }
                     moveLeft(delta);
                 } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButtonPressed) {
                     if (jumpState == JumpState.GROUNDED) {
-                        runningEffectId.play();
+                        runningEffectMusic.play();
                     } else {
-                        runningEffectId.pause();
+                        runningEffectMusic.pause();
                     }
                     moveRight(delta);
                 } else {
                     walkState = WalkState.STANDING;
-                    runningEffectId.pause();
+                    runningEffectMusic.pause();
                 }
 
                 if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || dropButtonPressed) {
                     moveDown(delta);
                 }
             } else if (jumpState == JumpState.RECOILING) {
-                runningEffectId.pause();
+                runningEffectMusic.pause();
             }
 
             level.getPowerups().begin();
@@ -506,11 +506,11 @@ public class GigaGal {
     }
 
     public void stopRunningEffect() {
-        runningEffectId.stop();
+        runningEffectMusic.stop();
     }
 
     public void pauseRunningEffect() {
-        runningEffectId.pause();
+        runningEffectMusic.pause();
     }
 
     public void kill() {
@@ -578,5 +578,6 @@ public class GigaGal {
     public void dispose() {
         pepDust.clear();
         pepDustJump.clear();
+        runningEffectMusic.dispose();
     }
 }
