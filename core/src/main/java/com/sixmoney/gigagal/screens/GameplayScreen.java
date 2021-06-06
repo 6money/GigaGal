@@ -213,11 +213,13 @@ public class GameplayScreen extends ScreenAdapter {
 
     private void renderTutorial(SpriteBatch spriteBatch) {
         spriteBatch.begin();
-        font.draw(spriteBatch, "LEFT: LEFT-ARROW", -20, 70);
-        font.draw(spriteBatch, "RIGHT: RIGHT-ARROW", -20, 55);
-        font.draw(spriteBatch, "DROP: DOWN-ARROW", -20, 40);
-        font.draw(spriteBatch, "JUMP: Z", 90, 90);
-        font.draw(spriteBatch, "SHOOT: X", 90, 75);
+        if (!onMobile()) {
+            font.draw(spriteBatch, "LEFT: LEFT-ARROW", -20, 70);
+            font.draw(spriteBatch, "RIGHT: RIGHT-ARROW", -20, 55);
+            font.draw(spriteBatch, "DROP: DOWN-ARROW", -20, 40);
+            font.draw(spriteBatch, "JUMP: Z", 90, 90);
+            font.draw(spriteBatch, "SHOOT: X", 90, 75);
+        }
         font.draw(spriteBatch, "COLLECT POWER-UPS TO GET", 150, 115);
         font.draw(spriteBatch, "MORE AMMO AND POINTS", 150, 105);
         font.draw(spriteBatch, "TRY TO MAKE IT TO THE END OF EACH", 240, 90);
