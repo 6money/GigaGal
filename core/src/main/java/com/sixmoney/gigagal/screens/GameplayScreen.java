@@ -7,6 +7,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
@@ -46,6 +47,7 @@ public class GameplayScreen extends ScreenAdapter {
     private ParallaxCamera parallaxCamera;
     private PreferenceManager preferenceManager;
     private float difficultly;
+    private BitmapFont font;
 
     public Level level;
     public int level_num;
@@ -73,6 +75,8 @@ public class GameplayScreen extends ScreenAdapter {
         shapeRenderer = new ShapeRenderer();
         parallaxCamera = new ParallaxCamera(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         extendViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, parallaxCamera);
+        font = new BitmapFont(Gdx.files.internal("font/dialog.fnt"));
+        font.getData().setScale(0.3f);
         preferenceManager = PreferenceManager.get_instance();
         difficultly = preferenceManager.getDifficulty();
         level = LevelLoader.load(level_name, difficultly, extendViewport, parallaxCamera);
@@ -152,6 +156,10 @@ public class GameplayScreen extends ScreenAdapter {
 
         level.render(spriteBatch);
 
+        if (level_num == 1) {
+            renderTutorial(spriteBatch);
+        }
+
         if (onMobile() || debugMobile || preferenceManager.getMobile()) {
             onScreeenControls.render(spriteBatch);
         }
@@ -201,6 +209,20 @@ public class GameplayScreen extends ScreenAdapter {
 
             gameOverOverlay.render(spriteBatch);
         }
+    }
+
+    private void renderTutorial(SpriteBatch spriteBatch) {
+        spriteBatch.begin();
+        font.draw(spriteBatch, "LEFT: LEFT-ARROW", -20, 70);
+        font.draw(spriteBatch, "RIGHT: RIGHT-ARROW", -20, 55);
+        font.draw(spriteBatch, "DROP: DOWN-ARROW", -20, 40);
+        font.draw(spriteBatch, "JUMP: Z", 90, 90);
+        font.draw(spriteBatch, "SHOOT: X", 90, 75);
+        font.draw(spriteBatch, "COLLECT POWER-UPS TO GET", 150, 115);
+        font.draw(spriteBatch, "MORE AMMO AND POINTS", 150, 105);
+        font.draw(spriteBatch, "TRY TO MAKE IT TO THE END OF EACH", 240, 90);
+        font.draw(spriteBatch, "LEVEL WITH AS HIGH A SCORE AS POSSIBLE", 240, 80);
+        spriteBatch.end();
     }
 
     private void startNewLevel() {

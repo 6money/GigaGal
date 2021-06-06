@@ -3,6 +3,7 @@ package com.sixmoney.gigagal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
@@ -79,7 +80,6 @@ public class Level {
         powerups = new DelayedRemovalArray<>();
         diamonds = new DelayedRemovalArray<>();
         exitPortal = new ExitPortal(Constants.EXIT_PORTAL_POSITION);
-//        addDebugPlatforms();
 
         background = Assets.get_instance().backgroundAssets.clouds3;
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
@@ -341,28 +341,6 @@ public class Level {
         }
 
         gigaGal.debugRender(shapeRenderer);
-    }
-
-    private void addDebugPlatforms() {
-        platforms.add(new Platform(-20, 100, 80, 10));
-        platforms.add(new Platform(80, 60, 60, 40));
-        platforms.add(new Platform(40, 50, 20, 10));
-        platforms.add(new Platform(0, 0, 80, 40));
-
-        platforms.add(new Platform(20, 170, 80, 40));
-        platforms.add(new Platform(-90, 160, 20, 20));
-        platforms.add(new Platform(100, 162, 40, 10));
-        platforms.add(new Platform(-90, 200, 20, 20));
-        platforms.add(new Platform(-90, 240, 20, 20));
-        platforms.add(new Platform(-90, 280, 20, 20));
-        platforms.add(new Platform(-70, 280, 280, 10));
-        platforms.add(new Platform(210, 210, 10, 10));
-
-        enemies.add(new Enemy(platforms.get(1), this));
-
-        powerups.add(new Powerup(new Vector2(25, 180)));
-
-        gigaGal = new GigaGal(new Vector2(20, 0), this);
     }
 
     public void dispose() {
