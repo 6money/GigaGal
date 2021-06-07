@@ -1,19 +1,24 @@
 # GigaGal
 
+Gigagal is simple platforming game in which the player controls GigaGal and attempts to navigate various levels while maximising their score and avoiding enemies.
+
 Trello Board: https://trello.com/b/m49zz9Da/gigagal
 
-GigaGal is based of the 406 udacity web course: https://github.com/udacity/ud406. Majority of assets are based of that project,
+GigaGal is based of the 406 udacity web course: https://github.com/udacity/ud406. Majority of assets are based off that project,
 any assets from other sources are mentioned at the bottom of this readme
 
-Gigagal is basic platforming game in which the player controls GigaGal and attempts to navigate various levels while maximising their score.
+--
 
+How to build:
 
+Import project into android studio and from the project root run one of the following (add --args="debug" to get hitbox rendering):
+desktop build (must use java 8): ./gradlew desktop:run
+new desktop build: ./gradlew lwjgl3:run
+html dev build: ./gradlew html:superdev
 
 --
+Most assets based from Udacity 406 web course, used under MIT licence: Copyright (c) 2015 Udacity
 
 Diamond asset from: https://pixlr.com/stock/details/1001468587-pixel-art-diamond/
 
 Music and sound effects from: https://www.zapsplat.com
-
-Scene2D UI skin made by: https://ray3k.wordpress.com
-Used under CC BY 4.0 license: https://creativecommons.org/licenses/by/4.0/
