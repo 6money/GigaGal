@@ -20,6 +20,7 @@ public class GameOverOverlay extends InputAdapter {
     private GameplayScreen gameplayScreen;
     private Rectangle restart_rect;
     private Rectangle quit_rect;
+    private Rectangle text_rect;
 
     public final Viewport viewport;
 
@@ -29,6 +30,7 @@ public class GameOverOverlay extends InputAdapter {
         font = new BitmapFont(Gdx.files.internal(Constants.FONT_FILE));
         restart_rect = new Rectangle(viewport.getWorldWidth() / 4, 0, viewport.getWorldWidth() * 3 / 4, viewport.getWorldHeight() / 7);
         quit_rect = new Rectangle(viewport.getWorldWidth() / 4, 0, viewport.getWorldWidth() * 3 / 4, viewport.getWorldHeight() / 7);
+        text_rect = new Rectangle();
     }
 
     public void update_rect() {
@@ -41,6 +43,11 @@ public class GameOverOverlay extends InputAdapter {
         quit_rect.y = 0;
         quit_rect.width = viewport.getWorldWidth() * 2 / 4;
         quit_rect.height = viewport.getWorldHeight() / 7;
+
+        text_rect.x = viewport.getWorldWidth() / 8;
+        text_rect.y = viewport.getWorldHeight() / 2.1f;
+        text_rect.width = viewport.getWorldWidth() * 6 / 8;
+        text_rect.height = viewport.getWorldHeight() / 4f;
     }
 
     public void render(SpriteBatch spriteBatch) {
@@ -60,6 +67,7 @@ public class GameOverOverlay extends InputAdapter {
         font.draw(spriteBatch, Constants.QUIT_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight / 10, 0, Align.center, false);
         font.getData().setScale(0.8f);
 
+        Assets.get_instance().platformAssets.ninePatch_platform_hard.draw(spriteBatch, text_rect.x, text_rect.y, text_rect.width, text_rect.height);
         font.draw(spriteBatch, Constants.GAME_OVER_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight * 4 / 6f, 0, Align.center, false);
 
         spriteBatch.end();
