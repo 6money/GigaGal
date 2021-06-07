@@ -1,14 +1,9 @@
 package com.sixmoney.gigagal.screens;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -22,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.sixmoney.gigagal.GigaGalGame;
-import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 
 public class LevelSelectScreen extends InputAdapter implements Screen {
@@ -39,7 +33,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
     @Override
     public void show() {
         stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WINDOW_HEIGHT));
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH2));
+        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
 
         Table tableMenu = new Table(skin);
         tableMenu.setFillParent(true);

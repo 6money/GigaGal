@@ -48,7 +48,7 @@ public class HighScoresScreen implements Screen {
     @Override
     public void show() {
         stage = new Stage(new ExtendViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH2));
+        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
         PreferenceManager preferenceManager = PreferenceManager.get_instance();
         Array<Integer> scoresLevel1 = preferenceManager.getScores("Level1");
         Array<Integer> scoresLevel2 = preferenceManager.getScores("Level2");

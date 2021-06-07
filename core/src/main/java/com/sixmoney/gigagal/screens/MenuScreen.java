@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.sixmoney.gigagal.GigaGalGame;
-import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 
 public class MenuScreen implements Screen {
@@ -30,7 +29,7 @@ public class MenuScreen implements Screen {
     @Override
     public void show() {
         stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WINDOW_HEIGHT));
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH2));
+        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
 
         Table tableMenu = new Table(skin);
         tableMenu.setFillParent(true);

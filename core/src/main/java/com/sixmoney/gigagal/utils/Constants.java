@@ -15,8 +15,7 @@ public class Constants {
     public static final float GRAVITY = 1000f;
     public static final int CHASE_CAM_SPEED = 200;
     public static final String PREFERENCES_NAME = "gigagal";
-    public static final String SKIN_PATH = "images/ParticleParkUI.json";
-    public static final String SKIN_PATH2 = "images/gigaGalSkin/gigagal_custom_data.json";
+    public static final String SKIN_PATH = "images/gigaGalSkin/gigagal_custom_data.json";
     public static final String FONT_FILE = "font/dialog.fnt";
     public static final String VERSION = "0.1.6-alpha";
 
