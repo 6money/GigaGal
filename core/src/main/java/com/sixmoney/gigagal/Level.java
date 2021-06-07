@@ -84,12 +84,12 @@ public class Level {
         background = Assets.get_instance().backgroundAssets.clouds3;
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         backgroundR = new TextureRegion(background);
-        backgroundR.setRegion(0, 0, background.getWidth() * 4, background.getHeight() * 8);
+        backgroundR.setRegion(0, 0, background.getWidth() * 8, background.getHeight() * 10);
 
         background2 = Assets.get_instance().backgroundAssets.clouds2;
         background2.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         backgroundR2 = new TextureRegion(background);
-        backgroundR2.setRegion(0, 0, background.getWidth() * 4, background.getHeight() * 8);
+        backgroundR2.setRegion(0, 0, background.getWidth() * 8, background.getHeight() * 10);
 
         ParticleEffect explosionParticle = new ParticleEffect();
         explosionParticle.load(Gdx.files.internal("particles/pixel_explosion"), Assets.get_instance().getAtlas());
@@ -275,12 +275,12 @@ public class Level {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.25f, 0.25f));
         spriteBatch.begin();
-        spriteBatch.draw(backgroundR, -400, -400, backgroundR.getRegionWidth() * 2, backgroundR.getRegionHeight() * 2);
+        spriteBatch.draw(backgroundR, -800, -400, backgroundR.getRegionWidth() * 2, backgroundR.getRegionHeight() * 2);
         spriteBatch.end();
 
         spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.5f, 0.5f));
         spriteBatch.begin();
-        spriteBatch.draw(backgroundR2, -400, -400);
+        spriteBatch.draw(backgroundR2, -800, -400);
         spriteBatch.end();
 
         spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(1f, 1));
