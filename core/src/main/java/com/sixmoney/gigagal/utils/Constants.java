@@ -206,7 +206,7 @@ public class Constants {
     public static final String JUMP_BUTTON = "button-jump";
     public static final String DROP_BUTTON = "button-drop";
     public static final Vector2 BUTTON_CENTER = new Vector2(15, 15);
-    public static final float BUTTON_RADIUS = 24;
+    public static final float BUTTON_RADIUS = 22;
 
     // Music and sounds
     public static final String MUSIC_PATH = "music/music_zapsplat_game_music_arcade_electro_repeating_retro_arp_electro_drums_serious_012.mp3";
