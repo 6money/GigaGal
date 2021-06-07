@@ -44,9 +44,9 @@ public class GameOverOverlay extends InputAdapter {
         quit_rect.width = viewport.getWorldWidth() * 2 / 4;
         quit_rect.height = viewport.getWorldHeight() / 7;
 
-        text_rect.x = viewport.getWorldWidth() / 8;
+        text_rect.x = viewport.getWorldWidth() / 20;
         text_rect.y = viewport.getWorldHeight() / 2.1f;
-        text_rect.width = viewport.getWorldWidth() * 6 / 8;
+        text_rect.width = viewport.getWorldWidth() * 18 / 20;
         text_rect.height = viewport.getWorldHeight() / 4f;
     }
 
