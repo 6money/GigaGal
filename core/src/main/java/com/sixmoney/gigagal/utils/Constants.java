@@ -79,7 +79,7 @@ public class Constants {
     public static final float GIGAGAL_BOUNCE_JUMP_DURATION = 0.30f;
     public static final float GIGAGAL_STANCE_WIDTH = 8f;
     public static final float WALK_DURATION = 0.15f;
-    public static final Vector2 GIGAGAL_BARREL_POS = new Vector2(12, -7);
+    public static final Vector2 GIGAGAL_BARREL_POS = new Vector2(15, -6);
     public static final int GIGAGAL_INIT_AMMO = 20;
     public static final int GIGAGAL_INIT_LIVES = 3;
     public static final float GIGAGAL_PARTICLE_DELAY = 0.2f;
