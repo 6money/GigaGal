@@ -31,7 +31,7 @@ android {
 	}
 	defaultConfig {
 		applicationId 'com.sixmoney'
-		minSdkVersion 19
+		minSdkVersion 23
 		targetSdkVersion 30
 		versionCode 1
 		versionName "0.1.6-alpha"
@@ -60,7 +60,7 @@ repositories {
 configurations { natives }
 
 dependencies {
-	coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.10'
+	coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 	implementation project(':core')
 	implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
 
