@@ -83,10 +83,7 @@ public class Boss {
                 shoot();
             }
         } else {
-            rotation += 45;
-            if (rotation > 360) {
-                rotation = 0;
-            }
+            rotation += 2880 * delta;
             move_distance = delta * speedCharge;
         }
 
