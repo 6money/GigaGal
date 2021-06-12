@@ -112,8 +112,10 @@ public class VictoryOverlay extends InputAdapter {
 
         if (continue_rect.contains(viewportPosition)) {
             gameplayScreen.levelComplete();
+            return true;
         } else if (quit_rect.contains(viewportPosition)) {
             gameplayScreen.levelComplete(true, false);
+            return true;
         }
         return super.touchDown(screenX, screenY, pointer, button);
     }

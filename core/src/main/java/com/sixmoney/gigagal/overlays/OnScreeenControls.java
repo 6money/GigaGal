@@ -54,22 +54,28 @@ public class OnScreeenControls extends InputAdapter {
                 gigaGal.shootButtonPressed = false;
                 gigaGal.shoot();
             }
+            return true;
 
         } else if (viewportPosition.dst(jumpCenter) < Constants.BUTTON_RADIUS) {
             jumpPointer = pointer;
             gigaGal.jumpButtonPressed = true;
+            return true;
         } else if (viewportPosition.dst(dropCenter) < Constants.BUTTON_RADIUS) {
             dropPointer = pointer;
             gigaGal.dropButtonPressed = true;
+            return true;
         } else if (viewportPosition.dst(moveLeftCenter) < Constants.BUTTON_RADIUS) {
             moveLeftPointer = pointer;
             gigaGal.leftButtonPressed = true;
+            return true;
         } else if (viewportPosition.dst(moveRightCenter) < Constants.BUTTON_RADIUS) {
             moveRightPointer = pointer;
             gigaGal.rightButtonPressed = true;
+            return true;
         } else if (viewportPosition.dst(pauseCenter) < Constants.BUTTON_RADIUS / 2) {
             gameplayScreen.level.paused = true;
             Gdx.input.setInputProcessor(gameplayScreen.pauseOverlay);
+            return true;
         }
 
         return super.touchDown(screenX, screenY, pointer, button);
@@ -84,6 +90,7 @@ public class OnScreeenControls extends InputAdapter {
             gigaGal.rightButtonPressed = true;
             moveLeftPointer = 0;
             moveRightPointer = pointer;
+            return true;
         }
 
         if (pointer == moveRightPointer && viewportPosition.dst(moveLeftCenter) < Constants.BUTTON_RADIUS) {
@@ -91,6 +98,7 @@ public class OnScreeenControls extends InputAdapter {
             gigaGal.rightButtonPressed = false;
             moveLeftPointer = pointer;
             moveRightPointer = 0;
+            return true;
         }
 
         return super.touchDragged(screenX, screenY, pointer);

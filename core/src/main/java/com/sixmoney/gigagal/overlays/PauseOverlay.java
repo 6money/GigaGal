@@ -1,6 +1,7 @@
 package com.sixmoney.gigagal.overlays;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -85,17 +86,26 @@ public class PauseOverlay extends InputAdapter {
 
         if (resume_rect.contains(viewportPosition)) {
             gameplayScreen.level.paused = false;
-            if (gameplayScreen.onMobile() || gameplayScreen.debugMobile) {
-                Gdx.input.setInputProcessor(gameplayScreen.onScreeenControls);
-            } else {
-                Gdx.input.setInputProcessor(null);
-            }
+            Gdx.input.setInputProcessor(gameplayScreen.inputMultiplexer);
+            return true;
         } else if (quit_rect.contains(viewportPosition)) {
             gameplayScreen.levelComplete(true, false);
+            return true;
         } else if (restart_rect.contains(viewportPosition)) {
             gameplayScreen.levelComplete(false, true);
+            return true;
         }
         return super.touchDown(screenX, screenY, pointer, button);
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.ESCAPE) {
+            gameplayScreen.level.paused = false;
+            Gdx.input.setInputProcessor(gameplayScreen.inputMultiplexer);
+            return true;
+        }
+        return false;
     }
 
     public void dispose() {

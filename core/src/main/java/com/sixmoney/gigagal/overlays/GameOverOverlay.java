@@ -80,8 +80,10 @@ public class GameOverOverlay extends InputAdapter {
 
         if (restart_rect.contains(viewportPosition)) {
             gameplayScreen.levelComplete(false, true);
+            return true;
         } else if (quit_rect.contains(viewportPosition)) {
             gameplayScreen.levelComplete(true, false);
+            return true;
         }
         return super.touchDown(screenX, screenY, pointer, button);
     }

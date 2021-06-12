@@ -159,10 +159,6 @@ public class Level {
     }
 
     public void update(float delta) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            paused = !paused;
-        }
-
         if (gameOver || victory) {
             gigaGal.stopRunningEffect();
         }

@@ -1,17 +1,16 @@
 package com.sixmoney.gigagal.screens;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -22,16 +21,14 @@ import com.sixmoney.gigagal.overlays.GigaGalHUD;
 import com.sixmoney.gigagal.overlays.OnScreeenControls;
 import com.sixmoney.gigagal.overlays.PauseOverlay;
 import com.sixmoney.gigagal.overlays.VictoryOverlay;
-import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.ChaseCam;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.LevelLoader;
 import com.sixmoney.gigagal.utils.ParallaxCamera;
 import com.sixmoney.gigagal.utils.PreferenceManager;
 import com.sixmoney.gigagal.utils.SoundManager;
-import com.sixmoney.gigagal.utils.Utils;
 
-public class GameplayScreen extends ScreenAdapter {
+public class GameplayScreen extends ScreenAdapter implements InputProcessor {
     public static final String TAG = GameplayScreen.class.getName();
 
     private SpriteBatch spriteBatch;
@@ -48,6 +45,8 @@ public class GameplayScreen extends ScreenAdapter {
     private PreferenceManager preferenceManager;
     private float difficultly;
     private BitmapFont font;
+    private double accumulator;
+    private float step;
 
     public Level level;
     public int level_num;
@@ -56,6 +55,7 @@ public class GameplayScreen extends ScreenAdapter {
     public PauseOverlay pauseOverlay;
     public boolean debug;
     public boolean debugMobile;
+    public InputMultiplexer inputMultiplexer;
 
     public GameplayScreen(GigaGalGame game, int level_num) {
         gigaGalGame = game;
@@ -88,10 +88,16 @@ public class GameplayScreen extends ScreenAdapter {
         onScreeenControls = new OnScreeenControls(this);
         onScreeenControls.gigaGal = level.gigaGal;
         levelEndOverlayStartTime = 0;
+        accumulator = 0;
+        step = 1.0f / 240.0f;
+        inputMultiplexer = new InputMultiplexer();
 
         if (onMobile() || debugMobile || preferenceManager.getMobile()) {
-            Gdx.input.setInputProcessor(onScreeenControls);
+            inputMultiplexer.setProcessors(onScreeenControls, this);
+        } else {
+            inputMultiplexer.setProcessors(this);
         }
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
     }
 
@@ -126,23 +132,14 @@ public class GameplayScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        old_paused = level.paused;
-        level.update(delta);
-
-        if (old_paused != level.paused && !level.paused) {
-            if (onMobile() || debugMobile || preferenceManager.getMobile()) {
-                Gdx.input.setInputProcessor(onScreeenControls);
-            } else {
-                Gdx.input.setInputProcessor(null);
-            }
-        } else if (old_paused != level.paused && level.paused) {
-            Gdx.input.setInputProcessor(pauseOverlay);
+        double frameTime = Math.min(delta, 0.25);
+        accumulator += frameTime;
+        while (accumulator >= step) {
+            accumulator -= step;
+            tickGame(step);
         }
-
-        if (!level.victory && !level.gameOver) {
-            chaseCam.update(delta);
-            extendViewport.apply();
-        }
+        tickGame((float) accumulator);
+        accumulator = 0;
 
         Gdx.gl.glClearColor(
                 Constants.BG_COLOR.r,
@@ -178,6 +175,15 @@ public class GameplayScreen extends ScreenAdapter {
                 onScreeenControls.debugRender(shapeRenderer);
             }
             shapeRenderer.end();
+        }
+    }
+
+    private void tickGame(float delta) {
+        level.update(delta);
+
+        if (!level.victory && !level.gameOver) {
+            chaseCam.update(delta);
+            extendViewport.apply();
         }
     }
 
@@ -245,6 +251,7 @@ public class GameplayScreen extends ScreenAdapter {
     }
 
     public void levelComplete(boolean quit, boolean restart) {
+        Gdx.input.setInputProcessor(inputMultiplexer);
         if (!restart) {
             level_num++;
         }
@@ -279,5 +286,59 @@ public class GameplayScreen extends ScreenAdapter {
     public void resume() {
         super.resume();
         level.pauseRunningEffect();
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.X) {
+            level.gigaGal.shootButtonPressed = true;
+            return true;
+        } else if (keycode == Input.Keys.ESCAPE) {
+            level.paused = true;
+            Gdx.input.setInputProcessor(pauseOverlay);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        if (keycode == Input.Keys.X) {
+            level.gigaGal.shootButtonPressed = false;
+            return true;
+        }
+        return false;
+    }
+
+
+    // All below this are currently unused, but required since we are implementing an interface
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
     }
 }

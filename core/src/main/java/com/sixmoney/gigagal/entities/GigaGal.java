@@ -291,13 +291,14 @@ public class GigaGal {
             }
             level.getDiamonds().end();
 
-            if ((Gdx.input.isKeyPressed(Input.Keys.X) || shootButtonPressed) && ammmoRapid > 0) {
+            if (shootButtonPressed && ammmoRapid > 0) {
                 if (Utils.secondsSince(bulletFireStartTime) >= Constants.BULLET_RAPID_FIRE_DELAY) {
                     bulletFireStartTime = TimeUtils.nanoTime();
                     shoot();
                 }
-            } else if (Gdx.input.isKeyJustPressed(Input.Keys.X) && (ammmoBasic > 0 || ammmoBig > 0 || ammmoNuke > 0)) {
+            } else if (shootButtonPressed && (ammmoBasic > 0 || ammmoBig > 0 || ammmoNuke > 0)) {
                 shoot();
+                shootButtonPressed = false;
             }
         }
 
