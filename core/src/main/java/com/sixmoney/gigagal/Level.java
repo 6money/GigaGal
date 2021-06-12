@@ -50,6 +50,8 @@ public class Level {
     private Texture background2;
     private TextureRegion backgroundR;
     private TextureRegion backgroundR2;
+    private double accumulator;
+    private float step;
 
     public boolean gameOver;
     public boolean victory;
@@ -104,6 +106,8 @@ public class Level {
         victory = false;
         score = 0;
         paused = false;
+        accumulator = 0;
+        step = 1.0f / 240.0f;
     }
 
     public DelayedRemovalArray<Enemy> getEnemies() {
@@ -181,7 +185,14 @@ public class Level {
                 gameOver = true;
             }
 
-            gigaGal.update(delta, platforms);
+            double frameTime = Math.min(delta, 0.25);
+            accumulator += frameTime;
+            while (accumulator >= step) {
+                accumulator -= step;
+                gigaGal.update(step, platforms);
+            }
+            gigaGal.update((float) accumulator, platforms);
+            accumulator = 0;
 
             enemies.begin();
             for (Enemy enemy : enemies) {

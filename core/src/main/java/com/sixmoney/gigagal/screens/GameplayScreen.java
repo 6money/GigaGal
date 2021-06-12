@@ -39,14 +39,11 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
     private GameOverOverlay gameOverOverlay;
     private GigaGalGame gigaGalGame;
     private String level_name;
-    private boolean old_paused;
     private ShapeRenderer shapeRenderer;
     private ParallaxCamera parallaxCamera;
     private PreferenceManager preferenceManager;
     private float difficultly;
     private BitmapFont font;
-    private double accumulator;
-    private float step;
 
     public Level level;
     public int level_num;
@@ -88,8 +85,6 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         onScreeenControls = new OnScreeenControls(this);
         onScreeenControls.gigaGal = level.gigaGal;
         levelEndOverlayStartTime = 0;
-        accumulator = 0;
-        step = 1.0f / 240.0f;
         inputMultiplexer = new InputMultiplexer();
 
         if (onMobile() || debugMobile || preferenceManager.getMobile()) {
@@ -132,14 +127,12 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
 
     @Override
     public void render(float delta) {
-        double frameTime = Math.min(delta, 0.25);
-        accumulator += frameTime;
-        while (accumulator >= step) {
-            accumulator -= step;
-            tickGame(step);
+        level.update(delta);
+
+        if (!level.victory && !level.gameOver) {
+            chaseCam.update(delta);
+            extendViewport.apply();
         }
-        tickGame((float) accumulator);
-        accumulator = 0;
 
         Gdx.gl.glClearColor(
                 Constants.BG_COLOR.r,
@@ -175,15 +168,6 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
                 onScreeenControls.debugRender(shapeRenderer);
             }
             shapeRenderer.end();
-        }
-    }
-
-    private void tickGame(float delta) {
-        level.update(delta);
-
-        if (!level.victory && !level.gameOver) {
-            chaseCam.update(delta);
-            extendViewport.apply();
         }
     }
 
