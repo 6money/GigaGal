@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.sixmoney.gigagal.GigaGalGame;
 import com.sixmoney.gigagal.utils.Constants;
 
@@ -25,6 +27,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
     private GigaGalGame gigaGalGame;
     private Stage stage;
     private Skin skin;
+    private Button buttonBack;
 
     public LevelSelectScreen(GigaGalGame game) {
         gigaGalGame = game;
@@ -32,7 +35,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WINDOW_HEIGHT));
+        stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
 
         Table tableMenu = new Table(skin);
@@ -41,13 +44,13 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
         tableMenu.defaults().grow().space(5).padLeft(50).padRight(50);
 
         tableMenu.row();
-        Label labelWelcome = new Label("SELECT A LEVEL", skin);
+        Label labelWelcome = new Label("SELECT A LEVEL", skin, "primary");
         labelWelcome.setAlignment(Align.center);
-        tableMenu.add(labelWelcome).height(stage.getHeight() / 6);
+        tableMenu.add(labelWelcome).padTop(30).padBottom(30);
 
         Table tableLevels = new Table(skin);
         tableLevels.pad(5);
-        tableLevels.defaults().grow().space(5);
+        tableLevels.defaults().space(5).growX().prefHeight(140f).maxHeight(200f);
 
         tableLevels.row();
         TextButton buttonLvl1 = new TextButton("LEVEL 1", skin, "gigagal");
@@ -58,7 +61,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableLevels.add(buttonLvl1).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl1);
 
         tableLevels.row();
         TextButton buttonLvl2 = new TextButton("LEVEL 2", skin, "gigagal");
@@ -69,7 +72,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableLevels.add(buttonLvl2).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl2);
 
         tableLevels.row();
         TextButton buttonLvl3 = new TextButton("LEVEL 3", skin, "gigagal");
@@ -80,7 +83,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableLevels.add(buttonLvl3).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl3);
 
         tableLevels.row();
         TextButton buttonLvl4 = new TextButton("LEVEL 4", skin, "gigagal");
@@ -91,7 +94,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableLevels.add(buttonLvl4).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl4);
 
         tableLevels.row();
         TextButton buttonLvl5 = new TextButton("LEVEL 5", skin, "gigagal");
@@ -102,7 +105,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableLevels.add(buttonLvl5).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl5);
 
         tableLevels.row();
         TextButton buttonLvl6 = new TextButton("LEVEL 6", skin, "gigagal");
@@ -113,7 +116,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableLevels.add(buttonLvl6).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl6);
 
         tableLevels.row();
         TextButton buttonLvl7 = new TextButton("LEVEL 7", skin, "gigagal");
@@ -124,7 +127,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableLevels.add(buttonLvl7).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl7);
 
         tableLevels.row();
         TextButton buttonLvl8 = new TextButton("LEVEL 8", skin, "gigagal");
@@ -135,7 +138,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableLevels.add(buttonLvl8).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl8);
 
         tableLevels.row();
         TextButton buttonLvl9 = new TextButton("LEVEL 9", skin, "gigagal");
@@ -146,7 +149,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableLevels.add(buttonLvl9).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl9);
 
         tableLevels.row();
         TextButton buttonLvl10 = new TextButton("LEVEL 10", skin, "gigagal");
@@ -157,7 +160,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
                 dispose();
             }
         });
-        tableLevels.add(buttonLvl10).height(stage.getHeight() / 6);
+        tableLevels.add(buttonLvl10);
 
         ScrollPane scrollPane = new ScrollPane(tableLevels, skin);
         scrollPane.setFadeScrollBars(false);
@@ -184,7 +187,8 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
 
         stage.addActor(tableMenu);
 
-        TextButton buttonBack = new TextButton("Back", skin, "gigagal");
+        buttonBack = new Button(skin, "gigagal");
+        buttonBack.add(new Label("Back" ,skin));
         buttonBack.setWidth(stage.getWidth() / 8);
         buttonBack.setHeight(stage.getHeight() / 10);
         buttonBack.setPosition(0, stage.getHeight() - buttonBack.getHeight());
@@ -204,6 +208,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
+        buttonBack.setPosition(0, stage.getHeight() - buttonBack.getHeight());
     }
 
 

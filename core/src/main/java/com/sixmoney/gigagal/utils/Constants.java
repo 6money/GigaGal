@@ -9,8 +9,8 @@ public class Constants {
     public static final Color BG_COLOR = Color.SKY;
     public static final float WORLD_WIDTH = 160;
     public static final float WORLD_HEIGHT = 160;
-    public static final float WINDOW_WIDTH = 900;
-    public static final float WINDOW_HEIGHT = 480;
+    public static final float WINDOW_WIDTH = 1280;
+    public static final float WINDOW_HEIGHT = 720;
     public static final String TEXTURE_ATLAS = "images/packaged/gigagal.pack.atlas";
     public static final float GRAVITY = 1000f;
     public static final int CHASE_CAM_SPEED = 200;
@@ -64,6 +64,8 @@ public class Constants {
     public static final String CLOUDS = "images/backgroundSprites/clouds.png";
     public static final String CLOUDS2 = "images/backgroundSprites/clouds2.png";
     public static final String CLOUDS3 = "images/backgroundSprites/clouds3.png";
+    public static final String LOGO_70 = "gigagal_70_batmfo";
+    public static final String LOGO_140 = "gigagal_140_batmfo";
 
 
     // gigagal
@@ -167,7 +169,6 @@ public class Constants {
     public static final int MAX_LEVEL = 10;
 
     //HUD
-    public static final float HUD_VIEWPORT_SIZE = 480;
     public static final float HUD_MARGIN = 20;
     public static final String HUD_AMMO_LABEL = "Ammo: ";
     public static final String HUD_AMMO_SPECIAL_LABEL = "Special: ";

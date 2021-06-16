@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.sixmoney.gigagal.GigaGalGame;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.PreferenceManager;
@@ -27,8 +29,7 @@ public class OptionsScreen implements Screen {
     private GigaGalGame game;
     private Stage stage;
     private Skin skin;
-    private TextButton buttonBack;
-    private Table tableOptions;
+    private Button buttonBack;
     private Window window;
     private CheckBox checkboxMusic;
     private CheckBox checkboxSounds;
@@ -45,11 +46,12 @@ public class OptionsScreen implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage(new ExtendViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
+        stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
         skin.getFont("font").getData().setScale(0.5f);
 
-        buttonBack = new TextButton("Back", skin, "gigagal");
+        buttonBack = new Button(skin, "gigagal");
+        buttonBack.add(new Label("Back" ,skin));
         buttonBack.setWidth(stage.getWidth() / 8);
         buttonBack.setHeight(stage.getHeight() / 10);
         buttonBack.setPosition(0, stage.getHeight() - buttonBack.getHeight());
@@ -66,19 +68,13 @@ public class OptionsScreen implements Screen {
         labelVersion.setAlignment(Align.left);
         labelVersion.setPosition(stage.getWidth() * 0.01f, stage.getHeight() * 0.01f);
 
-        tableOptions = new Table(skin);
-        tableOptions.pad(5);
-        tableOptions.defaults().grow().pad(5);
-
         window = new Window("Options", skin, "gigagal");
-        window.setSize(stage.getWidth() / 2, stage.getHeight() * 2 / 3);
-        window.setPosition(stage.getWidth() / 2 - window.getWidth() / 2, stage.getHeight() / 2 - window.getHeight() / 2);
-        window.defaults().grow();
+        window.defaults().grow().pad(5);
 
-        tableOptions.row();
-        tableOptions.add(new Label("Music", skin));
+        window.row();
+        window.add(new Label("Music", skin));
         checkboxMusic = new CheckBox(null, skin);
-        tableOptions.add(checkboxMusic);
+        window.add(checkboxMusic);
         checkboxMusic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -87,10 +83,10 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row();
-        tableOptions.add(new Label("Music Volume", skin));
+        window.row();
+        window.add(new Label("Music Volume", skin));
         sliderMusic = new Slider(0, 100, 5, false, skin);
-        tableOptions.add(sliderMusic);
+        window.add(sliderMusic);
         sliderMusic.addListener(new DragListener() {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
@@ -99,10 +95,10 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row();
-        tableOptions.add(new Label("Sound Effects", skin));
+        window.row();
+        window.add(new Label("Sound Effects", skin));
         checkboxSounds = new CheckBox(null, skin);
-        tableOptions.add(checkboxSounds);
+        window.add(checkboxSounds);
         checkboxSounds.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -111,10 +107,10 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row();
-        tableOptions.add(new Label("Effects Volume", skin));
+        window.row();
+        window.add(new Label("Effects Volume", skin));
         sliderSounds = new Slider(0, 100, 5, false, skin);
-        tableOptions.add(sliderSounds);
+        window.add(sliderSounds);
         sliderSounds.addListener(new DragListener() {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
@@ -123,10 +119,10 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row();
-        tableOptions.add(new Label("Difficulty", skin));
+        window.row();
+        window.add(new Label("Difficulty", skin));
         sliderDifficulty = new Slider(0, 100, 50, false, skin);
-        tableOptions.add(sliderDifficulty);
+        window.add(sliderDifficulty);
         sliderDifficulty.addListener(new DragListener() {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
@@ -134,10 +130,10 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row();
-        tableOptions.add(new Label("Show FPS", skin));
+        window.row();
+        window.add(new Label("Show FPS", skin));
         checkboxFPS = new CheckBox(null, skin);
-        tableOptions.add(checkboxFPS);
+        window.add(checkboxFPS);
         checkboxFPS.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -145,10 +141,10 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row();
-        tableOptions.add(new Label("Enable Mobile Controls", skin));
+        window.row();
+        window.add(new Label("Enable Mobile Controls", skin));
         checkboxMobile = new CheckBox(null, skin);
-        tableOptions.add(checkboxMobile);
+        window.add(checkboxMobile);
         checkboxMobile.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -156,9 +152,10 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        tableOptions.row();
-        TextButton buttonResetData = new TextButton("Reset all data", skin, "gigagal");
-        tableOptions.add(buttonResetData);
+        window.row();
+        Button buttonResetData = new Button(skin, "gigagal");
+        buttonResetData.add(new Label("Reset all data" ,skin));
+        window.add(buttonResetData).height(stage.getWidth() / 20);
         buttonResetData.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -166,10 +163,10 @@ public class OptionsScreen implements Screen {
                 init_saved_settings();
             }
         });
-        tableOptions.add(new Label("This includes highsores", skin));
+        window.add(new Label("This includes highsores", skin));
 
-        window.add(tableOptions);
-
+        window.pack();
+        window.setPosition(stage.getWidth() / 2 - window.getWidth() / 2, stage.getHeight() / 2 - window.getHeight() / 2);
         stage.addActor(window);
         stage.addActor(buttonBack);
         stage.addActor(labelVersion);
@@ -211,7 +208,8 @@ public class OptionsScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height);
+        stage.getViewport().update(width, height, true);
+        buttonBack.setPosition(0, stage.getHeight() - buttonBack.getHeight());
     }
 
     @Override

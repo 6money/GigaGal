@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.sixmoney.gigagal.GigaGalGame;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.PreferenceManager;
@@ -47,7 +48,7 @@ public class HighScoresScreen implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage(new ExtendViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT));
+        stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
         PreferenceManager preferenceManager = PreferenceManager.get_instance();
         Array<Integer> scoresLevel1 = preferenceManager.getScores("Level1");
@@ -87,10 +88,10 @@ public class HighScoresScreen implements Screen {
         tableScene.pad(5);
         tableScene.defaults().grow();
 
-        labelHighScore = new Label("HIGH SCORES", skin);
+        labelHighScore = new Label("HIGH SCORES", skin, "primary");
         labelHighScore.setPosition(stage.getWidth() / 2 - labelHighScore.getWidth() / 2, stage.getHeight() * 3 / 4);
         labelHighScore.setAlignment(Align.center);
-        tableScene.add(labelHighScore).padTop(20).padBottom(10);
+        tableScene.add(labelHighScore).padTop(30).padBottom(30);
 
         buttonBack = new Button(skin, "gigagal");
         buttonBack.add(new Label("Back" ,skin));
@@ -111,9 +112,8 @@ public class HighScoresScreen implements Screen {
         tableHighscores.defaults().grow();
         tableHighscores.setSize(stage.getWidth(), stage.getHeight() / 2);
 
-        for (int i = 1; i != 5; i++) {
+        for (int i = 1; i <= 5; i++) {
             Label tempLabel = new Label("Level " + i, skin);
-            tempLabel.setFontScale(0.5f);
             tableHighscores.add(tempLabel);
         }
 
@@ -128,7 +128,6 @@ public class HighScoresScreen implements Screen {
         tableHighscores.row();
         for (int i = 6; i <= Constants.MAX_LEVEL; i++) {
             Label tempLabel = new Label("Level " + i, skin);
-            tempLabel.setFontScale(0.5f);
             tableHighscores.add(tempLabel);
         }
 
@@ -178,7 +177,8 @@ public class HighScoresScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height);
+        stage.getViewport().update(width, height, true);
+        buttonBack.setPosition(0, stage.getHeight() - buttonBack.getHeight());
     }
 
     @Override

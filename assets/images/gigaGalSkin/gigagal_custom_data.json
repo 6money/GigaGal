@@ -1,7 +1,16 @@
 {
 "com.badlogic.gdx.graphics.g2d.BitmapFont": {
-	"font": {
+	"dialog_20": {
+		"file": "dialog_20.fnt"
+	},
+	"dialog_32": {
 		"file": "dialog2.fnt"
+	},
+	"dialog_55": {
+		"file": "dialog_55.fnt"
+	},
+	"font": {
+		"file": "font.fnt"
 	},
 	"list": {
 		"file": "font-list.fnt"
@@ -65,6 +74,13 @@
 		"color": "highlight"
 	}
 },
+"com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable": {
+	"progress-bar-knob-t": {
+		"region": "progress-bar-knob",
+		"minWidth": 0,
+		"minHeight": 5
+	}
+},
 "com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
 	"default": {
 		"up": "button-normal",
@@ -84,8 +100,8 @@
 	},
 	"gigagal": {
 		"up": "platform",
-		"down": "platform-medium",
-		"over": "platform",
+		"down": "platform-hard",
+		"over": "platform-medium",
 		"focused": "button-normal-over"
 	}
 },
@@ -124,16 +140,19 @@
 },
 "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
 	"default": {
-		"font": "font"
+		"font": "dialog_32"
 	},
 	"window": {
-		"font": "window"
+		"font": "dialog_32"
 	},
 	"list": {
-		"font": "list"
+		"font": "dialog_32"
 	},
 	"subtitle": {
 		"font": "subtitle"
+	},
+	"primary": {
+		"font": "dialog_55"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle": {
@@ -151,22 +170,27 @@
 		"selection": "selection"
 	},
 	"gigagal": {
-		"font": "list",
+		"font": "dialog_20",
 		"fontColorSelected": "white",
 		"fontColorUnselected": "white",
 		"selection": "platform-medium",
+		"down": "platform-hard",
+		"over": "platform-hard",
 		"background": "platform"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {
 	"default-horizontal": {
-		"background": "progress-bar-square"
+		"background": "progress-bar-square",
+		"knobBefore": "progress-bar-square-knob"
 	},
 	"default-vertical": {
-		"background": "progress-bar-square"
+		"background": "progress-bar-square",
+		"knobBefore": "progress-bar-square-knob"
 	},
 	"curved": {
-		"background": "progress-bar"
+		"background": "progress-bar",
+		"knobBefore": "progress-bar-knob-t"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle": {
@@ -227,9 +251,9 @@
 		"focused": "button-normal-over"
 	},
 	"gigagal": {
-		"font": "font",
+		"font": "dialog_55",
 		"up": "platform",
-		"down": "platform-medium",
+		"down": "platform-hard",
 		"over": "platform-medium",
 		"focused": "platform"
 	}
@@ -277,7 +301,7 @@
 	},
 	"gigagal": {
 		"background": "platform-window",
-		"titleFont": "window"
+		"titleFont": "dialog_55"
 	}
 }
 }

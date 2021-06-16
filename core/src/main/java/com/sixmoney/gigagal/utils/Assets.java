@@ -30,6 +30,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public DiamondAssets diamondAssets;
     public ParticleAssets particleAssets;
     public BackgroundAssets backgroundAssets;
+    public LogoAssets logoAssets;
 
     private Assets() {
         init();
@@ -66,6 +67,7 @@ public class Assets implements Disposable, AssetErrorListener {
         diamondAssets = new DiamondAssets(atlas);
         particleAssets = new ParticleAssets(atlas);
         backgroundAssets = new BackgroundAssets(assetManager);
+        logoAssets = new LogoAssets(atlas);
     }
 
     public TextureAtlas getAtlas() {
@@ -325,6 +327,16 @@ public class Assets implements Disposable, AssetErrorListener {
         public BackgroundAssets(AssetManager assetManager) {
             clouds2 = assetManager.get(Constants.CLOUDS2);
             clouds3 = assetManager.get(Constants.CLOUDS3);
+        }
+    }
+
+    public class LogoAssets {
+        public TextureAtlas.AtlasRegion logo_70;
+        public TextureAtlas.AtlasRegion logo_140;
+
+        public LogoAssets(TextureAtlas atlas) {
+            logo_70 = atlas.findRegion(Constants.LOGO_70);
+            logo_140 = atlas.findRegion(Constants.LOGO_140);
         }
     }
 }

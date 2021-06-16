@@ -16,6 +16,10 @@ public class Utils {
     }
 
     public static void drawTextureRegion(SpriteBatch batch, TextureRegion region, float x, float y, float rotation) {
+        drawTextureRegion(batch, region, x, y, rotation, 1f);
+    }
+
+    public static void drawTextureRegion(SpriteBatch batch, TextureRegion region, float x, float y, float rotation, float scale) {
         batch.draw(
                 region.getTexture(),
                 x,
@@ -24,8 +28,8 @@ public class Utils {
                 region.getRegionHeight() / 2f,
                 region.getRegionWidth(),
                 region.getRegionHeight(),
-                1,
-                1,
+                scale,
+                scale,
                 rotation,
                 region.getRegionX(),
                 region.getRegionY(),

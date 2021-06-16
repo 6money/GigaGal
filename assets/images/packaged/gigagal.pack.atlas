@@ -1,369 +1,383 @@
 
 gigagal.pack.png
-size: 1024, 128
+size: 1024, 256
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 boss
   rotate: false
-  xy: 2, 38
+  xy: 477, 50
   size: 88, 88
   orig: 88, 88
   offset: 0, 0
   index: -1
 bullet
   rotate: false
-  xy: 620, 62
+  xy: 765, 74
   size: 7, 5
   orig: 7, 5
   offset: 0, 0
   index: -1
 bullet2
   rotate: false
-  xy: 1008, 121
+  xy: 449, 36
   size: 7, 5
   orig: 7, 5
   offset: 0, 0
   index: -1
 bullet3
   rotate: false
-  xy: 629, 28
+  xy: 774, 74
   size: 7, 5
   orig: 7, 5
   offset: 0, 0
   index: -1
 bullet4
   rotate: false
-  xy: 881, 43
+  xy: 458, 36
   size: 7, 5
   orig: 7, 5
   offset: 0, 0
   index: -1
 button
   rotate: false
-  xy: 92, 62
+  xy: 949, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 button-drop
   rotate: false
-  xy: 2, 4
+  xy: 971, 110
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 button-jump
   rotate: false
-  xy: 36, 4
+  xy: 415, 9
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 button-move-left
   rotate: false
-  xy: 462, 28
+  xy: 449, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 button-move-right
   rotate: false
-  xy: 496, 28
+  xy: 483, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 button-shoot
   rotate: false
-  xy: 530, 28
+  xy: 517, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 diamond
   rotate: false
-  xy: 70, 21
+  xy: 942, 86
   size: 20, 15
   orig: 20, 15
   offset: 0, 0
   index: -1
 enemy
   rotate: false
-  xy: 915, 82
+  xy: 949, 144
   size: 29, 44
   orig: 29, 44
   offset: 0, 0
   index: -1
 enemy2
   rotate: false
-  xy: 946, 82
+  xy: 384, 35
   size: 29, 44
   orig: 29, 44
   offset: 0, 0
   index: -1
 enemy3
   rotate: false
-  xy: 977, 82
+  xy: 980, 144
   size: 29, 44
   orig: 29, 44
   offset: 0, 0
   index: -1
 exit-portal
   rotate: false
-  xy: 158, 62
+  xy: 2, 15
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 exit-portal-1
   rotate: false
-  xy: 224, 62
+  xy: 567, 74
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 exit-portal-2
   rotate: false
-  xy: 290, 62
+  xy: 68, 15
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 exit-portal-3
   rotate: false
-  xy: 356, 62
+  xy: 633, 74
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 exit-portal-4
   rotate: false
-  xy: 422, 62
+  xy: 134, 15
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 exit-portal-5
   rotate: false
-  xy: 488, 62
+  xy: 699, 74
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 exit-portal-6
   rotate: false
-  xy: 554, 62
+  xy: 200, 15
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 explosion-large
   rotate: false
-  xy: 92, 24
+  xy: 415, 43
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 explosion-larger
   rotate: false
-  xy: 130, 24
+  xy: 567, 36
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 explosion-largest
   rotate: false
-  xy: 168, 24
+  xy: 605, 36
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 explosion-medium
   rotate: false
-  xy: 206, 24
+  xy: 643, 36
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 explosion-small
   rotate: false
-  xy: 244, 24
+  xy: 681, 36
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
+gigagal_140_batmfo
+  rotate: false
+  xy: 2, 140
+  size: 945, 114
+  orig: 945, 114
+  offset: 0, 0
+  index: -1
+gigagal_70_batmfo
+  rotate: false
+  xy: 2, 81
+  size: 473, 57
+  orig: 473, 57
+  offset: 0, 0
+  index: -1
 jumping-left
   rotate: false
-  xy: 598, 25
+  xy: 755, 37
   size: 29, 35
   orig: 29, 35
   offset: 0, 0
   index: -1
 jumping-right
   rotate: false
-  xy: 282, 25
+  xy: 719, 37
   size: 34, 35
   orig: 34, 35
   offset: 0, 0
   index: -1
 lazer
   rotate: false
-  xy: 915, 77
+  xy: 942, 81
   size: 10, 3
   orig: 10, 3
   offset: 0, 0
   index: -1
 particle
   rotate: false
-  xy: 564, 28
+  xy: 551, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 particle_pixel
   rotate: false
-  xy: 629, 35
+  xy: 585, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 particle_pixel2
   rotate: false
-  xy: 663, 35
+  xy: 619, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 particle_pixel3
   rotate: false
-  xy: 697, 35
+  xy: 653, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 particle_pixel4
   rotate: false
-  xy: 731, 35
+  xy: 687, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 platform
   rotate: false
-  xy: 620, 69
+  xy: 765, 81
   size: 57, 57
   orig: 57, 57
   offset: 0, 0
   index: -1
 platform-bounce
   rotate: false
-  xy: 679, 69
+  xy: 266, 22
   size: 57, 57
   orig: 57, 57
   offset: 0, 0
   index: -1
 platform-hard
   rotate: false
-  xy: 738, 69
+  xy: 824, 81
   size: 57, 57
   orig: 57, 57
   offset: 0, 0
   index: -1
 platform-light
   rotate: false
-  xy: 797, 69
+  xy: 325, 22
   size: 57, 57
   orig: 57, 57
   offset: 0, 0
   index: -1
 platform-medium
   rotate: false
-  xy: 856, 69
+  xy: 883, 81
   size: 57, 57
   orig: 57, 57
   offset: 0, 0
   index: -1
 powerup
   rotate: false
-  xy: 70, 2
+  xy: 453, 62
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup2
   rotate: false
-  xy: 87, 2
+  xy: 843, 25
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup3
   rotate: false
-  xy: 881, 50
+  xy: 453, 43
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 powerup4
   rotate: false
-  xy: 898, 50
+  xy: 860, 25
   size: 15, 17
   orig: 15, 17
   offset: 0, 0
   index: -1
 standing-left
   rotate: false
-  xy: 765, 32
+  xy: 930, 44
   size: 28, 35
   orig: 28, 35
   offset: 0, 0
   index: -1
 standing-right
   rotate: false
-  xy: 318, 25
+  xy: 786, 44
   size: 34, 35
   orig: 34, 35
   offset: 0, 0
   index: -1
 walk-1-left
   rotate: false
-  xy: 825, 32
+  xy: 942, 103
   size: 27, 35
   orig: 27, 35
   offset: 0, 0
   index: -1
 walk-1-right
   rotate: false
-  xy: 354, 25
+  xy: 822, 44
   size: 34, 35
   orig: 34, 35
   offset: 0, 0
   index: -1
 walk-2-left
   rotate: false
-  xy: 854, 32
+  xy: 816, 7
   size: 25, 35
   orig: 25, 35
   offset: 0, 0
   index: -1
 walk-2-right
   rotate: false
-  xy: 390, 25
+  xy: 858, 44
   size: 34, 35
   orig: 34, 35
   offset: 0, 0
   index: -1
 walk-3-left
   rotate: false
-  xy: 795, 32
+  xy: 786, 7
   size: 28, 35
   orig: 28, 35
   offset: 0, 0
   index: -1
 walk-3-right
   rotate: false
-  xy: 426, 25
+  xy: 894, 44
   size: 34, 35
   orig: 34, 35
   offset: 0, 0

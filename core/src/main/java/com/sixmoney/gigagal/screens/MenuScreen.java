@@ -3,8 +3,12 @@ package com.sixmoney.gigagal.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -12,7 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.sixmoney.gigagal.GigaGalGame;
+import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 
 public class MenuScreen implements Screen {
@@ -21,6 +27,7 @@ public class MenuScreen implements Screen {
     private GigaGalGame gigaGalGame;
     private Stage stage;
     private Skin skin;
+    private Table tableMenu;
 
     public MenuScreen(GigaGalGame game) {
         gigaGalGame = game;
@@ -28,18 +35,20 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
-        stage = new Stage(new ExtendViewport(Constants.WORLD_WIDTH, Constants.WINDOW_HEIGHT));
+        stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
 
-        Table tableMenu = new Table(skin);
+        tableMenu = new Table(skin);
         tableMenu.setFillParent(true);
         tableMenu.pad(5);
-        tableMenu.defaults().grow().space(5).padLeft(50).padRight(50);
+        tableMenu.defaults().space(5).padLeft(50).padRight(50).padTop(30);
 
         tableMenu.row();
-        Label labelWelcome = new Label("WELCOME TO GIGAGAL", skin);
-        labelWelcome.setAlignment(Align.center);
-        tableMenu.add(labelWelcome).height(stage.getHeight() / 5);
+        TextureRegion logoTexture = Assets.get_instance().logoAssets.logo_140;
+        Image logo = new Image(logoTexture);
+        logo.setAlign(Align.center);
+        tableMenu.add(logo).height(114f);
+        tableMenu.defaults().space(5).padLeft(50).padRight(50).padTop(30).grow();
 
         tableMenu.row().uniform().fill();
 
@@ -52,7 +61,7 @@ public class MenuScreen implements Screen {
                 dispose();
             }
         });
-        tableMenu.add(buttonPlay).height(stage.getHeight() / 5);
+        tableMenu.add(buttonPlay).minHeight(100f);
 
         tableMenu.row();
         TextButton levelSelectPlay = new TextButton("LEVEL SELECT", skin, "gigagal");
@@ -63,7 +72,7 @@ public class MenuScreen implements Screen {
                 dispose();
             }
         });
-        tableMenu.add(levelSelectPlay).height(stage.getHeight() / 5);
+        tableMenu.add(levelSelectPlay).minHeight(100f);
 
         tableMenu.row();
         Table tableSubmenu = new Table(skin);
@@ -77,7 +86,7 @@ public class MenuScreen implements Screen {
                 dispose();
             }
         });
-        tableSubmenu.add(buttonHighScores).uniform().spaceRight(5);
+        tableSubmenu.add(buttonHighScores).uniform().spaceRight(5).minHeight(100f);
         TextButton buttonOptions = new TextButton("OPTIONS", skin, "gigagal");
         buttonOptions.addListener(new ClickListener() {
             @Override
@@ -86,8 +95,8 @@ public class MenuScreen implements Screen {
                 dispose();
             }
         });
-        tableSubmenu.add(buttonOptions).uniform().spaceLeft(5);
-        tableMenu.add(tableSubmenu).height(stage.getHeight() / 5);
+        tableSubmenu.add(buttonOptions).uniform().spaceLeft(5).minHeight(100f);
+        tableMenu.add(tableSubmenu).minHeight(100f);
 
         stage.addActor(tableMenu);
         Gdx.input.setInputProcessor(stage);
