@@ -4,7 +4,7 @@ Gigagal is simple platforming game in which the player controls GigaGal and atte
 
 Trello Board: https://trello.com/b/m49zz9Da/gigagal
 
-GigaGal is based of the 406 udacity web course: https://github.com/udacity/ud406. Majority of assets are based off that project,
+GigaGal is based off of the 406 udacity web course: https://github.com/udacity/ud406. Majority of assets are based off that project,
 any assets from other sources are mentioned at the bottom of this readme
 
 --
