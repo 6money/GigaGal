@@ -81,7 +81,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         hud = new GigaGalHUD();
         victoryOverlay = new VictoryOverlay(this);
         gameOverOverlay = new GameOverOverlay(this);
-        pauseOverlay = new PauseOverlay(this);
+        pauseOverlay = new PauseOverlay(this, spriteBatch);
         onScreeenControls = new OnScreeenControls(this);
         onScreeenControls.gigaGal = level.gigaGal;
         levelEndOverlayStartTime = 0;
@@ -108,8 +108,6 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         victoryOverlay.update_rect();
         gameOverOverlay.viewport.update(width, height, true);
         gameOverOverlay.update_rect();
-        pauseOverlay.viewport.update(width, height, true);
-        pauseOverlay.update_rect();
         onScreeenControls.viewport.update(width, height, true);
         onScreeenControls.recalculateButtonPositions();
     }
@@ -120,7 +118,6 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         shapeRenderer.dispose();
         gameOverOverlay.dispose();
         hud.dispose();
-        pauseOverlay.dispose();
         victoryOverlay.dispose();
         level.dispose();
     }
@@ -158,7 +155,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         renderLevelEndOverlays(spriteBatch);
 
         if (level.paused) {
-            pauseOverlay.render(spriteBatch);
+            pauseOverlay.render();
         }
 
         if (debug) {
@@ -256,14 +253,14 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
     public void hide() {
         super.hide();
         level.paused = true;
-        Gdx.input.setInputProcessor(pauseOverlay);
+        Gdx.input.setInputProcessor(pauseOverlay.inputProcessor);
     }
 
     @Override
     public void pause() {
         super.pause();
         level.paused = true;
-        Gdx.input.setInputProcessor(pauseOverlay);
+        Gdx.input.setInputProcessor(pauseOverlay.inputProcessor);
     }
 
     @Override
@@ -279,7 +276,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
             return true;
         } else if (keycode == Input.Keys.ESCAPE) {
             level.paused = true;
-            Gdx.input.setInputProcessor(pauseOverlay);
+            Gdx.input.setInputProcessor(pauseOverlay.inputProcessor);
             return true;
         }
         return false;
