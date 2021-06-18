@@ -74,7 +74,7 @@ public class OnScreeenControls extends InputAdapter {
             return true;
         } else if (viewportPosition.dst(pauseCenter) < Constants.BUTTON_RADIUS / 2) {
             gameplayScreen.level.paused = true;
-            Gdx.input.setInputProcessor(gameplayScreen.pauseOverlay);
+            Gdx.input.setInputProcessor(gameplayScreen.pauseOverlay.inputProcessor);
             return true;
         }
 
