@@ -88,7 +88,7 @@ public class OnScreeenControls extends InputAdapter {
         if (pointer == moveLeftPointer && viewportPosition.dst(moveRightCenter) < Constants.BUTTON_RADIUS) {
             gigaGal.leftButtonPressed = false;
             gigaGal.rightButtonPressed = true;
-            moveLeftPointer = 0;
+            moveLeftPointer = -1;
             moveRightPointer = pointer;
             return true;
         }
@@ -97,7 +97,32 @@ public class OnScreeenControls extends InputAdapter {
             gigaGal.leftButtonPressed = true;
             gigaGal.rightButtonPressed = false;
             moveLeftPointer = pointer;
-            moveRightPointer = 0;
+            moveRightPointer = -1;
+            return true;
+        }
+
+        if (pointer == jumpPointer && viewportPosition.dst(shootCenter) < Constants.BUTTON_RADIUS) {
+            gigaGal.jumpButtonPressed = false;
+            jumpPointer = -1;
+            shootPointer = pointer;
+
+            Gdx.app.log(TAG, "pointer: " + pointer);
+            Gdx.app.log(TAG, "shoot: " + shootPointer + " " + gigaGal.shootButtonPressed);
+
+            if (gigaGal.ammmoRapid > 0) {
+                gigaGal.shootButtonPressed = true;
+            } else {
+                gigaGal.shootButtonPressed = false;
+                gigaGal.shoot();
+            }
+            return true;
+        }
+
+        if (pointer == shootPointer && viewportPosition.dst(jumpCenter) < Constants.BUTTON_RADIUS) {
+            gigaGal.jumpButtonPressed = true;
+            gigaGal.shootButtonPressed = false;
+            jumpPointer = pointer;
+            shootPointer = -1;
             return true;
         }
 
@@ -110,27 +135,27 @@ public class OnScreeenControls extends InputAdapter {
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
 
-        if (!Gdx.input.isTouched(shootPointer)) {
+        if (shootPointer != -1 && !Gdx.input.isTouched(shootPointer)) {
             gigaGal.shootButtonPressed = false;
             shootPointer = 0;
         }
 
-        if (!Gdx.input.isTouched(jumpPointer)) {
+        if (jumpPointer != -1 && !Gdx.input.isTouched(jumpPointer)) {
             gigaGal.jumpButtonPressed = false;
             jumpPointer = 0;
         }
 
-        if (!Gdx.input.isTouched(dropPointer)) {
+        if (dropPointer != -1 && !Gdx.input.isTouched(dropPointer)) {
             gigaGal.dropButtonPressed = false;
             dropPointer = 0;
         }
 
-        if (!Gdx.input.isTouched(moveLeftPointer)) {
+        if (moveLeftPointer != -1 && !Gdx.input.isTouched(moveLeftPointer)) {
             gigaGal.leftButtonPressed = false;
             moveLeftPointer = 0;
         }
 
-        if (!Gdx.input.isTouched(moveRightPointer)) {
+        if (moveRightPointer != -1 && !Gdx.input.isTouched(moveRightPointer)) {
             gigaGal.rightButtonPressed = false;
             moveRightPointer = 0;
         }
