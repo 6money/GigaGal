@@ -1,4 +1,5 @@
 # GigaGal
+![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)
 
 Gigagal is simple platforming game in which the player controls GigaGal and attempts to navigate various levels while maximising their score and avoiding enemies.
 
