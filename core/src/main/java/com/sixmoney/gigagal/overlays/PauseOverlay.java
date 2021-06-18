@@ -44,11 +44,11 @@ public class PauseOverlay extends InputAdapter {
         table.setPosition(0, 0);
         table.defaults().growX().center();
 
-        Label labelPaused = new Label("PAUSED", skin, "gigagal-medium");
+        Label labelPaused = new Label(Constants.PAUSED_MESSAGE, skin, "gigagal-medium");
         labelPaused.setAlignment(Align.center);
-        table.add(labelPaused).padTop(100f).padBottom(40f).padLeft(100f).padRight(100f).height(120f);
+        table.add(labelPaused).padTop(100f).padBottom(40f).padLeft(200f).padRight(200f).height(120f);
         table.row();
-        TextButton buttonResume = new TextButton("RESUME", skin, "gigagal_32");
+        TextButton buttonResume = new TextButton(Constants.RESUME_MESSAGE, skin, "gigagal_32");
         buttonResume.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -56,25 +56,25 @@ public class PauseOverlay extends InputAdapter {
                 Gdx.input.setInputProcessor(gameplayScreen.inputMultiplexer);
             }
         });
-        table.add(buttonResume).padLeft(150f).padRight(150f).height(100f);
+        table.add(buttonResume).padLeft(300f).padRight(300f).height(100f);
         table.row();
-        TextButton buttonRestart = new TextButton("RESTART", skin, "gigagal_32");
+        TextButton buttonRestart = new TextButton(Constants.RESTART_MESSAGE, skin, "gigagal_32");
         buttonRestart.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameplayScreen.levelComplete(false, true);
             }
         });
-        table.add(buttonRestart).padLeft(150f).padRight(150f).height(100f);
+        table.add(buttonRestart).padLeft(300f).padRight(300f).height(100f);
         table.row();
-        TextButton buttonQuit = new TextButton("QUIT", skin, "gigagal_32");
+        TextButton buttonQuit = new TextButton(Constants.QUIT_MESSAGE, skin, "gigagal_32");
         buttonQuit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameplayScreen.levelComplete(true, false);
             }
         });
-        table.add(buttonQuit).padLeft(150f).padRight(150f).height(100f);
+        table.add(buttonQuit).padLeft(300f).padRight(300f).height(100f);
         table.pack();
 
         stage.addActor(table);
@@ -85,6 +85,10 @@ public class PauseOverlay extends InputAdapter {
         stage.draw();
     }
 
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.ESCAPE) {
@@ -93,5 +97,9 @@ public class PauseOverlay extends InputAdapter {
             return true;
         }
         return false;
+    }
+
+    public void dispose() {
+        stage.dispose();
     }
 }

@@ -1,7 +1,6 @@
 package com.sixmoney.gigagal.entities;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.sixmoney.gigagal.utils.Assets;
@@ -15,7 +14,7 @@ public class ExplosionBig extends Explosion {
     }
 
     @Override
-    public void render(SpriteBatch spriteBatch) {
+    public void render(Batch spriteBatch) {
         if (!isFinished() && !yetToStart()) {
             TextureRegion key_frame = (TextureRegion) Assets.get_instance().explosionAssets.explosion_big_animation.getKeyFrame(Utils.secondsSince(start_time) - offset);
             spriteBatch.draw(

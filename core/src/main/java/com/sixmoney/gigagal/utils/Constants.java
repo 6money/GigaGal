@@ -169,7 +169,7 @@ public class Constants {
     public static final int MAX_LEVEL = 10;
 
     //HUD
-    public static final float HUD_MARGIN = 20;
+    public static final float HUD_MARGIN = 23;
     public static final String HUD_AMMO_LABEL = "Ammo: ";
     public static final String HUD_AMMO_SPECIAL_LABEL = "Special: ";
     public static final String HUD_AMMO_RAPID_LABEL = "Rapid: ";

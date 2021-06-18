@@ -2,7 +2,6 @@ package com.sixmoney.gigagal.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
@@ -11,11 +10,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.sixmoney.gigagal.GigaGalGame;
 import com.sixmoney.gigagal.Level;
+import com.sixmoney.gigagal.entities.Explosion;
 import com.sixmoney.gigagal.overlays.GameOverOverlay;
 import com.sixmoney.gigagal.overlays.GigaGalHUD;
 import com.sixmoney.gigagal.overlays.OnScreeenControls;
@@ -32,7 +33,6 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
     public static final String TAG = GameplayScreen.class.getName();
 
     private SpriteBatch spriteBatch;
-    private ExtendViewport extendViewport;
     private ChaseCam chaseCam;
     private GigaGalHUD hud;
     private VictoryOverlay victoryOverlay;
@@ -45,6 +45,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
     private float difficultly;
     private BitmapFont font;
 
+    public ExtendViewport extendViewport;
     public Level level;
     public int level_num;
     public long levelEndOverlayStartTime;
@@ -79,7 +80,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         level = LevelLoader.load(level_name, difficultly, extendViewport, parallaxCamera);
         chaseCam = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         hud = new GigaGalHUD();
-        victoryOverlay = new VictoryOverlay(this);
+        victoryOverlay = new VictoryOverlay(this, spriteBatch);
         gameOverOverlay = new GameOverOverlay(this);
         pauseOverlay = new PauseOverlay(this, spriteBatch);
         onScreeenControls = new OnScreeenControls(this);
@@ -104,12 +105,12 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
     public void resize(int width, int height) {
         extendViewport.update(width, height, true);
         hud.viewport.update(width, height, true);
-        victoryOverlay.viewport.update(width, height, true);
-        victoryOverlay.update_rect();
+        victoryOverlay.resize(width, height);
         gameOverOverlay.viewport.update(width, height, true);
         gameOverOverlay.update_rect();
         onScreeenControls.viewport.update(width, height, true);
         onScreeenControls.recalculateButtonPositions();
+        pauseOverlay.resize(width, height);
     }
 
     @Override
@@ -119,6 +120,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         gameOverOverlay.dispose();
         hud.dispose();
         victoryOverlay.dispose();
+        pauseOverlay.dispose();
         level.dispose();
     }
 
@@ -171,7 +173,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
     private void renderLevelEndOverlays(SpriteBatch spriteBatch) {
 
         if (level.victory) {
-            Gdx.input.setInputProcessor(victoryOverlay);
+            Gdx.input.setInputProcessor(victoryOverlay.inputProcessor);
             if (levelEndOverlayStartTime == 0) {
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
 
@@ -184,9 +186,10 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
                 }
 
                 preferenceManager.addScore(level_name, level.score);
-                victoryOverlay.init(highScore);
+                victoryOverlay.init(level.score, highScore);
             }
-            victoryOverlay.render(spriteBatch, level.score);
+
+            victoryOverlay.render();
         } else if (level.gameOver) {
             Gdx.input.setInputProcessor(gameOverOverlay);
             if (levelEndOverlayStartTime == 0) {

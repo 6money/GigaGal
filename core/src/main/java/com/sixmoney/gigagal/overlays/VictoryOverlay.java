@@ -3,14 +3,23 @@ package com.sixmoney.gigagal.overlays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sixmoney.gigagal.entities.Explosion;
 import com.sixmoney.gigagal.screens.GameplayScreen;
@@ -21,106 +30,89 @@ import com.sixmoney.gigagal.utils.Utils;
 public class VictoryOverlay extends InputAdapter {
     public final static String TAG = VictoryOverlay.class.getName();
 
-    private final BitmapFont font;
-    private Array<Explosion> explosions;
-    private boolean highScore;
     private GameplayScreen gameplayScreen;
-    private Rectangle continue_rect;
-    private Rectangle quit_rect;
-    private Rectangle text_rect;
+    private Skin skin;
+    private Stage stage;
+    private Array<Explosion> explosions;
 
-    public final Viewport viewport;
+    public InputMultiplexer inputProcessor;
 
-    public VictoryOverlay(GameplayScreen gameplayScreen) {
-        this.viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
+    public VictoryOverlay(GameplayScreen gameplayScreen, SpriteBatch spriteBatch) {
         this.gameplayScreen = gameplayScreen;
-        font = new BitmapFont(Gdx.files.internal(Constants.FONT_FILE));
-        continue_rect = new Rectangle(viewport.getWorldWidth() / 4, 0, viewport.getWorldWidth() * 3 / 4, viewport.getWorldHeight() / 7);
-        quit_rect = new Rectangle(viewport.getWorldWidth() / 4, 0, viewport.getWorldWidth() * 3 / 4, viewport.getWorldHeight() / 7);
-        text_rect = new Rectangle();
+        stage = new Stage(new ScreenViewport(), spriteBatch);
+        inputProcessor = new InputMultiplexer(stage, this);
+        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
     }
 
-    public void init(boolean highScore) {
-        this.highScore = highScore;
+    public void init(float score, boolean highScore) {
         explosions = new Array<>(Constants.EXPLOSION_COUNT);
 
         for (int i = 0; i < Constants.EXPLOSION_COUNT; i++) {
-            Explosion explosion = new Explosion(new Vector2(MathUtils.random(0, viewport.getWorldWidth()), MathUtils.random(0, viewport.getWorldHeight())));
+            Explosion explosion = new Explosion(new Vector2(MathUtils.random(0, stage.getWidth()), MathUtils.random(0, stage.getWidth())));
             explosion.offset = MathUtils.random(Constants.LEVEL_END_DURATION);
             explosions.add(explosion);
         }
 
+        Table table = new Table();
+        table.setFillParent(true);
+        table.setPosition(0, 0);
+        table.defaults().growX().center();
+
+        String labelText = Constants.VICTORY_MESSAGE + "\n" + Constants.VICTORY_SCORE + score;
+        float labelHeight = 180f;
+        if (highScore) {
+            labelText += "\nNEW HIGH SCORE!!";
+            labelHeight = 270f;
+        }
+        Label labelVictory = new Label(labelText, skin, "gigagal-medium");
+        labelVictory.setAlignment(Align.center);
+        table.add(labelVictory).padTop(100f).padBottom(40f).padLeft(200f).padRight(200f).height(labelHeight);
+        table.row();
+        TextButton buttonContinue = new TextButton(Constants.NEXT_LEVEL_MESSAGE, skin, "gigagal_32");
+        buttonContinue.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gameplayScreen.levelComplete();
+            }
+        });
+        table.add(buttonContinue).padLeft(300f).padRight(300f).height(100f);
+        table.row();
+        TextButton buttonQuit = new TextButton(Constants.QUIT_MESSAGE, skin, "gigagal_32");
+        buttonQuit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gameplayScreen.levelComplete(true, false);
+            }
+        });
+        table.add(buttonQuit).padLeft(300f).padRight(300f).height(100f);
+        table.pack();
+
+        stage.clear();
+        stage.addActor(table);
     }
 
-    public void update_rect() {
-        continue_rect.x = viewport.getWorldWidth() / 4;
-        continue_rect.y = viewport.getWorldHeight() / 7;
-        continue_rect.width = viewport.getWorldWidth() * 2 / 4;
-        continue_rect.height = viewport.getWorldHeight() / 7;
-
-        quit_rect.x = viewport.getWorldWidth() / 4;
-        quit_rect.y = 0;
-        quit_rect.width = viewport.getWorldWidth() * 2 / 4;
-        quit_rect.height = viewport.getWorldHeight() / 7;
-
-        text_rect.x = viewport.getWorldWidth() / 8;
-        text_rect.y = viewport.getWorldHeight() / 3f;
-        text_rect.width = viewport.getWorldWidth() * 6 / 8;
-        text_rect.height = viewport.getWorldHeight() / 1.8f;
-    }
-
-    public void render(SpriteBatch spriteBatch, int score) {
+    public void render() {
         if (Utils.secondsSince(gameplayScreen.levelEndOverlayStartTime) > Constants.LEVEL_END_BLOCK) {
             if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
                 gameplayScreen.levelComplete();
             }
         }
 
-        viewport.apply();
-        spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
-        spriteBatch.begin();
-        if (gameplayScreen.level_num < Constants.MAX_LEVEL) {
-            Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, continue_rect.x, continue_rect.y, continue_rect.width, continue_rect.height);
-        }
-        Assets.get_instance().platformAssets.ninePatch_platform.draw(spriteBatch, quit_rect.x, quit_rect.y, quit_rect.width, quit_rect.height);
-        font.getData().setScale(0.5f);
-        if (gameplayScreen.level_num < Constants.MAX_LEVEL) {
-            font.draw(spriteBatch, Constants.NEXT_LEVEL_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight * 1.7f / 7, 0, Align.center, false);
-        }
-        font.draw(spriteBatch, Constants.QUIT_MESSAGE, viewport.getCamera().viewportWidth / 2, viewport.getCamera().viewportHeight / 10, 0, Align.center, false);
-        font.getData().setScale(0.8f);
+        stage.act();
+        stage.draw();
 
-        Assets.get_instance().platformAssets.ninePatch_platform_hard.draw(spriteBatch, text_rect.x, text_rect.y, text_rect.width, text_rect.height);
-
+        stage.getBatch().begin();
         for (Explosion explosion: explosions) {
-            explosion.render(spriteBatch);
+            explosion.render(stage.getBatch(), 4f);
         }
-
-        font.draw(spriteBatch, Constants.VICTORY_MESSAGE, viewport.getWorldWidth() / 2, viewport.getWorldHeight() * 5 / 6f, 0, Align.center, false);
-        font.draw(spriteBatch, Constants.VICTORY_SCORE + score, viewport.getWorldWidth() / 2, viewport.getWorldHeight() * 4 / 6f, 0, Align.center, false);
-        if (highScore) {
-            font.draw(spriteBatch, "HIGH SCORE!!", viewport.getWorldWidth() / 2, viewport.getWorldHeight() * 3 / 6f, 0, Align.center, false);
-        }
-
-        spriteBatch.end();
-
+        stage.getBatch().end();
     }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Vector2 viewportPosition = viewport.unproject(new Vector2(screenX, screenY));
-
-        if (continue_rect.contains(viewportPosition)) {
-            gameplayScreen.levelComplete();
-            return true;
-        } else if (quit_rect.contains(viewportPosition)) {
-            gameplayScreen.levelComplete(true, false);
-            return true;
-        }
-        return super.touchDown(screenX, screenY, pointer, button);
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
     }
 
     public void dispose() {
-        font.dispose();
+        stage.dispose();
     }
 }
