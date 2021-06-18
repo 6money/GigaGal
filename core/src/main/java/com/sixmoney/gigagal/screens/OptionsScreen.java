@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.sixmoney.gigagal.GigaGalGame;
+import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.PreferenceManager;
 import com.sixmoney.gigagal.utils.SoundManager;
@@ -47,7 +48,7 @@ public class OptionsScreen implements Screen {
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
+        skin = Assets.get_instance().skinAssets.skin;
         skin.getFont("font").getData().setScale(0.5f);
 
         buttonBack = new Button(skin, "gigagal");
@@ -229,7 +230,6 @@ public class OptionsScreen implements Screen {
 
     @Override
     public void dispose() {
-        skin.dispose();
         stage.dispose();
     }
 }

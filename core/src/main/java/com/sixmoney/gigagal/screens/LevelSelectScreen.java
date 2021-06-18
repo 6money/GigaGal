@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.sixmoney.gigagal.GigaGalGame;
+import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 
 public class LevelSelectScreen extends InputAdapter implements Screen {
@@ -36,7 +37,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
+        skin = Assets.get_instance().skinAssets.skin;
 
         Table tableMenu = new Table(skin);
         tableMenu.setFillParent(true);

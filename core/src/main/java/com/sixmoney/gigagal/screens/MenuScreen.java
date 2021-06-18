@@ -36,7 +36,7 @@ public class MenuScreen implements Screen {
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
+        skin = Assets.get_instance().skinAssets.skin;
 
         tableMenu = new Table(skin);
         tableMenu.setFillParent(true);

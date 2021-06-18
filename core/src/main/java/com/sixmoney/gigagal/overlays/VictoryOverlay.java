@@ -39,10 +39,10 @@ public class VictoryOverlay extends InputAdapter {
     public VictoryOverlay(GameplayScreen gameplayScreen, SpriteBatch spriteBatch) {
         this.gameplayScreen = gameplayScreen;
         stage = new Stage(new ScreenViewport(), spriteBatch);
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
+        skin = Assets.get_instance().skinAssets.skin;
     }
 
-    public void init(float score, boolean highScore) {
+    public void init(int score, boolean highScore) {
         explosions = new Array<>(Constants.EXPLOSION_COUNT);
 
         for (int i = 0; i < Constants.EXPLOSION_COUNT; i++) {

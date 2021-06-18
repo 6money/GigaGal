@@ -38,7 +38,7 @@ public class PauseOverlay extends InputAdapter {
         this.gameplayScreen = gameplayScreen;
         stage = new Stage(new ScreenViewport(), spriteBatch);
         inputProcessor = new InputMultiplexer(stage, this);
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
+        skin = Assets.get_instance().skinAssets.skin;
         table = new Table();
         table.setFillParent(true);
         table.setPosition(0, 0);

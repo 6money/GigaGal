@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -31,6 +32,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public ParticleAssets particleAssets;
     public BackgroundAssets backgroundAssets;
     public LogoAssets logoAssets;
+    public SkinAssets skinAssets;
 
     private Assets() {
         init();
@@ -51,6 +53,7 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load(Constants.CLOUDS2, Texture.class);
         assetManager.load(Constants.CLOUDS3, Texture.class);
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
+        assetManager.load(Constants.SKIN_PATH, Skin.class);
         assetManager.finishLoading();
         Gdx.app.log(TAG, "Sprites Loaded in " + Utils.secondsSince(startLoad) + " seconds");
         Gdx.app.log(TAG, assetManager.getAssetNames().toString());
@@ -68,6 +71,7 @@ public class Assets implements Disposable, AssetErrorListener {
         particleAssets = new ParticleAssets(atlas);
         backgroundAssets = new BackgroundAssets(assetManager);
         logoAssets = new LogoAssets(atlas);
+        skinAssets = new SkinAssets(assetManager);
     }
 
     public TextureAtlas getAtlas() {
@@ -337,6 +341,14 @@ public class Assets implements Disposable, AssetErrorListener {
         public LogoAssets(TextureAtlas atlas) {
             logo_70 = atlas.findRegion(Constants.LOGO_70);
             logo_140 = atlas.findRegion(Constants.LOGO_140);
+        }
+    }
+
+    public class SkinAssets {
+        public Skin skin;
+
+        public SkinAssets(AssetManager assetManager) {
+            skin = assetManager.get(Constants.SKIN_PATH);
         }
     }
 }

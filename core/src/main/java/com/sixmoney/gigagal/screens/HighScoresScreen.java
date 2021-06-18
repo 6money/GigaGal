@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.sixmoney.gigagal.GigaGalGame;
+import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.PreferenceManager;
 
@@ -49,7 +50,7 @@ public class HighScoresScreen implements Screen {
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
-        skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
+        skin = Assets.get_instance().skinAssets.skin;
         PreferenceManager preferenceManager = PreferenceManager.get_instance();
         Array<Integer> scoresLevel1 = preferenceManager.getScores("Level1");
         Array<Integer> scoresLevel2 = preferenceManager.getScores("Level2");
@@ -198,7 +199,6 @@ public class HighScoresScreen implements Screen {
 
     @Override
     public void dispose() {
-        skin.dispose();
         stage.dispose();
     }
 }
