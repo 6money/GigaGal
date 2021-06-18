@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -35,12 +36,9 @@ public class VictoryOverlay extends InputAdapter {
     private Stage stage;
     private Array<Explosion> explosions;
 
-    public InputMultiplexer inputProcessor;
-
     public VictoryOverlay(GameplayScreen gameplayScreen, SpriteBatch spriteBatch) {
         this.gameplayScreen = gameplayScreen;
         stage = new Stage(new ScreenViewport(), spriteBatch);
-        inputProcessor = new InputMultiplexer(stage, this);
         skin = new Skin(Gdx.files.internal(Constants.SKIN_PATH));
     }
 
@@ -106,6 +104,10 @@ public class VictoryOverlay extends InputAdapter {
             explosion.render(stage.getBatch(), 4f);
         }
         stage.getBatch().end();
+    }
+
+    public void setInputProcessor() {
+        Gdx.input.setInputProcessor(stage);
     }
 
     public void resize(int width, int height) {

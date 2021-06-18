@@ -81,7 +81,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         chaseCam = new ChaseCam(extendViewport.getCamera(), level.gigaGal);
         hud = new GigaGalHUD();
         victoryOverlay = new VictoryOverlay(this, spriteBatch);
-        gameOverOverlay = new GameOverOverlay(this);
+        gameOverOverlay = new GameOverOverlay(this, spriteBatch);
         pauseOverlay = new PauseOverlay(this, spriteBatch);
         onScreeenControls = new OnScreeenControls(this);
         onScreeenControls.gigaGal = level.gigaGal;
@@ -106,8 +106,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         extendViewport.update(width, height, true);
         hud.viewport.update(width, height, true);
         victoryOverlay.resize(width, height);
-        gameOverOverlay.viewport.update(width, height, true);
-        gameOverOverlay.update_rect();
+        gameOverOverlay.resize(width, height);
         onScreeenControls.viewport.update(width, height, true);
         onScreeenControls.recalculateButtonPositions();
         pauseOverlay.resize(width, height);
@@ -173,8 +172,8 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
     private void renderLevelEndOverlays(SpriteBatch spriteBatch) {
 
         if (level.victory) {
-            Gdx.input.setInputProcessor(victoryOverlay.inputProcessor);
             if (levelEndOverlayStartTime == 0) {
+                victoryOverlay.setInputProcessor();
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
 
                 SoundManager.get_instance().playSound(Constants.WIN_EFFECT_PATH);
@@ -191,13 +190,14 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
 
             victoryOverlay.render();
         } else if (level.gameOver) {
-            Gdx.input.setInputProcessor(gameOverOverlay);
             if (levelEndOverlayStartTime == 0) {
+                gameOverOverlay.setInputProcessor();
                 levelEndOverlayStartTime = TimeUtils.nanoTime();
                 SoundManager.get_instance().playSound(Constants.LOSE_EFFECT_PATH);
+                gameOverOverlay.init();
             }
 
-            gameOverOverlay.render(spriteBatch);
+            gameOverOverlay.render();
         }
     }
 
