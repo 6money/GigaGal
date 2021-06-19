@@ -72,13 +72,13 @@ public class GigaGal {
         init();
 
         ParticleEffect dustParticle = new ParticleEffect();
-        dustParticle.load(Gdx.files.internal("particles/pixel_dust"), Assets.get_instance().getAtlas());
+        dustParticle.load(Gdx.files.internal("particles/pixel_dust.p"), Assets.get_instance().getAtlas());
         pepDust = new ParticleEffectPool(dustParticle, 10, 10);
         dustParticles = new DelayedRemovalArray<>();
         dustParticleStartTime = TimeUtils.nanoTime() + 100000000;
 
         ParticleEffect dustJuspParticle = new ParticleEffect();
-        dustJuspParticle.load(Gdx.files.internal("particles/pixel_dust_jump"), Assets.get_instance().getAtlas());
+        dustJuspParticle.load(Gdx.files.internal("particles/pixel_dust_jump.p"), Assets.get_instance().getAtlas());
         pepDustJump = new ParticleEffectPool(dustJuspParticle, 4, 4);
         dustJumpParticles = new DelayedRemovalArray<>();
     }

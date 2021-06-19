@@ -47,6 +47,7 @@ configure(subprojects - project(':android')) {
 
 	task copyParicles(type: Copy){
 		from "$rootDir/core/rawAssets/particles"
+		exclude "*.png"
 		into "$rootDir/assets/particles"
 	}
 

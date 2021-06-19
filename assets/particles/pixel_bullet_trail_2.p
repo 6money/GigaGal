@@ -137,9 +137,9 @@ behind: false
 premultipliedAlpha: false
 spriteMode: random
 - Image Paths -
-/home/mattk/Documents/GigaGal/core/rawAssets/sprites/particle_pixel2.png
-/home/mattk/Documents/GigaGal/core/rawAssets/sprites/particle_pixel3.png
-/home/mattk/Documents/GigaGal/core/rawAssets/sprites/particle_pixel4.png
+particle_pixel2
+particle_pixel3
+particle_pixel4
 
 
 pixel_explosion
@@ -290,7 +290,7 @@ behind: false
 premultipliedAlpha: false
 spriteMode: random
 - Image Paths -
-/home/mattk/Documents/GigaGal/core/rawAssets/sprites/particle_pixel2.png
-/home/mattk/Documents/GigaGal/core/rawAssets/sprites/particle_pixel3.png
-/home/mattk/Documents/GigaGal/core/rawAssets/sprites/particle_pixel4.png
+particle_pixel2
+particle_pixel3
+particle_pixel4
 

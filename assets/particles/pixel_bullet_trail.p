@@ -133,7 +133,7 @@ behind: false
 premultipliedAlpha: false
 spriteMode: single
 - Image Paths -
-/home/mattk/Documents/GigaGal/core/rawAssets/sprites/particle_pixel.png
+particle_pixel
 
 
 pixel_explosion
@@ -284,5 +284,5 @@ behind: false
 premultipliedAlpha: false
 spriteMode: single
 - Image Paths -
-/home/mattk/Documents/GigaGal/core/rawAssets/sprites/particle_pixel.png
+particle_pixel
 
