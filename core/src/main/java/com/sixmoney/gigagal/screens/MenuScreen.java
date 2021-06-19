@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.sixmoney.gigagal.GigaGalGame;
@@ -98,6 +99,12 @@ public class MenuScreen implements Screen {
         tableSubmenu.add(buttonOptions).uniform().spaceLeft(5).minHeight(100f);
         tableMenu.add(tableSubmenu).minHeight(100f);
 
+        TextureRegion gigagalTexture = Assets.get_instance().gigaGalAssets.jumping_right;
+        Image gigagalImage = new Image(gigagalTexture);
+        gigagalImage.setPosition(-500, -400);
+        gigagalImage.scaleBy(40f);
+
+        stage.addActor(gigagalImage);
         stage.addActor(tableMenu);
         Gdx.input.setInputProcessor(stage);
     }

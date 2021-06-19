@@ -21,7 +21,9 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
 		configuration.title = "GigaGal";
 		configuration.width = MathUtils.round(Constants.WINDOW_WIDTH);
+//		configuration.width = 1920;
 		configuration.height = MathUtils.round(Constants.WINDOW_HEIGHT);
+//		configuration.height = 1080;
 		configuration.foregroundFPS = 144;
 		configuration.backgroundFPS = 30;
 		//// This prevents a confusing error that would appear after exiting normally.
