@@ -147,5 +147,5 @@ behind: false
 premultipliedAlpha: true
 spriteMode: random
 - Image Paths -
-particle.png
+particle
 
