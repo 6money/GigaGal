@@ -337,12 +337,8 @@ public class GigaGal {
         Vector2 bulletPosition;
         int bulletOffset = 0;
 
-        if (gunType == GunType.RAPID) {
+        if (gunType == GunType.CANNON || gunType == GunType.NUKE_CANNON) {
             bulletOffset = -1;
-        } else if (gunType == GunType.CANNON) {
-            bulletOffset = -2;
-        } else if (gunType == GunType.NUKE_CANNON) {
-            bulletOffset = -2;
         }
 
         if (facing == Direction.RIGHT) {
@@ -549,6 +545,7 @@ public class GigaGal {
 
     public void render(SpriteBatch spriteBatch) {
         TextureRegion gigagalTexture;
+        TextureRegion gigagalArmTexture = null;
         TextureRegion gunTexture;
 
         if (facing == Direction.LEFT) {
@@ -557,6 +554,7 @@ public class GigaGal {
             } else if (walkState == WalkState.WALKING) {
                 float walking_duration = Utils.secondsSince(walkStartTime);
                 gigagalTexture = (TextureAtlas.AtlasRegion) Assets.get_instance().gigaGalAssets.walkLeftLoop.getKeyFrame(walking_duration);
+                gigagalArmTexture = (TextureAtlas.AtlasRegion) Assets.get_instance().gigaGalAssets.walkArmLeftLoop.getKeyFrame(walking_duration);
             } else {
                 gigagalTexture = Assets.get_instance().gigaGalAssets.standing_left;
             }
@@ -576,6 +574,7 @@ public class GigaGal {
             } else if (walkState == WalkState.WALKING) {
                 float walking_duration = Utils.secondsSince(walkStartTime);
                 gigagalTexture = (TextureAtlas.AtlasRegion) Assets.get_instance().gigaGalAssets.walkRightLoop.getKeyFrame(walking_duration);
+                gigagalArmTexture = (TextureAtlas.AtlasRegion) Assets.get_instance().gigaGalAssets.walkArmRightLoop.getKeyFrame(walking_duration);
             } else {
                 gigagalTexture = Assets.get_instance().gigaGalAssets.standing_right;
             }
@@ -609,6 +608,14 @@ public class GigaGal {
             Utils.drawTextureRegion(
                     spriteBatch,
                     gunTexture,
+                    position.x - Constants.GIGAGAL_EYE_POS.x,
+                    position.y - Constants.GIGAGAL_EYE_POS.y);
+        }
+
+        if (gigagalArmTexture != null) {
+            Utils.drawTextureRegion(
+                    spriteBatch,
+                    gigagalArmTexture,
                     position.x - Constants.GIGAGAL_EYE_POS.x,
                     position.y - Constants.GIGAGAL_EYE_POS.y);
         }

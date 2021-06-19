@@ -112,6 +112,12 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion walk_2_left;
         public TextureAtlas.AtlasRegion walk_3_right;
         public TextureAtlas.AtlasRegion walk_3_left;
+        public TextureAtlas.AtlasRegion arm_1_left;
+        public TextureAtlas.AtlasRegion arm_1_right;
+        public TextureAtlas.AtlasRegion arm_2_left;
+        public TextureAtlas.AtlasRegion arm_2_right;
+        public TextureAtlas.AtlasRegion arm_3_left;
+        public TextureAtlas.AtlasRegion arm_3_right;
         public TextureAtlas.AtlasRegion pistol_right;
         public TextureAtlas.AtlasRegion pistol_left;
         public TextureAtlas.AtlasRegion cannon_right;
@@ -123,6 +129,8 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public Animation walkLeftLoop;
         public Animation walkRightLoop;
+        public Animation walkArmLeftLoop;
+        public Animation walkArmRightLoop;
 
         public GigaGalAssets(TextureAtlas atlas) {
             standing_right = atlas.findRegion(Constants.STANDING_RIGHT);
@@ -135,6 +143,12 @@ public class Assets implements Disposable, AssetErrorListener {
             walk_2_left = atlas.findRegion(Constants.WALK_2_LEFT);
             walk_3_right = atlas.findRegion(Constants.WALK_3_RIGHT);
             walk_3_left = atlas.findRegion(Constants.WALK_3_LEFT);
+            arm_1_left = atlas.findRegion(Constants.ARM_1_LEFT);
+            arm_1_right = atlas.findRegion(Constants.ARM_1_RIGHT);
+            arm_2_left = atlas.findRegion(Constants.ARM_2_LEFT);
+            arm_2_right = atlas.findRegion(Constants.ARM_2_RIGHT);
+            arm_3_left = atlas.findRegion(Constants.ARM_3_LEFT);
+            arm_3_right = atlas.findRegion(Constants.ARM_3_RIGHT);
             pistol_right = atlas.findRegion(Constants.PISTOL_RIGHT);
             pistol_left = atlas.findRegion(Constants.PISTOL_LEFT);
             cannon_right = atlas.findRegion(Constants.CANNON_RIGHT);
@@ -149,13 +163,25 @@ public class Assets implements Disposable, AssetErrorListener {
             walkLeftTextures.add(walk_2_left);
             walkLeftTextures.add(walk_3_left);
 
+            Array<TextureAtlas.AtlasRegion> walkArmLeftTextures = new Array<>();
+            walkArmLeftTextures.add(arm_1_left);
+            walkArmLeftTextures.add(arm_2_left);
+            walkArmLeftTextures.add(arm_3_left);
+
             Array<TextureAtlas.AtlasRegion> walkRightTextures = new Array<>();
             walkRightTextures.add(walk_1_right);
             walkRightTextures.add(walk_2_right);
             walkRightTextures.add(walk_3_right);
 
+            Array<TextureAtlas.AtlasRegion> walkArmRightTextures = new Array<>();
+            walkArmRightTextures.add(arm_1_right);
+            walkArmRightTextures.add(arm_2_right);
+            walkArmRightTextures.add(arm_3_right);
+
             walkLeftLoop = new Animation(Constants.WALK_DURATION, walkLeftTextures, Animation.PlayMode.LOOP_PINGPONG);
             walkRightLoop = new Animation(Constants.WALK_DURATION, walkRightTextures, Animation.PlayMode.LOOP_PINGPONG);
+            walkArmLeftLoop = new Animation(Constants.WALK_DURATION, walkArmLeftTextures, Animation.PlayMode.LOOP_PINGPONG);
+            walkArmRightLoop = new Animation(Constants.WALK_DURATION, walkArmRightTextures, Animation.PlayMode.LOOP_PINGPONG);
         }
     }
 
