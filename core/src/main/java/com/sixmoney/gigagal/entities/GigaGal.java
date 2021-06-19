@@ -48,6 +48,7 @@ public class GigaGal {
     private DelayedRemovalArray<PooledEffect> dustParticles;
     private DelayedRemovalArray<PooledEffect> dustJumpParticles;
     private long dustParticleStartTime;
+    private GunType gunType;
 
 
     public Vector2 position;
@@ -85,6 +86,7 @@ public class GigaGal {
         ammmoBig = 0;
         ammmoRapid = 0;
         ammmoNuke = 0;
+        gunType = GunType.PISTOL;
         if (level.difficultly == 0f) {
             lives = Constants.GIGAGAL_INIT_LIVES;
         } else if (level.difficultly == 50f) {
@@ -296,6 +298,18 @@ public class GigaGal {
                 shoot();
                 shootButtonPressed = false;
             }
+
+            if (ammmoRapid > 0) {
+                gunType = GunType.RAPID;
+            } else if (ammmoBig > 0) {
+                gunType = GunType.CANNON;
+            } else if (ammmoBasic > 0) {
+                gunType = GunType.PISTOL;
+            } else if (ammmoNuke > 0) {
+                gunType = GunType.NUKE_CANNON;
+            } else {
+                gunType = GunType.PISTOL;
+            }
         }
 
 
@@ -320,39 +334,48 @@ public class GigaGal {
     }
 
     public void shoot() {
-        Vector2 bullet_position;
+        Vector2 bulletPosition;
+        int bulletOffset = 0;
+
+        if (gunType == GunType.RAPID) {
+            bulletOffset = -1;
+        } else if (gunType == GunType.CANNON) {
+            bulletOffset = -2;
+        } else if (gunType == GunType.NUKE_CANNON) {
+            bulletOffset = -2;
+        }
 
         if (facing == Direction.RIGHT) {
-            bullet_position = new Vector2(
+            bulletPosition = new Vector2(
                     position.x + Constants.GIGAGAL_BARREL_POS.x,
-                    position.y + Constants.GIGAGAL_BARREL_POS.y
+                    position.y + Constants.GIGAGAL_BARREL_POS.y + bulletOffset
             );
         } else {
-            bullet_position = new Vector2(
+            bulletPosition = new Vector2(
                     position.x - Constants.GIGAGAL_BARREL_POS.x,
-                    position.y + Constants.GIGAGAL_BARREL_POS.y
+                    position.y + Constants.GIGAGAL_BARREL_POS.y + bulletOffset
             );
         }
 
         if (ammmoRapid > 0) {
             playGunshot();
             ammmoRapid--;
-            Bullet bullet = new BulletRapid(level, bullet_position, facing);
+            Bullet bullet = new BulletRapid(level, bulletPosition, facing);
             level.addBullet(bullet);
         } else if (ammmoBig > 0) {
             playGunshot();
             ammmoBig--;
-            Bullet bullet = new BulletBig(level, bullet_position, facing);
+            Bullet bullet = new BulletBig(level, bulletPosition, facing);
             level.addBullet(bullet);
         } else if (ammmoBasic > 0) {
             playGunshot();
             ammmoBasic--;
-            Bullet bullet = new Bullet(level, bullet_position, facing);
+            Bullet bullet = new Bullet(level, bulletPosition, facing);
             level.addBullet(bullet);
         } else if (ammmoNuke > 0) {
             playGunshot();
             ammmoNuke--;
-            Bullet bullet = new BulletNuke(level, bullet_position, facing);
+            Bullet bullet = new BulletNuke(level, bulletPosition, facing);
             level.addBullet(bullet);
         }
     }
@@ -525,33 +548,70 @@ public class GigaGal {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        TextureRegion textureRegion;
+        TextureRegion gigagalTexture;
+        TextureRegion gunTexture;
 
         if (facing == Direction.LEFT) {
             if (jumpState != JumpState.GROUNDED) {
-                textureRegion = Assets.get_instance().gigaGalAssets.jumping_left;
+                gigagalTexture = Assets.get_instance().gigaGalAssets.jumping_left;
             } else if (walkState == WalkState.WALKING) {
                 float walking_duration = Utils.secondsSince(walkStartTime);
-                textureRegion = (TextureAtlas.AtlasRegion) Assets.get_instance().gigaGalAssets.walkLeftLoop.getKeyFrame(walking_duration);
+                gigagalTexture = (TextureAtlas.AtlasRegion) Assets.get_instance().gigaGalAssets.walkLeftLoop.getKeyFrame(walking_duration);
             } else {
-                textureRegion = Assets.get_instance().gigaGalAssets.standing_left;
+                gigagalTexture = Assets.get_instance().gigaGalAssets.standing_left;
+            }
+
+            if (gunType == GunType.RAPID) {
+                gunTexture = Assets.get_instance().gigaGalAssets.rapid_left;
+            } else if (gunType == GunType.CANNON) {
+                gunTexture = Assets.get_instance().gigaGalAssets.cannon_left;
+            } else if (gunType == GunType.NUKE_CANNON) {
+                gunTexture = Assets.get_instance().gigaGalAssets.nuke_cannon_left;
+            } else {
+                gunTexture = Assets.get_instance().gigaGalAssets.pistol_left;
             }
         } else {
             if (jumpState != JumpState.GROUNDED) {
-                textureRegion = Assets.get_instance().gigaGalAssets.jumping_right;
+                gigagalTexture = Assets.get_instance().gigaGalAssets.jumping_right;
             } else if (walkState == WalkState.WALKING) {
                 float walking_duration = Utils.secondsSince(walkStartTime);
-                textureRegion = (TextureAtlas.AtlasRegion) Assets.get_instance().gigaGalAssets.walkRightLoop.getKeyFrame(walking_duration);
+                gigagalTexture = (TextureAtlas.AtlasRegion) Assets.get_instance().gigaGalAssets.walkRightLoop.getKeyFrame(walking_duration);
             } else {
-                textureRegion = Assets.get_instance().gigaGalAssets.standing_right;
+                gigagalTexture = Assets.get_instance().gigaGalAssets.standing_right;
             }
+
+            if (gunType == GunType.RAPID) {
+                gunTexture = Assets.get_instance().gigaGalAssets.rapid_right;
+            } else if (gunType == GunType.CANNON) {
+                gunTexture = Assets.get_instance().gigaGalAssets.cannon_right;
+            } else if (gunType == GunType.NUKE_CANNON) {
+                gunTexture = Assets.get_instance().gigaGalAssets.nuke_cannon_right;
+            } else {
+                gunTexture = Assets.get_instance().gigaGalAssets.pistol_right;
+            }
+        }
+
+        if (gunType != GunType.RAPID) {
+            Utils.drawTextureRegion(
+                    spriteBatch,
+                    gunTexture,
+                    position.x - Constants.GIGAGAL_EYE_POS.x,
+                    position.y - Constants.GIGAGAL_EYE_POS.y);
         }
 
         Utils.drawTextureRegion(
                 spriteBatch,
-                textureRegion,
+                gigagalTexture,
                 position.x - Constants.GIGAGAL_EYE_POS.x,
                 position.y - Constants.GIGAGAL_EYE_POS.y);
+
+        if (gunType == GunType.RAPID) {
+            Utils.drawTextureRegion(
+                    spriteBatch,
+                    gunTexture,
+                    position.x - Constants.GIGAGAL_EYE_POS.x,
+                    position.y - Constants.GIGAGAL_EYE_POS.y);
+        }
 
 
         for (PooledEffect particleDustJump: dustJumpParticles) {

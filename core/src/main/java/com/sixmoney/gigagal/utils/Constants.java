@@ -30,6 +30,14 @@ public class Constants {
     public static final String WALK_2_LEFT = "walk-2-left";
     public static final String WALK_3_RIGHT = "walk-3-right";
     public static final String WALK_3_LEFT = "walk-3-left";
+    public static final String PISTOL_RIGHT = "pistol-right";
+    public static final String PISTOL_LEFT = "pistol-left";
+    public static final String CANNON_RIGHT = "cannon-right";
+    public static final String CANNON_LEFT = "cannon-left";
+    public static final String NUKE_CANNON_RIGHT = "nuke-cannon-right";
+    public static final String NUKE_CANNON_LEFT = "nuke-cannon-left";
+    public static final String RAPID_RIGHT = "rapid-right";
+    public static final String RAPID_LEFT = "rapid-left";
     public static final String PLATFORM = "platform";
     public static final String PLATFORM_HARD = "platform-hard";
     public static final String PLATFORM_MEDIUM = "platform-medium";

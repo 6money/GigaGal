@@ -112,6 +112,14 @@ public class Assets implements Disposable, AssetErrorListener {
         public TextureAtlas.AtlasRegion walk_2_left;
         public TextureAtlas.AtlasRegion walk_3_right;
         public TextureAtlas.AtlasRegion walk_3_left;
+        public TextureAtlas.AtlasRegion pistol_right;
+        public TextureAtlas.AtlasRegion pistol_left;
+        public TextureAtlas.AtlasRegion cannon_right;
+        public TextureAtlas.AtlasRegion cannon_left;
+        public TextureAtlas.AtlasRegion nuke_cannon_right;
+        public TextureAtlas.AtlasRegion nuke_cannon_left;
+        public TextureAtlas.AtlasRegion rapid_right;
+        public TextureAtlas.AtlasRegion rapid_left;
 
         public Animation walkLeftLoop;
         public Animation walkRightLoop;
@@ -127,6 +135,14 @@ public class Assets implements Disposable, AssetErrorListener {
             walk_2_left = atlas.findRegion(Constants.WALK_2_LEFT);
             walk_3_right = atlas.findRegion(Constants.WALK_3_RIGHT);
             walk_3_left = atlas.findRegion(Constants.WALK_3_LEFT);
+            pistol_right = atlas.findRegion(Constants.PISTOL_RIGHT);
+            pistol_left = atlas.findRegion(Constants.PISTOL_LEFT);
+            cannon_right = atlas.findRegion(Constants.CANNON_RIGHT);
+            cannon_left = atlas.findRegion(Constants.CANNON_LEFT);
+            nuke_cannon_right = atlas.findRegion(Constants.NUKE_CANNON_RIGHT);
+            nuke_cannon_left = atlas.findRegion(Constants.NUKE_CANNON_LEFT);
+            rapid_right = atlas.findRegion(Constants.RAPID_RIGHT);
+            rapid_left = atlas.findRegion(Constants.RAPID_LEFT);
 
             Array<TextureAtlas.AtlasRegion> walkLeftTextures = new Array<>();
             walkLeftTextures.add(walk_1_left);

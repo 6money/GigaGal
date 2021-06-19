@@ -38,6 +38,7 @@ public class GigaGalHUD {
 
         float offset = Constants.HUD_MARGIN * 2;
         for (int i = 1; i <= lives; i++) {
+            Utils.drawTextureRegion(spriteBatch, Assets.get_instance().gigaGalAssets.pistol_right, viewport.getCamera().viewportWidth - Constants.HUD_MARGIN - offset, viewport.getCamera().viewportHeight - (Constants.GIGAGAL_HEIGHT * 2) - Constants.HUD_MARGIN, 0, 2f);
             Utils.drawTextureRegion(spriteBatch, Assets.get_instance().gigaGalAssets.standing_right, viewport.getCamera().viewportWidth - Constants.HUD_MARGIN - offset, viewport.getCamera().viewportHeight - (Constants.GIGAGAL_HEIGHT * 2) - Constants.HUD_MARGIN, 0, 2f);
             offset += Constants.HUD_MARGIN * 3;
         }
