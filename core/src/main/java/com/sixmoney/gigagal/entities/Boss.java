@@ -9,12 +9,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.sixmoney.gigagal.Level;
 import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
-import com.sixmoney.gigagal.utils.Enums;
 import com.sixmoney.gigagal.utils.SoundManager;
 import com.sixmoney.gigagal.utils.Utils;
-
-import static com.badlogic.gdx.math.MathUtils.PI2;
-import static com.badlogic.gdx.math.MathUtils.sin;
 
 public class Boss {
     private final Level level;

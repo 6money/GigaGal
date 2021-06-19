@@ -1,6 +1,5 @@
 package com.sixmoney.gigagal.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -9,7 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.sixmoney.gigagal.Level;
 import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
-import com.sixmoney.gigagal.utils.Enums.*;
+import com.sixmoney.gigagal.utils.Enums.Direction;
 import com.sixmoney.gigagal.utils.SoundManager;
 
 public class Bullet {

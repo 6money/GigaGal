@@ -9,7 +9,6 @@ import com.sixmoney.gigagal.screens.LevelSelectScreen;
 import com.sixmoney.gigagal.screens.MenuScreen;
 import com.sixmoney.gigagal.screens.OptionsScreen;
 import com.sixmoney.gigagal.utils.Assets;
-import com.sixmoney.gigagal.utils.Constants;
 import com.sixmoney.gigagal.utils.SoundManager;
 
 public class GigaGalGame extends Game {

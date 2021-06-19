@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sixmoney.gigagal.Level;
 import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
-import com.sixmoney.gigagal.utils.Enums.*;
+import com.sixmoney.gigagal.utils.Enums.Direction;
 import com.sixmoney.gigagal.utils.Utils;
 
 public class EnemyBig extends Enemy {

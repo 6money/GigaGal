@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.sixmoney.gigagal.Level;
 import com.sixmoney.gigagal.utils.Assets;
 import com.sixmoney.gigagal.utils.Constants;
-import com.sixmoney.gigagal.utils.Enums.*;
+import com.sixmoney.gigagal.utils.Enums.Direction;
 
 public class BulletBig extends Bullet {
     public BulletBig(Level level, Vector2 position, Direction direction) {
