@@ -93,14 +93,10 @@ public class Level {
         backgroundR2 = new TextureRegion(background);
         backgroundR2.setRegion(0, 0, background.getWidth() * 8, background.getHeight() * 10);
 
-        ParticleEffect explosionParticle = new ParticleEffect();
-        explosionParticle.load(Gdx.files.internal("particles/pixel_explosion.p"), Assets.get_instance().getAtlas());
-        pepExplosion = new ParticleEffectPool(explosionParticle, 5, 5);
+        pepExplosion = new ParticleEffectPool(Assets.get_instance().getAssetManager().get(Constants.EXPLOSION_PARTICLE), 5, 5);
         explosionParticles = new DelayedRemovalArray<>();
 
-        ParticleEffect bullerTrailParticle = new ParticleEffect();
-        bullerTrailParticle.load(Gdx.files.internal("particles/pixel_bullet_trail_2.p"), Assets.get_instance().getAtlas());
-        pepBulletTrail = new ParticleEffectPool(bullerTrailParticle, 5, 40);
+        pepBulletTrail = new ParticleEffectPool(Assets.get_instance().getAssetManager().get(Constants.BULLET_TRAIL_PARTICLE), 5, 40);
 
         gameOver = false;
         victory = false;

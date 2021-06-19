@@ -3,10 +3,13 @@ package com.sixmoney.gigagal.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
+import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
@@ -29,7 +32,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public ExitPortalAssets exitPortalAssets;
     public OnscreenControlsAssets onscreenControlsAssets;
     public DiamondAssets diamondAssets;
-    public ParticleAssets particleAssets;
     public BackgroundAssets backgroundAssets;
     public LogoAssets logoAssets;
     public SkinAssets skinAssets;
@@ -54,6 +56,12 @@ public class Assets implements Disposable, AssetErrorListener {
         assetManager.load(Constants.CLOUDS3, Texture.class);
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.load(Constants.SKIN_PATH, Skin.class);
+        ParticleEffectLoader.ParticleEffectParameter particleEffectParameter = new ParticleEffectLoader.ParticleEffectParameter();
+        particleEffectParameter.atlasFile = Constants.TEXTURE_ATLAS;
+        assetManager.load(Constants.DUST_PARTICLE, ParticleEffect.class, particleEffectParameter);
+        assetManager.load(Constants.DUST_JUMP_PARTICLE, ParticleEffect.class, particleEffectParameter);
+        assetManager.load(Constants.BULLET_TRAIL_PARTICLE, ParticleEffect.class, particleEffectParameter);
+        assetManager.load(Constants.EXPLOSION_PARTICLE, ParticleEffect.class, particleEffectParameter);
         assetManager.finishLoading();
         Gdx.app.log(TAG, "Sprites Loaded in " + Utils.secondsSince(startLoad) + " seconds");
         Gdx.app.log(TAG, assetManager.getAssetNames().toString());
@@ -68,10 +76,13 @@ public class Assets implements Disposable, AssetErrorListener {
         exitPortalAssets = new ExitPortalAssets(atlas);
         onscreenControlsAssets = new OnscreenControlsAssets(atlas);
         diamondAssets = new DiamondAssets(atlas);
-        particleAssets = new ParticleAssets(atlas);
         backgroundAssets = new BackgroundAssets(assetManager);
         logoAssets = new LogoAssets(atlas);
         skinAssets = new SkinAssets(assetManager);
+    }
+
+    public AssetManager getAssetManager() {
+        return assetManager;
     }
 
     public TextureAtlas getAtlas() {
@@ -313,14 +324,6 @@ public class Assets implements Disposable, AssetErrorListener {
 
         public DiamondAssets(TextureAtlas atlas) {
             diamond = atlas.findRegion(Constants.DIAMOND);
-        }
-    }
-
-    public class ParticleAssets {
-        public TextureAtlas.AtlasRegion particle;
-
-        public ParticleAssets(TextureAtlas atlas) {
-            particle = atlas.findRegion(Constants.PARTICLE);
         }
     }
 
