@@ -60,11 +60,9 @@ runtime {
 		//jpackageHome = '/usr/lib/jvm/open-jdk'
 		mainJar = jar.archiveFileName.get()
 		if (osName.contains('windows')) {
-			imageOptions = ["--icon", file("../icons/icon.ico")]
+			imageOptions = ["--icon", file("../icons/libgdx128.ico")]
 		} else if (osName.contains('linux')) {
 			imageOptions = ["--icon", file("../icons/libgdx128.png")]
-		} else if (osName.contains('mac')) {
-			imageOptions = ["--icon", file("../icons/icon.icns")]
 		}
 	}
 }
