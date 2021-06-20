@@ -17,11 +17,6 @@ public class GigaGalGame extends Game {
 	private Assets assets;
 	private SoundManager soundManager;
 	private final String[] args;
-	private MenuScreen menuScreen;
-	private GameplayScreen gameplayScreen;
-	private HighScoresScreen highScoresScreen;
-	private LevelSelectScreen levelSelectScreen;
-	private OptionsScreen optionsScreen;
 
 	public boolean debug;
 	public boolean debugMobile;
