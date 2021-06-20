@@ -17,7 +17,7 @@ public class Constants {
     public static final String PREFERENCES_NAME = "gigagal";
     public static final String SKIN_PATH = "images/gigaGalSkin/gigagal_custom_data.json";
     public static final String FONT_FILE = "font/dialog.fnt";
-    public static final String VERSION = "0.1.7-alpha";
+    public static final String VERSION = "1.0.0";
 
     // sprites
     public static final String STANDING_RIGHT = "standing-right";
