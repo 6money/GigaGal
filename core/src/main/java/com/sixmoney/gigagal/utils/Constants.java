@@ -82,10 +82,10 @@ public class Constants {
     public static final String LOGO_140 = "gigagal_140_batmfo";
 
     // particles effct file names
-    public static final String DUST_PARTICLE = "particles/pixel_dust.p";
-    public static final String DUST_JUMP_PARTICLE = "particles/pixel_dust_jump.p";
-    public static final String BULLET_TRAIL_PARTICLE = "particles/pixel_bullet_trail_2.p";
-    public static final String EXPLOSION_PARTICLE = "particles/pixel_explosion.p";
+    public static final String DUST_PARTICLE = "particles/pixel_dust";
+    public static final String DUST_JUMP_PARTICLE = "particles/pixel_dust_jump";
+    public static final String BULLET_TRAIL_PARTICLE = "particles/pixel_bullet_trail_2";
+    public static final String EXPLOSION_PARTICLE = "particles/pixel_explosion";
 
 
     // gigagal
