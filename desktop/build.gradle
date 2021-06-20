@@ -68,10 +68,10 @@ runtime {
 }
 
 task buildSEA(type: Exec) {
-	if (OperatingSystem.current().isLinux()) {
-		workingDir "$buildDir/jpackage/"
-		commandLine "makeself", "--noprogress", "--nowait", "--nox11", "./desktop", "gigagal-linux", "\"GigaGal\"", "./bin/desktop"
-	}
+	workingDir "$buildDir/jpackage/"
+	commandLine "makeself", "--noprogress", "--nowait", "--nox11", "./desktop", "gigagal-linux", "\"GigaGal\"", "./bin/desktop"
 }
 
-jpackageImage.finalizedBy(buildSEA)
+if (osName.contains('linux')) {
+	jpackageImage.finalizedBy(buildSEA)
+}
