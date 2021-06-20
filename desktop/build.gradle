@@ -1,3 +1,5 @@
+import org.gradle.internal.os.OperatingSystem;
+
 plugins { id 'org.beryx.runtime' version '1.8.4' }
 apply plugin: 'application'
 
@@ -66,3 +68,12 @@ runtime {
 		}
 	}
 }
+
+task buildSEA(type: Exec) {
+	if (OperatingSystem.current().isLinux()) {
+		workingDir "$buildDir/jpackage/"
+		commandLine "makeself", "--noprogress", "--nowait", "--nox11", "./desktop", "gigagal-linux", "\"GigaGal\"", "./bin/desktop"
+	}
+}
+
+jpackageImage.finalizedBy(buildSEA)
