@@ -278,15 +278,11 @@ public class Level {
         spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.25f, 0.25f));
         spriteBatch.begin();
         spriteBatch.draw(backgroundR, -800, -400, backgroundR.getRegionWidth() * 2, backgroundR.getRegionHeight() * 2);
-        spriteBatch.end();
 
         spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.5f, 0.5f));
-        spriteBatch.begin();
         spriteBatch.draw(backgroundR2, -800, -400);
-        spriteBatch.end();
 
         spriteBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(1f, 1));
-        spriteBatch.begin();
         for (Platform platform: platforms) {
             platform.render(spriteBatch);
         }
