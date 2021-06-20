@@ -158,6 +158,10 @@ public class Level {
             gigaGal.stopRunningEffect();
         }
 
+        if (paused) {
+            gigaGal.pauseRunningEffect();
+        }
+
         if (!gameOver && !victory && !paused) {
             Rectangle gigagal_bounding_box = new Rectangle(
                     gigaGal.position.x - Constants.GIGAGAL_STANCE_WIDTH,

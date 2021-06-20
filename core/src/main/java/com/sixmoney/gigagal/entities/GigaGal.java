@@ -528,7 +528,9 @@ public class GigaGal {
     }
 
     public void pauseRunningEffect() {
-        runningEffectMusic.pause();
+        if (runningEffectMusic.isPlaying()) {
+            runningEffectMusic.pause();
+        }
     }
 
     public void kill() {
