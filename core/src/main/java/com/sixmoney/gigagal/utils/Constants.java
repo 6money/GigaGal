@@ -16,7 +16,7 @@ public class Constants {
     public static final int CHASE_CAM_SPEED = 200;
     public static final String PREFERENCES_NAME = "gigagal";
     public static final String SKIN_PATH = "images/gigaGalSkin/gigagal_custom_data.json";
-    public static final String VERSION = "1.0.0";
+    public static final String VERSION = "1.0.1";
 
     // sprites
     public static final String STANDING_RIGHT = "standing-right";
