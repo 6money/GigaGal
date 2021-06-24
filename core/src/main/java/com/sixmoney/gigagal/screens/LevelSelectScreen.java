@@ -164,7 +164,7 @@ public class LevelSelectScreen extends InputAdapter implements Screen {
 
         ScrollPane scrollPane = new ScrollPane(tableLevels, skin);
         scrollPane.setFadeScrollBars(false);
-        if (gigaGalGame.onMobile() || gigaGalGame.debugMobile) {
+        if (gigaGalGame.mobileControls) {
             scrollPane.setFlickScroll(true);
         } else {
             scrollPane.setFlickScroll(false);

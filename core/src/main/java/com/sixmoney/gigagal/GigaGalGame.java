@@ -19,12 +19,12 @@ public class GigaGalGame extends Game {
 	private final String[] args;
 
 	public boolean debug;
-	public boolean debugMobile;
+	public boolean mobileControls;
 
 	public GigaGalGame(String[] args) {
 		this.args = args;
 		debug = false;
-		debugMobile = false;
+		mobileControls = false;
 	}
 
 	@Override
@@ -35,13 +35,17 @@ public class GigaGalGame extends Game {
 					Gdx.app.setLogLevel(Application.LOG_DEBUG);
 					debug = true;
 				}
-				if (arg.equals("debug_mobile")) {
-					debugMobile = true;
+				if (arg.equals("mobile_browser")) {
+					mobileControls = true;
 				}
 			}
 		}
 		Gdx.app.log(TAG, ("debug mode: " + debug));
-		Gdx.app.log(TAG, ("debug mobile mode: " + debugMobile));
+
+		if (Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS) {
+			mobileControls = true;
+		}
+
 		assets = Assets.get_instance();
 		soundManager = SoundManager.get_instance();
 		soundManager.startBackgroundMusic();
@@ -82,9 +86,5 @@ public class GigaGalGame extends Game {
 				setScreen(new MenuScreen(this));
 				break;
 		}
-	}
-
-	public boolean onMobile() {
-		return Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS;
 	}
 }

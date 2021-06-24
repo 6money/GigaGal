@@ -49,14 +49,14 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
     public OnScreeenControls onScreeenControls;
     public PauseOverlay pauseOverlay;
     public boolean debug;
-    public boolean debugMobile;
+    public boolean mobileControls;
     public InputMultiplexer inputMultiplexer;
 
     public GameplayScreen(GigaGalGame game, int level_num) {
         gigaGalGame = game;
         this.level_num = level_num;
         debug = game.debug;
-        debugMobile = game.debugMobile;
+        mobileControls = game.mobileControls;
     }
 
     public void setLevel_name() {
@@ -85,17 +85,13 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         levelEndOverlayStartTime = 0;
         inputMultiplexer = new InputMultiplexer();
 
-        if (onMobile() || debugMobile || preferenceManager.getMobile()) {
+        if (mobileControls || preferenceManager.getMobile()) {
             inputMultiplexer.setProcessors(onScreeenControls, this);
         } else {
             inputMultiplexer.setProcessors(this);
         }
         Gdx.input.setInputProcessor(inputMultiplexer);
 
-    }
-
-    public boolean onMobile() {
-        return gigaGalGame.onMobile();
     }
 
     @Override
@@ -145,7 +141,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
             renderTutorial(spriteBatch);
         }
 
-        if (onMobile() || debugMobile || preferenceManager.getMobile()) {
+        if (mobileControls || preferenceManager.getMobile()) {
             onScreeenControls.render(spriteBatch);
         }
 
@@ -159,7 +155,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         if (debug) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             level.debugRender(shapeRenderer);
-            if (onMobile() || debugMobile || preferenceManager.getMobile()) {
+            if (mobileControls || preferenceManager.getMobile()) {
                 onScreeenControls.debugRender(shapeRenderer);
             }
             shapeRenderer.end();
@@ -200,7 +196,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
 
     private void renderTutorial(SpriteBatch spriteBatch) {
         spriteBatch.begin();
-        if (!onMobile()) {
+        if (!mobileControls) {
             font.draw(spriteBatch, "LEFT: LEFT-ARROW", -20, 70);
             font.draw(spriteBatch, "RIGHT: RIGHT-ARROW", -20, 55);
             font.draw(spriteBatch, "DROP: DOWN-ARROW", -20, 40);
@@ -222,7 +218,7 @@ public class GameplayScreen extends ScreenAdapter implements InputProcessor {
         resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         onScreeenControls.gigaGal = level.gigaGal;
         levelEndOverlayStartTime = 0;
-        if (onMobile() || debugMobile || preferenceManager.getMobile()) {
+        if (mobileControls || preferenceManager.getMobile()) {
             Gdx.input.setInputProcessor(onScreeenControls);
         }
     }

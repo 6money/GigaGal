@@ -1,7 +1,6 @@
 package com.sixmoney.gigagal.gwt;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import com.badlogic.gdx.backends.gwt.GwtGraphics;
@@ -27,8 +26,14 @@ public class GwtLauncher extends GwtApplication {
 		}
 
 		@Override
-		public ApplicationListener createApplicationListener () { 
-			return new GigaGalGame(null);
+		public ApplicationListener createApplicationListener () {
+            String[] args;
+		    if (GwtApplication.isMobileDevice()) {
+                args = new String[]{"mobile_browser"};
+            } else {
+                args = new String[]{};
+            }
+			return new GigaGalGame(args);
 		}
 
 		@Override

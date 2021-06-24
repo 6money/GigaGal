@@ -139,16 +139,18 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        window.row();
-        window.add(new Label("Enable Mobile Controls", skin));
-        checkboxMobile = new CheckBox(null, skin);
-        window.add(checkboxMobile);
-        checkboxMobile.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                preferenceManager.setMobile(checkboxMobile.isChecked());
-            }
-        });
+        if (!game.mobileControls) {
+            window.row();
+            window.add(new Label("Enable Mobile Controls", skin));
+            checkboxMobile = new CheckBox(null, skin);
+            window.add(checkboxMobile);
+            checkboxMobile.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    preferenceManager.setMobile(checkboxMobile.isChecked());
+                }
+            });
+        }
 
         window.row();
         Button buttonResetData = new Button(skin, "gigagal");
@@ -190,7 +192,9 @@ public class OptionsScreen implements Screen {
         sliderSounds.setValue(soundVolume);
         sliderDifficulty.setValue(difficulty);
         checkboxFPS.setChecked(showFPS);
-        checkboxMobile.setChecked(showMobile);
+        if (!game.mobileControls) {
+            checkboxMobile.setChecked(showMobile);
+        }
 
         SoundManager.get_instance().updateSoundPreferences();
     }

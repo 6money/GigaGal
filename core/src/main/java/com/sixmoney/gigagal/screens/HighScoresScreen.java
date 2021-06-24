@@ -140,7 +140,7 @@ public class HighScoresScreen implements Screen {
 
         ScrollPane scrollPane = new ScrollPane(tableHighscores, skin);
         scrollPane.setFadeScrollBars(false);
-        if (game.onMobile() || game.debugMobile) {
+        if (game.mobileControls) {
             scrollPane.setFlickScroll(true);
         } else {
             scrollPane.setFlickScroll(false);
