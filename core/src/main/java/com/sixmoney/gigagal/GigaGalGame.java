@@ -3,6 +3,7 @@ package com.sixmoney.gigagal;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.sixmoney.gigagal.screens.GameplayScreen;
 import com.sixmoney.gigagal.screens.HighScoresScreen;
 import com.sixmoney.gigagal.screens.LevelSelectScreen;
@@ -45,6 +46,10 @@ public class GigaGalGame extends Game {
 		if (Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS) {
 			mobileControls = true;
 		}
+
+		Gdx.input.setCatchKey(Input.Keys.DOWN, true);
+		Gdx.input.setCatchKey(Input.Keys.UP, true);
+		Gdx.input.setCatchKey(Input.Keys.SPACE, true);
 
 		assets = Assets.get_instance();
 		soundManager = SoundManager.get_instance();
