@@ -1,6 +1,11 @@
 # GigaGal
 ![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)
 
+<a href="https://6money.itch.io/gigagal">
+  <img src="./itchio_logo.svg" height="80">
+</a>
+<br><br>
+
 Gigagal is simple platforming game in which the player controls GigaGal and attempts to navigate various levels while maximising their score and avoiding enemies.
 
 Trello Board: https://trello.com/b/m49zz9Da/gigagal
@@ -12,10 +17,12 @@ any assets from other sources are mentioned at the bottom of this readme
 
 **How to build:**
 
-Import project into android studio and from the project root run one of the following (add --args="debug" to get hitbox rendering):
-desktop build (must use java 8): ./gradlew desktop:run
-new desktop build: ./gradlew lwjgl3:run
-html dev build: ./gradlew html:superdev
+Import project into android studio and from the project root run one of the following:
+- lwjgl2 build (tested with java 8 & 16): `./gradlew desktop:run`
+- lwjgl3 build (tested with java 8 & 16): `./gradlew lwjgl3:run`
+- html dev build: `./gradlew html:superdev`
+
+add `--args="debug"` to get hitbox rendering
 
 ---
 
