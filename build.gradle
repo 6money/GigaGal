@@ -10,9 +10,9 @@ buildscript {
 	}
 	dependencies {
 		classpath "com.mobidevelop.robovm:robovm-gradle-plugin:$robovmVersion"
-		classpath "com.android.tools.build:gradle:4.2.1"
+		classpath "com.android.tools.build:gradle:$androidPluginVersion"
 		classpath "org.wisepersist:gwt-gradle-plugin:$gwtPluginVersion"
-		classpath 'com.badlogicgames.gdx:gdx-tools:1.10.0'
+		classpath 'com.badlogicgames.gdx:gdx-tools:1.13.1'
 	}
 }
 
@@ -63,7 +63,7 @@ configure(subprojects - project(':android')) {
 }
 
 subprojects {
-	version = '1.0.2'
+	version = '1.0.3'
 	ext.appName = 'GigaGal'
 	repositories {
 		mavenLocal()
